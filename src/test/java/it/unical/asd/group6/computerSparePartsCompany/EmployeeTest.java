@@ -20,7 +20,7 @@ public class EmployeeTest extends AbstractComputerSparePartsCompanyTest{
 
     @Test
     public void loginServiceTest() {
-        assert(employeeService.checkLogin("Rubie", "Mitzi")!=false);
+        assert(employeeService.checkLogin("Rubie", "Mitzi"));
     }
 
     @Test

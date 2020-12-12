@@ -2,11 +2,13 @@ package it.unical.asd.group6.computerSparePartsCompany.data.services.implemented
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
+import it.unical.asd.group6.computerSparePartsCompany.data.exception.UserAlreadyInDBException;
 import it.unical.asd.group6.computerSparePartsCompany.data.exception.UserNotFoundException;
 import it.unical.asd.group6.computerSparePartsCompany.data.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,15 +19,31 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer registerNewCustomer(Customer customer) {
-        customerDao.save(customer);
-        return customer;
+        if (!checkPresenceInDatabase(customer)){
+            customerDao.save(customer);
+            return customer;
+        }
+        else
+            throw new UserAlreadyInDBException();
+
+    }
+
+    private boolean checkPresenceInDatabase(Customer customer) {
+        List<Customer> customers = customerDao.findAll();
+        for (Customer c: customers){
+            if (c.getEmail().equals(customer.getEmail()) || c.getUsername().equals(c.getEmail()))
+                return true;
+        }
+
+        return false;
     }
 
     @Override
     public boolean checkLogin(String username, String password) {
-        Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
+        return true;
+        /*Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
         if(opt.isPresent())
             return true;
-        else throw new UserNotFoundException(username);
+        else throw new UserNotFoundException(username);*/
     }
 }

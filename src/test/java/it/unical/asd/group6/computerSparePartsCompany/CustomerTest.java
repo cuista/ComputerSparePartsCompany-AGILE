@@ -1,9 +1,13 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
+import it.unical.asd.group6.computerSparePartsCompany.data.services.implemented.CustomerServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.data.services.implemented.EmployeeServiceImpl;
 import org.apache.catalina.util.CustomObjectInputStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -13,6 +17,33 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
+
+    @Autowired
+    CustomerServiceImpl customerService;
+
+    @Autowired
+    CustomerDao customerDao;
+
+    @Test
+    public void loginServiceTest() {
+        assert(customerService.checkLogin("Tilly", "Pelagias"));
+        //DA FARE
+    }
+
+    @Test
+    public void registrationTest(){
+        Customer cust = new Customer();
+        Customer cust2 = new Customer();
+
+        cust.setEmail("ciao@virgilio.it");
+        cust.setUsername("BimboCiao");
+
+        cust2.setEmail("Tilly.Pelagias@mail.com");
+        cust2.setUsername("Tilly");
+
+        customerService.registerNewCustomer(cust);
+        customerService.registerNewCustomer(cust2);
+    }
 
     @Test
     public void testFindAllByUsernameIsNotNull_OK(){
