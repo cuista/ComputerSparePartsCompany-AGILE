@@ -1,8 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.exception;
 
-public class EmployeeNotFoundException extends EmployeeException {
+public class UserNotFoundException extends UserException {
 
-    public EmployeeNotFoundException(String username) {
+    public UserNotFoundException(String username) {
         super(String.format("Bad credentials for user: [%s]", username));
     }
 }
