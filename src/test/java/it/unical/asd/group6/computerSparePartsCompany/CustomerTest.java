@@ -41,8 +41,9 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
         cust2.setEmail("Tilly.Pelagias@mail.com");
         cust2.setUsername("Tilly");
 
-        customerService.registerNewCustomer(cust);
-        customerService.registerNewCustomer(cust2);
+        assert(customerService.registerNewCustomer(cust));
+        assert(customerService.registerNewCustomer(cust2));
+
     }
 
     @Test

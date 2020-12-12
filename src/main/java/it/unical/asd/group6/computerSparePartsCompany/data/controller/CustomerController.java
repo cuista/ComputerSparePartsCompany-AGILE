@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @GetMapping("/register")
-    public ResponseEntity<Customer> doSignUp (
+    public ResponseEntity<Boolean> doSignUp (
             @RequestParam String name, @RequestParam String surname,
             @RequestParam String phoneNumber, @RequestParam String email,
             @RequestParam String username, @RequestParam String password, @RequestParam Long vatID) {

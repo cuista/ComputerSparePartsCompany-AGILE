@@ -18,13 +18,12 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerDao customerDao;
 
     @Override
-    public Customer registerNewCustomer(Customer customer) {
+    public Boolean registerNewCustomer(Customer customer) {
         if (!checkPresenceInDatabase(customer)){
             customerDao.save(customer);
-            return customer;
-        }
-        else
-            throw new UserAlreadyInDBException();
+            return true;
+        }else
+            return false;
 
     }
 
@@ -41,9 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean checkLogin(String username, String password) {
         return true;
-        /*Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
-        if(opt.isPresent())
-            return true;
-        else throw new UserNotFoundException(username);*/
+        Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
+        return opt.isPresent();
     }
 }

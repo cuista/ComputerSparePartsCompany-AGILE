@@ -21,8 +21,6 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public boolean checkLogin(String username, String password) {
         Optional<Employee> opt = employeeDao.findEmployeeByUsernameAndPassword(username, password);
-        if(opt.isPresent())
-            return true;
-        else throw new UserNotFoundException(username);
+        return opt.isPresent();
     }
 }
