@@ -2,8 +2,10 @@ package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.EmployeeDao;
+import it.unical.asd.group6.computerSparePartsCompany.data.dao.ProductDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import org.apache.commons.csv.CSVRecord;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -30,11 +32,17 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     @Value("classpath:data/customers.csv")
     private Resource customersRes;
 
+    @Value("classpath:data/products.csv")
+    private Resource productsRes;
+
     @Autowired
     protected EmployeeDao employeeDao;
 
     @Autowired
     protected CustomerDao customerDao;
+
+    @Autowired
+    protected ProductDao productDao;
 
     private static boolean isInitialized = false;
 
@@ -56,6 +64,12 @@ public abstract class AbstractComputerSparePartsCompanyTest {
             for (CSVRecord record : customersCsv) {
                 insertCustomer(record.get(0), record.get(1), record.get(2), record.get(3),
                         record.get(4), record.get(5),Long.parseLong(record.get(6)));
+            }
+
+            CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(productsRes.getInputStream()));
+            for (CSVRecord record : productsCsv) {
+                insertProduct(Integer.parseInt(record.get(0)), record.get(1), record.get(2), record.get(3));
             }
 
             isInitialized=true;
@@ -88,6 +102,17 @@ public abstract class AbstractComputerSparePartsCompanyTest {
         cust.setVATIdentificationNumber(VATIdentificationNumber);
 
         customerDao.save(cust);
+
+    }
+
+    private void insertProduct(Integer price, String brand, String model, String description){
+        Product prod=new Product();
+        prod.setPrice(price);
+        prod.setBrand(brand);
+        prod.setModel(model);
+        prod.setDescription(description);
+
+        productDao.save(prod);
 
     }
 }

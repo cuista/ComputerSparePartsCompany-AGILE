@@ -17,5 +17,5 @@ public interface CustomerDao extends JpaRepository<Customer,Long> {
 
     Optional<Customer> findCustomerByVATIdentificationNumber(Long vat);
 
-    //QUERY METHODS INIZIALI, AMPLIARLI SECONDO LE RICHIESTE DEL TEAM
+    //FIXME QUERY METHODS INIZIALI, AMPLIARLI SECONDO LE RICHIESTE DEL TEAM
 }
