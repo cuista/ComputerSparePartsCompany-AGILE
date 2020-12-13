@@ -52,4 +52,17 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
 
     }
 
+    @Test
+    public void testFindCustomerByUsernameAndPassword_OK() {
+        Optional<Customer> customer=customerDao.findCustomerByUsernameAndPassword("Donnie","Cristi");
+
+        assert(customer.get()!=null);
+        assert(customer.get().getPhoneNumber().equals("1815289551"));
+        assert(customer.get().getUsername().equals("Donnie"));
+        assert(customer.get().getPassword().equals("Cristi"));
+        assert(customer.get().getEmail().equals("Donnie.Cristi@mail.com"));
+        assert(customer.get().getName().equals("Donnie"));
+        assert(customer.get().getSurname().equals("Cristi"));
+    }
+
 }
