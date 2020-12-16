@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("/showallbypriceislessthan")
-    public ResponseEntity<List<Product>> showAllByByPriceIsLessThan(@RequestParam("price") Integer price){
+    public ResponseEntity<List<Product>> showAllByByPriceIsLessThan(@RequestParam("price") Double price){
         return ResponseEntity.ok(productService.getAllProductByPriceIsLessThan(price));
     }
 }

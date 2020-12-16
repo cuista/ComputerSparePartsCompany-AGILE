@@ -45,7 +45,7 @@ public class ProductTest extends AbstractComputerSparePartsCompanyTest{
 
     @Test
     public void testFindAllByPriceIsLessThan_OK(){
-        Optional<List<Product>> products=productDao.findAllByPriceIsLessThan(100);
+        Optional<List<Product>> products=productDao.findAllByPriceIsLessThan(100.0);
 
         assert(products.get().size()==3);
     }
@@ -72,7 +72,7 @@ public class ProductTest extends AbstractComputerSparePartsCompanyTest{
 
     @Test
     public void testServiceFindAllByPrice(){
-        List<Product> products = productService.getAllProductByPriceIsLessThan(250);
+        List<Product> products = productService.getAllProductByPriceIsLessThan(250.0);
         for(Product p: products)
             System.out.println(p.getPrice());
         assert(products.size() != 0);

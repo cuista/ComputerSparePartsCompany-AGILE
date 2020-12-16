@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProductByPriceIsLessThan(Integer price){
+    public List<Product> getAllProductByPriceIsLessThan(Double price){
         Optional<List<Product>> productOptional = productDao.findAllByPriceIsLessThan(price);
         return productOptional.orElse(null);
     }

@@ -11,5 +11,5 @@ public interface ProductService {
 
     List<Product> getAllProductByBrandAndModel(String brand, String model);
 
-    List<Product> getAllProductByPriceIsLessThan(Integer price);
+    List<Product> getAllProductByPriceIsLessThan(Double price);
 }
