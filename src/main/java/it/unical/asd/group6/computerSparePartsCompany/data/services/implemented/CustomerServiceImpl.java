@@ -39,7 +39,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean checkLogin(String username, String password) {
-        return true;
         Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
         return opt.isPresent();
     }

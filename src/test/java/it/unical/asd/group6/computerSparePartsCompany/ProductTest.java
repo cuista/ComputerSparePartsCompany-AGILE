@@ -2,8 +2,10 @@ package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
+import it.unical.asd.group6.computerSparePartsCompany.data.services.implemented.ProductServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -14,6 +16,9 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductTest extends AbstractComputerSparePartsCompanyTest{
+
+    @Autowired
+    ProductServiceImpl productService;
 
     @Test
     public void testFindAllByBrand_OK(){
@@ -43,6 +48,34 @@ public class ProductTest extends AbstractComputerSparePartsCompanyTest{
         Optional<List<Product>> products=productDao.findAllByPriceIsLessThan(100);
 
         assert(products.get().size()==3);
+    }
+
+    @Test
+    public void testServiceFindAll(){
+        Integer size = productService.getAllProduct().size();
+        System.out.println(size);
+        assert(size != 0);
+    }
+
+    @Test
+    public void testServiceFindAllByBrand(){
+        List<Product> products = productService.getAllProductByBrand("NVIDIA");
+        assert(products == null);
+    }
+
+    @Test
+    public void testServiceFindAllByBrandAndModel(){
+        List<Product> products = productService.getAllProductByBrandAndModel("cursus", "gravida");
+        System.out.println(products);
+        assert(products.size() != 0);
+    }
+
+    @Test
+    public void testServiceFindAllByPrice(){
+        List<Product> products = productService.getAllProductByPriceIsLessThan(250);
+        for(Product p: products)
+            System.out.println(p.getPrice());
+        assert(products.size() != 0);
     }
 
 }
