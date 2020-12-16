@@ -28,7 +28,7 @@ public class Employee {
     @Column(name="TELEPHONE_NUMBER")
     private String telephoneNumber;
 
-    //TODO private Long idWarehouse; and add its get, set, equeals, hash & toString
+    //TODO private Warehouse warehouse; and add its get, set, equeals, hash & toString
 
     public Employee() {}
 
