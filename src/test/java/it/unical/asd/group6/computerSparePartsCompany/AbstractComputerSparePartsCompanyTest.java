@@ -69,7 +69,7 @@ public abstract class AbstractComputerSparePartsCompanyTest {
             CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',')
                     .parse(new InputStreamReader(productsRes.getInputStream()));
             for (CSVRecord record : productsCsv) {
-                insertProduct(Integer.parseInt(record.get(0)), record.get(1), record.get(2), record.get(3));
+                insertProduct(Double.parseDouble(record.get(0)), record.get(1), record.get(2), record.get(3));
             }
 
             isInitialized=true;
@@ -105,7 +105,7 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     }
 
-    private void insertProduct(Integer price, String brand, String model, String description){
+    private void insertProduct(Double price, String brand, String model, String description){
         Product prod=new Product();
         prod.setPrice(price);
         prod.setBrand(brand);
