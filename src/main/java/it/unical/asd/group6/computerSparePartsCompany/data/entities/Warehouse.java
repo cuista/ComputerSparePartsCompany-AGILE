@@ -13,4 +13,6 @@ public class Warehouse {
 
     @OneToMany(mappedBy = "warehouse", fetch = FetchType.EAGER)
     private List<Product> products;
+
+
 }

@@ -14,7 +14,7 @@ public class Product {
     private Long id;
 
     @Column(name="PRICE")
-    private Integer price;
+    private Double price;
 
     @Column(name="BRAND")
     private String brand;
@@ -26,31 +26,31 @@ public class Product {
     @Column(name="DESCRIPTION")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PURCHASE_ID")
-    private Purchase purchase;
+    @ManyToOne
+    @JoinColumn(name = "PURCHASE_ID", referencedColumnName = "ID" , nullable = true)
+    private Purchase purchaseId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORDER_ID")
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID", nullable = true)
     private OrderRequest orderRequest;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "WAREHOUSE_ID")
+    @ManyToOne
+    @JoinColumn(name = "WAREHOUSE_ID", referencedColumnName = "ID")
     private Warehouse warehouse;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CATEGORY_ID")
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
     private Category category;
 
     public Product() {}
 
-    public Product(Long id, Integer price, String brand, String model, String description, Purchase purchase, OrderRequest orderRequest, Warehouse warehouse, Category category) {
+    public Product(Long id, Double price, String brand, String model, String description, Purchase purchase, OrderRequest orderRequest, Warehouse warehouse, Category category) {
         this.id = id;
         this.price = price;
         this.brand = brand;
         this.model = model;
         this.description = description;
-        this.purchase = purchase;
+        this.purchaseId = purchase;
         this.orderRequest = orderRequest;
         this.warehouse = warehouse;
         this.category = category;
@@ -66,11 +66,11 @@ public class Product {
         this.id = id;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -98,12 +98,12 @@ public class Product {
         this.description = description;
     }
 
-    public Purchase getPurchase() {
-        return purchase;
+    public Purchase getPurchaseId() {
+        return purchaseId;
     }
 
-    public void setPurchase(Purchase purchase) {
-        this.purchase = purchase;
+    public void setPurchaseId(Purchase purchaseId) {
+        this.purchaseId = purchaseId;
     }
 
     public OrderRequest getOrder() {
@@ -140,7 +140,7 @@ public class Product {
                 Objects.equals(brand, product.brand) &&
                 Objects.equals(model, product.model) &&
                 Objects.equals(description, product.description) &&
-                Objects.equals(purchase, product.purchase) &&
+                Objects.equals(purchaseId, product.purchaseId) &&
                 Objects.equals(orderRequest, product.orderRequest) &&
                 Objects.equals(warehouse, product.warehouse) &&
                 Objects.equals(category, product.category);
@@ -148,6 +148,6 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, brand, model, description, purchase, orderRequest, warehouse, category);
+        return Objects.hash(id, price, brand, model, description, purchaseId, orderRequest, warehouse, category);
     }
 }
