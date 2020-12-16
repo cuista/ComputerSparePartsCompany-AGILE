@@ -33,6 +33,8 @@ public class Customer {
     @Column(name = "VAT_ID") //FIXARE EVENTUALMENTE LA LENGTH
     private Long VATIdentificationNumber;
 
+    //TODO a (LIST?) of purchases; and add its get, set, equeals, hash & toString
+
     public Customer(){}
 
     public Customer(Long id, String name, String surname, String phoneNumber, String email, String username, String password, Long VATIdentificationNumber) {
