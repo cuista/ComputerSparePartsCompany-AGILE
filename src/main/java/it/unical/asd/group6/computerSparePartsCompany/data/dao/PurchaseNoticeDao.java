@@ -11,5 +11,5 @@ import java.util.List;
 public interface PurchaseNoticeDao extends JpaRepository<PurchaseNotice,Long>, JpaSpecificationExecutor<PurchaseNotice> {
 
     //ordinati per non farli tornare in maniera ordinata (potrebbe tornare utile a employee?)
-    List<PurchaseNotice> findAllOrderByCollectionDate();
+    List<PurchaseNotice> findAll();
 }

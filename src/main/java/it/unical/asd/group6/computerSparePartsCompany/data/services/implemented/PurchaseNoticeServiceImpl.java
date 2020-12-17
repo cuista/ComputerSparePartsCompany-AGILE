@@ -16,6 +16,6 @@ public class PurchaseNoticeServiceImpl implements PurchaseNoticeService {
 
     @Override
     public List<PurchaseNotice> getView() {
-        return purchaseNoticeDao.findAllOrderByCollectionDate();
+        return purchaseNoticeDao.findAll();
     }
 }

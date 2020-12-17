@@ -22,8 +22,8 @@ public class Purchase {
     @JoinColumn(name = "BUYER", referencedColumnName="ID")
     private Customer buyer;
 
-    @OneToMany(mappedBy = "purchase", fetch = FetchType.EAGER)
-    private List<Product> products=new ArrayList<>();
+    @OneToMany(mappedBy = "purchaseId", fetch = FetchType.EAGER)
+    private List<Product> products = new ArrayList<>();
 
     @Column(name = "TOTAL_PRICE")
     private Long totalPrice;
