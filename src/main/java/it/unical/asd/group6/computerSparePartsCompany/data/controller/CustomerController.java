@@ -34,4 +34,9 @@ public class CustomerController {
         cust.setVATIdentificationNumber(vatID);
         return ResponseEntity.ok(customerService.registerNewCustomer(cust));
     }
+
+    @GetMapping("/stringtest")
+    public ResponseEntity<String> stringtest() {
+        return ResponseEntity.ok(String.format("this is a string"));
+    }
 }
