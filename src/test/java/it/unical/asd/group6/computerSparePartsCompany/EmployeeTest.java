@@ -19,6 +19,8 @@ public class EmployeeTest extends AbstractComputerSparePartsCompanyTest{
     EmployeeServiceImpl employeeService;
 
     // SERVICE TESTs
+
+    // FIXME loginServiceTest
     @Test
     public void loginServiceTest() {
         assert(employeeService.checkLogin("Rubie", "Mitzi"));
