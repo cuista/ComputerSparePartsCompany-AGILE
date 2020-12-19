@@ -4,13 +4,11 @@ import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/purchase")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PurchaseController {
 
     @Autowired

@@ -1,8 +1,10 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseNoticeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -13,6 +15,20 @@ import java.util.Optional;
 @SpringBootTest
 public class PurchaseNoticeTest extends AbstractComputerSparePartsCompanyTest {
 
+    @Autowired
+    private PurchaseNoticeServiceImpl purchaseNoticeService;
+
+    /*
+    Test service a seguire
+     */
+    @Test
+    public void testGetView() {
+        assert(!purchaseNoticeService.getView().isEmpty());
+    }
+
+    /*
+    Test Dao a seguire
+     */
     @Test
     public void testFindAllByWarehouseId(){
 

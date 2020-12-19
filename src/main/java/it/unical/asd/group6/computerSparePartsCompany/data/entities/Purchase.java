@@ -22,7 +22,7 @@ public class Purchase {
     @JoinColumn(name = "CUSTOMER", referencedColumnName="ID")
     private Customer customer;
 
-    @OneToMany(mappedBy = "purchaseId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "purchase", fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
 
     @Column(name = "TOTAL_PRICE")

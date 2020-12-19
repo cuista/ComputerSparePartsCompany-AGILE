@@ -1,8 +1,10 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -13,6 +15,34 @@ import java.util.Optional;
 @SpringBootTest
 public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
 
+    @Autowired
+    private CustomerServiceImpl customerService;
+
+    /*
+    Service test a seguire
+     */
+    @Test
+    public void testLoginWithService() {
+        assert(customerService.checkLogin("Marti","Brunell"));
+    }
+
+    @Test
+    public void testSignUpWithService() {
+        //controllo che non faccia registrare un utente già presente sul db
+        Customer c = new Customer();
+        c.setName("Ciccio");
+        c.setSurname("Brunell");
+        c.setPhoneNumber("2103761416");
+        c.setEmail("Marti.Brunell@mail.com");
+        c.setUsername("Marti");
+        c.setPassword("Brunell");
+        c.setVATIdentificationNumber(28765246203L);
+        assert(!customerService.registerNewCustomer(c));
+    }
+
+    /*
+    Test dao a seguire
+     */
     @Test
     public void testFindAllByUsernameIsNotNull_OK(){
 

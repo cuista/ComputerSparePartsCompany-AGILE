@@ -12,4 +12,10 @@ public interface ProductService {
     List<Product> getAllProductByBrandAndModel(String brand, String model);
 
     List<Product> getAllProductByPriceIsLessThan(Double price);
+
+    List<Product> getProductsByModel(String model);
+
+    List<Product> getProductsByCategory(String category);
+
+    List<Product> getProductsInPriceRange(Double p1, Double p2);
 }

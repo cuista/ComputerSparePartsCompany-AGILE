@@ -1,12 +1,15 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +17,24 @@ import java.util.Optional;
 @SpringBootTest
 public class PurchaseTest extends AbstractComputerSparePartsCompanyTest{
 
+    @Autowired
+    private PurchaseServiceImpl purchaseService;
+
+    /*
+    Test Service a seguire
+    */
+    @Test
+    public void TestAddNewPurchase() {
+        Purchase purchase = new Purchase();
+        purchase.setDate(LocalDate.of(1997, Month.JULY,4));
+        purchase.setTotalPrice(487.0);
+        Purchase temp = purchaseService.registerNewPurchase(purchase);
+        assert(temp != null);
+    }
+
+    /*
+    Test DAO a seguire
+     */
     @Test
     public void testFindById_OK(){
         Optional<List<Purchase>> purchases=purchaseDao.findAllByDateBetween(LocalDate.of(2006,01,01)

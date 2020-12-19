@@ -38,4 +38,22 @@ public class ProductServiceImpl implements ProductService {
         return productOptional.orElse(null);
     }
 
+    @Override
+    public List<Product> getProductsByModel(String model){
+        Optional<List<Product>> productOptional = productDao.findAllByModel(model);
+        return productOptional.orElse(null);
+    }
+
+    @Override
+    public List<Product> getProductsByCategory(String category){
+        Optional<List<Product>> productOptional = productDao.findAllByCategory(category);
+        return productOptional.orElse(null);
+    }
+
+    @Override
+    public List<Product> getProductsInPriceRange(Double p1, Double p2) {
+        Optional<List<Product>> products = productDao.findAllByPriceBetween(p1,p2);
+        return products.orElse(null);
+    }
+
 }

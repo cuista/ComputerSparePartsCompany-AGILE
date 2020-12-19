@@ -28,15 +28,14 @@ public class CustomerServiceImpl implements CustomerService {
     private boolean checkPresenceInDatabase(Customer customer) {
         List<Customer> customers = customerDao.findAll();
         for (Customer c: customers){
-            if (c.getEmail().equals(customer.getEmail()) || c.getUsername().equals(c.getEmail()))
+            if (c.getEmail().equals(customer.getEmail()) || c.getUsername().equals(customer.getUsername()))
                 return true;
         }
-
         return false;
     }
 
     @Override
-    public boolean checkLogin(String username, String password) {
+    public Boolean checkLogin(String username, String password) {
         Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
         return opt.isPresent();
     }
