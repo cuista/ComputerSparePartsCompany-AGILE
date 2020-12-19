@@ -2,9 +2,7 @@ package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
-import it.unical.asd.group6.computerSparePartsCompany.data.services.implemented.CustomerServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.data.services.implemented.EmployeeServiceImpl;
-import org.apache.catalina.util.CustomObjectInputStream;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,7 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
     @Autowired
     CustomerDao customerDao;
 
+    // SERVICE TESTs
     @Test
     public void loginServiceTest() {
         assert(customerService.checkLogin("Tilly", "Pelagias"));
@@ -31,7 +30,7 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
     }
 
     @Test
-    public void registrationTest(){
+    public void registrationServiceTest(){
         Customer cust = new Customer();
         Customer cust2 = new Customer();
 
@@ -46,6 +45,7 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
 
     }
 
+    // DAO TESTs
     @Test
     public void testFindAllByUsernameIsNotNull_OK(){
 

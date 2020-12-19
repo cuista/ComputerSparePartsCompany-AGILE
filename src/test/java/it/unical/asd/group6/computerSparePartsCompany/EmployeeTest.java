@@ -1,7 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
-import it.unical.asd.group6.computerSparePartsCompany.data.services.implemented.EmployeeServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,14 @@ public class EmployeeTest extends AbstractComputerSparePartsCompanyTest{
     @Autowired
     EmployeeServiceImpl employeeService;
 
+    // SERVICE TESTs
     @Test
     public void loginServiceTest() {
         assert(employeeService.checkLogin("Rubie", "Mitzi"));
         assert(employeeService.checkLogin("Raubie", "Maitzi"));
     }
 
+    // DAO TESTs
     @Test
     public void testFindEmployeeByUsernameAndPassword_OK(){
         Optional<Employee> e=employeeDao.findEmployeeByUsernameAndPassword("Rubie","Mitzi");

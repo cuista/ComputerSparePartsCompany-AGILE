@@ -1,7 +1,7 @@
-package it.unical.asd.group6.computerSparePartsCompany.data.controller;
+package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
-import it.unical.asd.group6.computerSparePartsCompany.data.services.implemented.PurchaseServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

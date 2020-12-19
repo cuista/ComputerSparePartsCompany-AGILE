@@ -1,4 +1,4 @@
-package it.unical.asd.group6.computerSparePartsCompany.data.exception;
+package it.unical.asd.group6.computerSparePartsCompany.core.exception;
 
 public class UserException extends RuntimeException {
 
