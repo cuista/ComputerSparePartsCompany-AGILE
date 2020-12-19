@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface PurchaseNoticeDao extends JpaRepository<PurchaseNotice,Long> {
 
-    Optional<List<PurchaseNotice>> findAllByWarehouseId(long warehouseId);
+    Optional<List<PurchaseNotice>> findAllByWarehouseId(Long warehouseId);
 
     Optional<List<PurchaseNotice>> findAllByCustomerId(Long customerId);
 

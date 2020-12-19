@@ -33,10 +33,11 @@ public class Warehouse {
     private String openingHours;
 
     @OneToMany(mappedBy = "warehouse")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.FALSE) //INSERITO A CAUSA DEL FETCHING DI TIPO EAGER (NON SE NE POSSONO AVERE DUE IN CONTEMPORANEA)
+    //FORSE PERO' SI PUO' RIMUOVERE SE CI RENDIAMO CONTO CHE FUNZIONA COMUNQUE ---> DA VEDERE AL MOMENTO DEL RETRIEVE DI INFO DAL SITO
     private List<Product> products=new ArrayList<>();
 
-    @OneToMany(mappedBy = "warehouseId")
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     //@LazyCollection(LazyCollectionOption.FALSE)
     private List<PurchaseNotice> purchaseNotices=new ArrayList<>();
 

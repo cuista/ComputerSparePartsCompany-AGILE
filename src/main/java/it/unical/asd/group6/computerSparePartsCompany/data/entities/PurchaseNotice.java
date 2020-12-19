@@ -22,7 +22,7 @@ public class PurchaseNotice {
 
     @ManyToOne
     @JoinColumn(name = "WAREHOUSE_ID", referencedColumnName = "ID")
-    private Warehouse warehouseId;
+    private Warehouse warehouse;
 
     @Column(name = "PRODUCT_BRAND")
     private String productBrand;
@@ -59,12 +59,12 @@ public class PurchaseNotice {
         this.customer = customerId;
     }
 
-    public Warehouse getWarehouseId() {
-        return warehouseId;
+    public Warehouse getWarehouse() {
+        return warehouse;
     }
 
-    public void setWarehouseId(Warehouse warehouseId) {
-        this.warehouseId = warehouseId;
+    public void setWarehouse(Warehouse warehouseId) {
+        this.warehouse = warehouseId;
     }
 
     public void setProductBrand(String productBrand) {
@@ -99,7 +99,7 @@ public class PurchaseNotice {
         return Objects.equals(id, notice.id) &&
                 Objects.equals(collectionDate, notice.collectionDate) &&
                 Objects.equals(customer, notice.customer) &&
-                Objects.equals(warehouseId, notice.warehouseId) &&
+                Objects.equals(warehouse, notice.warehouse) &&
                 Objects.equals(productBrand, notice.productBrand) &&
                 Objects.equals(productModel, notice.productModel) &&
                 Objects.equals(quantity, notice.quantity);
@@ -107,6 +107,6 @@ public class PurchaseNotice {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, collectionDate, customer, warehouseId, productBrand, productModel, quantity);
+        return Objects.hash(id, collectionDate, customer, warehouse, productBrand, productModel, quantity);
     }
 }

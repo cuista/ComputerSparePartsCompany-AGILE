@@ -185,7 +185,7 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
         Warehouse warehouse=warehouseDao.findById(warehouseId).get();
 
-        purchaseNotice.setWarehouseId(warehouse);
+        purchaseNotice.setWarehouse(warehouse);
         purchaseNotice.setProductBrand(productBrand);
         purchaseNotice.setProductModel(productModel);
         purchaseNotice.setQuantity(quantity);
