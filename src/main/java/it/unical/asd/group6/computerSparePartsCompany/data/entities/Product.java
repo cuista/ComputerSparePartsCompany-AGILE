@@ -1,7 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -22,7 +21,7 @@ public class Product {
     @Column(name="MODEL")
     private String model;
 
-    @Lob
+    //@Lob
     @Column(name="DESCRIPTION")
     private String description;
 
