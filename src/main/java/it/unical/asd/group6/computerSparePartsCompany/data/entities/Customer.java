@@ -1,7 +1,10 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "CUSTOMER")
@@ -33,20 +36,19 @@ public class Customer {
     @Column(name = "VAT_ID") //FIXARE EVENTUALMENTE LA LENGTH
     private Long VATIdentificationNumber;
 
-    //TODO a (LIST?) of purchases; and add its get, set, equeals, hash & toString
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Purchase> purchases=new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<PurchaseNotice> purchaseNotices=new ArrayList<>();
 
     public Customer(){}
 
-    public Customer(Long id, String name, String surname, String phoneNumber, String email, String username, String password, Long VATIdentificationNumber) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.VATIdentificationNumber = VATIdentificationNumber;
+    public void addPurchase(Purchase p) {
+        this.purchases.add(p);
     }
+
+    public void addPurchaseNotice(PurchaseNotice pn) {this.purchaseNotices.add(pn);}
 
     public Long getId() {
         return id;
@@ -112,6 +114,14 @@ public class Customer {
         this.VATIdentificationNumber = VATIdentificationNumber;
     }
 
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,13 +134,27 @@ public class Customer {
                 Objects.equals(email, customer.email) &&
                 Objects.equals(username, customer.username) &&
                 Objects.equals(password, customer.password) &&
-                Objects.equals(VATIdentificationNumber, customer.VATIdentificationNumber);
+                Objects.equals(VATIdentificationNumber, customer.VATIdentificationNumber) &&
+                Objects.equals(purchases, customer.purchases);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, phoneNumber, email, username, password, VATIdentificationNumber);
+        return Objects.hash(id, name, surname, phoneNumber, email, username, password, VATIdentificationNumber, purchases);
     }
 
-
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", VATIdentificationNumber=" + VATIdentificationNumber +
+                ", purchases=" + purchases +
+                '}';
+    }
 }

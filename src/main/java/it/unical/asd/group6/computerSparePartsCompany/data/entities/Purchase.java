@@ -19,14 +19,14 @@ public class Purchase {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "BUYER", referencedColumnName="ID")
-    private Customer buyer;
+    @JoinColumn(name = "CUSTOMER", referencedColumnName="ID")
+    private Customer customer;
 
     @OneToMany(mappedBy = "purchaseId", fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
 
     @Column(name = "TOTAL_PRICE")
-    private Long totalPrice;
+    private Double totalPrice;
 
     public Purchase() {}
 
@@ -50,12 +50,12 @@ public class Purchase {
         this.date = date;
     }
 
-    public Customer getBuyer() {
-        return buyer;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setBuyer(Customer buyer) {
-        this.buyer = buyer;
+    public void setCustomer(Customer buyer) {
+        this.customer = buyer;
     }
 
     public List<Product> getProducts() {
@@ -66,11 +66,11 @@ public class Purchase {
         this.products = products;
     }
 
-    public Long getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Long totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -81,13 +81,13 @@ public class Purchase {
         Purchase purchase = (Purchase) o;
         return Objects.equals(id, purchase.id) &&
                 Objects.equals(date, purchase.date) &&
-                Objects.equals(buyer, purchase.buyer) &&
+                Objects.equals(customer, purchase.customer) &&
                 Objects.equals(products, purchase.products) &&
                 Objects.equals(totalPrice,purchase.totalPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, buyer, products, totalPrice);
+        return Objects.hash(id, date, customer, products, totalPrice);
     }
 }

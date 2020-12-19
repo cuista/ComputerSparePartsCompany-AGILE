@@ -1,20 +1,16 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
-import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
-import it.unical.asd.group6.computerSparePartsCompany.data.dao.EmployeeDao;
-import it.unical.asd.group6.computerSparePartsCompany.data.dao.ProductDao;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
+import it.unical.asd.group6.computerSparePartsCompany.data.dao.*;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -35,6 +31,15 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     @Value("classpath:data/products.csv")
     private Resource productsRes;
 
+    @Value("classpath:data/purchases.csv")
+    private Resource purchasesRes;
+
+    @Value("classpath:data/warehouses.csv")
+    private Resource warehousesRes;
+
+    @Value("classpath:data/purchasenotices.csv")
+    private Resource purchaseNoticesRes;
+
     @Autowired
     protected EmployeeDao employeeDao;
 
@@ -43,6 +48,15 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Autowired
     protected ProductDao productDao;
+
+    @Autowired
+    protected PurchaseDao purchaseDao;
+
+    @Autowired
+    protected WarehouseDao warehouseDao;
+
+    @Autowired
+    protected PurchaseNoticeDao purchaseNoticeDao;
 
     private static boolean isInitialized = false;
 
@@ -66,11 +80,33 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                         record.get(4), record.get(5),Long.parseLong(record.get(6)));
             }
 
+            CSVParser warehousesCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(warehousesRes.getInputStream()));
+            for (CSVRecord record: warehousesCsv){
+                insertWarehouse(record.get(0),record.get(1),record.get(2),record.get(3),record.get(4));
+            }
+
+            CSVParser purchasesCsv= CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(purchasesRes.getInputStream()));
+            for (CSVRecord record: purchasesCsv) {
+                insertPurchase(LocalDate.parse(record.get(0), DateTimeFormatter.ISO_LOCAL_DATE),
+                        Long.parseLong(record.get(1)),Double.parseDouble(record.get(2)));
+            }
+
             CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',')
                     .parse(new InputStreamReader(productsRes.getInputStream()));
             for (CSVRecord record : productsCsv) {
                 insertProduct(Double.parseDouble(record.get(0)), record.get(1), record.get(2), record.get(3));
             }
+
+            CSVParser purchaseNoticesCsv= CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(purchaseNoticesRes.getInputStream()));
+            for (CSVRecord record: purchaseNoticesCsv){
+                insertPurchaseNotice(LocalDate.parse(record.get(0), DateTimeFormatter.ISO_LOCAL_DATE),
+                        Long.parseLong(record.get(1)),Long.parseLong(record.get(2)),record.get(3),record.get(4),
+                                Integer.parseInt(record.get(5)));
+            }
+
 
             isInitialized=true;
         }
@@ -101,7 +137,7 @@ public abstract class AbstractComputerSparePartsCompanyTest {
         cust.setPassword(password);
         cust.setVATIdentificationNumber(VATIdentificationNumber);
 
-        customerDao.save(cust);
+        customerDao.saveAndFlush(cust);
 
     }
 
@@ -115,4 +151,48 @@ public abstract class AbstractComputerSparePartsCompanyTest {
         productDao.save(prod);
 
     }
+
+    private void insertPurchase(LocalDate date, Long customer_id, Double totalPrice){
+        Purchase purchase=new Purchase();
+        purchase.setDate(date);
+        Customer customer=customerDao.findById(customer_id).get();
+        purchase.setCustomer(customer);
+        purchase.setTotalPrice(totalPrice);
+
+        purchaseDao.save(purchase);
+    }
+
+    private void insertWarehouse(String street, String province, String city, String region, String opening_hours) {
+        Warehouse warehouse = new Warehouse();
+        warehouse.setStreet(street);
+        warehouse.setProvince(province);
+        warehouse.setCity(city);
+        warehouse.setRegion(region);
+        warehouse.setOpeningHours(opening_hours);
+
+        warehouseDao.saveAndFlush(warehouse);
+    }
+
+    private void insertPurchaseNotice(LocalDate collectionDate,  Long customerId, Long warehouseId, String productBrand,
+                                      String productModel, Integer quantity){
+
+        PurchaseNotice purchaseNotice=new PurchaseNotice();
+        purchaseNotice.setCollectionDate(collectionDate);
+
+        Customer customer=customerDao.findById(customerId).get();
+
+        purchaseNotice.setCustomer(customer);
+
+        Warehouse warehouse=warehouseDao.findById(warehouseId).get();
+
+        purchaseNotice.setWarehouse(warehouse);
+        purchaseNotice.setProductBrand(productBrand);
+        purchaseNotice.setProductModel(productModel);
+        purchaseNotice.setQuantity(quantity);
+
+        purchaseNoticeDao.save(purchaseNotice);
+
+    }
+
+
 }

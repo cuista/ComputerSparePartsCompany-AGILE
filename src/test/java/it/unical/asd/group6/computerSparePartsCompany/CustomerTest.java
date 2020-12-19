@@ -1,11 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
-import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -16,36 +13,6 @@ import java.util.Optional;
 @SpringBootTest
 public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
 
-    @Autowired
-    CustomerServiceImpl customerService;
-
-    @Autowired
-    CustomerDao customerDao;
-
-    // SERVICE TESTs
-    @Test
-    public void loginServiceTest() {
-        assert(customerService.checkLogin("Tilly", "Pelagias"));
-        //DA FARE
-    }
-
-    @Test
-    public void registrationServiceTest(){
-        Customer cust = new Customer();
-        Customer cust2 = new Customer();
-
-        cust.setEmail("ciao@virgilio.it");
-        cust.setUsername("BimboCiao");
-
-        cust2.setEmail("Tilly.Pelagias@mail.com");
-        cust2.setUsername("Tilly");
-
-        assert(customerService.registerNewCustomer(cust));
-        assert(customerService.registerNewCustomer(cust2));
-
-    }
-
-    // DAO TESTs
     @Test
     public void testFindAllByUsernameIsNotNull_OK(){
 
@@ -87,7 +54,6 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
     @Test
     public void testFindCustomerByUsernameAndPassword_OK() {
         Optional<Customer> customer=customerDao.findCustomerByUsernameAndPassword("Donnie","Cristi");
-
         assert(customer.get()!=null);
         assert(customer.get().getPhoneNumber().equals("1815289551"));
         assert(customer.get().getUsername().equals("Donnie"));
@@ -95,6 +61,15 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
         assert(customer.get().getEmail().equals("Donnie.Cristi@mail.com"));
         assert(customer.get().getName().equals("Donnie"));
         assert(customer.get().getSurname().equals("Cristi"));
+    }
+
+    @Test
+    public void testFindAllCustomers_OK(){
+        List<Customer> customers=customerDao.findAll();
+
+        for (Customer c: customers) {
+            System.out.println(c.getId());
+        }
     }
 
 }

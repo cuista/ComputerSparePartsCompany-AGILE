@@ -17,6 +17,4 @@ public interface EmployeeDao extends JpaRepository<Employee,Long>, JpaSpecificat
     Optional<Employee> findEmployeeByTelephoneNumberEquals(String number);
 
     Optional<Employee> findEmployeeByUsernameAndPassword(String username, String password);
-
-    //FIXME QUERY DI ESEMPIO: CHIEDERE AD ANDREA E GIANFRANCO
 }

@@ -2,14 +2,17 @@ package it.unical.asd.group6.computerSparePartsCompany.data.dao;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface PurchaseNoticeDao extends JpaRepository<PurchaseNotice,Long>, JpaSpecificationExecutor<PurchaseNotice> {
+public interface PurchaseNoticeDao extends JpaRepository<PurchaseNotice,Long> {
 
-    //ordinati per non farli tornare in maniera ordinata (potrebbe tornare utile a employee?)
-    List<PurchaseNotice> findAll();
+    Optional<List<PurchaseNotice>> findAllByWarehouseId(Long warehouseId);
+
+    Optional<List<PurchaseNotice>> findAllByCustomerId(Long customerId);
+
+    Optional<List<PurchaseNotice>> findAllByQuantityGreaterThan(Integer quantity);
 }

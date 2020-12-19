@@ -15,7 +15,7 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
 
     Optional<List<Product>> findAllByBrandAndModel(String brand, String model);
 
-    Optional<List<Product>> findAllByPrice(Integer price);
+    Optional<List<Product>> findAllByPrice(Double price);
 
     Optional<List<Product>> findAllByPriceIsLessThan(Double price);
 
@@ -24,6 +24,4 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
     Optional<List<Product>> findAllByCategory(String category);
 
     Optional<List<Product>> findAllByPriceBetween(Double p1, Double p2);
-
-    //FIXME QUERY DI ESEMPIO: CHIEDERE AD ANDREA E GIANFRANCO
 }
