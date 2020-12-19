@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -38,7 +39,7 @@ public class Warehouse {
     private List<Product> products=new ArrayList<>();
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
-    //@LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<PurchaseNotice> purchaseNotices=new ArrayList<>();
 
     public Warehouse(){}
