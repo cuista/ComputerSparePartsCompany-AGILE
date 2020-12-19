@@ -22,32 +22,32 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProduct());
     }
 
-    @GetMapping("/all-products/{brand}")
+    @GetMapping("/all-products/brand={brand}")
     public ResponseEntity<List<Product>> showAllByBrand(@PathVariable("brand") String brand){
         return ResponseEntity.ok(productService.getAllProductByBrand(brand));
     }
 
-    @GetMapping("/all-products/{brand}/{model}")
+    @GetMapping("/all-products/brand={brand}/model={model}")
     public ResponseEntity<List<Product>> showAllByBrandAndModel(@PathVariable("brand") String brand, @PathVariable("model") String model){
         return ResponseEntity.ok(productService.getAllProductByBrandAndModel(brand, model));
     }
 
-    @GetMapping("/all-products/{price}")
+    @GetMapping("/all-products/price={price}")
     public ResponseEntity<List<Product>> showAllByByPriceIsLessThan(@PathVariable("price") Double price){
         return ResponseEntity.ok(productService.getAllProductByPriceIsLessThan(price));
     }
 
-    @GetMapping("/all-products/{model}")
+    @GetMapping("/all-products/mod={model}")
     public ResponseEntity<List<Product>> showAllByModel(@PathVariable("model") String model){
         return ResponseEntity.ok(productService.getProductsByModel(model));
     }
 
-    @GetMapping("/all-products/{category}")
+    @GetMapping("/all-products/categ={category}")
     public ResponseEntity<List<Product>> showAllByCategory(@PathVariable("category") String category) {
         return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
 
-    @GetMapping("/all-products/{min}/{max}")
+    @GetMapping("/all-products/min={min}&&max={max}")
     public ResponseEntity<List<Product>> showProductsByPriceRange(
             @PathVariable("min") Double min, @PathVariable("max") Double max) {
         return ResponseEntity.ok(productService.getProductsInPriceRange(min,max));

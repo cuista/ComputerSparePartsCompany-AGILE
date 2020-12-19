@@ -15,7 +15,7 @@ public class PurchaseController {
     PurchaseServiceImpl purchaseService;
 
     @PostMapping("/savePurchase")
-    public ResponseEntity<Purchase> addPurchase(@RequestBody Purchase purchase) {
+    public ResponseEntity<Boolean> addPurchase(@RequestBody Purchase purchase) {
         return ResponseEntity.ok(purchaseService.registerNewPurchase(purchase));
     }
 }
