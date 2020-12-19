@@ -1,7 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
-import org.apache.catalina.util.CustomObjectInputStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -55,7 +54,6 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
     @Test
     public void testFindCustomerByUsernameAndPassword_OK() {
         Optional<Customer> customer=customerDao.findCustomerByUsernameAndPassword("Donnie","Cristi");
-
         assert(customer.get()!=null);
         assert(customer.get().getPhoneNumber().equals("1815289551"));
         assert(customer.get().getUsername().equals("Donnie"));
@@ -63,6 +61,15 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
         assert(customer.get().getEmail().equals("Donnie.Cristi@mail.com"));
         assert(customer.get().getName().equals("Donnie"));
         assert(customer.get().getSurname().equals("Cristi"));
+    }
+
+    @Test
+    public void testFindAllCustomers_OK(){
+        List<Customer> customers=customerDao.findAll();
+
+        for (Customer c: customers) {
+            System.out.println(c.getId());
+        }
     }
 
 }

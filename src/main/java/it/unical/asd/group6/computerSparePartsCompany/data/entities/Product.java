@@ -28,7 +28,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "PURCHASE_ID", referencedColumnName = "ID" , nullable = true)
-    private Purchase purchaseId;
+    private Purchase purchase;
 
     @ManyToOne
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID", nullable = true)
@@ -43,20 +43,6 @@ public class Product {
     private Category category;
 
     public Product() {}
-
-    public Product(Long id, Double price, String brand, String model, String description, Purchase purchase, OrderRequest orderRequest, Warehouse warehouse, Category category) {
-        this.id = id;
-        this.price = price;
-        this.brand = brand;
-        this.model = model;
-        this.description = description;
-        this.purchaseId = purchase;
-        this.orderRequest = orderRequest;
-        this.warehouse = warehouse;
-        this.category = category;
-    }
-
-    //TODO Collegare le altre classi, ES: @OneToMany(mappedBy = "purchase_id", fetch = FetchType.EAGER) private List<Product> products;
 
     public Long getId() {
         return id;
@@ -99,11 +85,11 @@ public class Product {
     }
 
     public Purchase getPurchaseId() {
-        return purchaseId;
+        return purchase;
     }
 
     public void setPurchaseId(Purchase purchaseId) {
-        this.purchaseId = purchaseId;
+        this.purchase = purchaseId;
     }
 
     public OrderRequest getOrder() {
@@ -140,7 +126,7 @@ public class Product {
                 Objects.equals(brand, product.brand) &&
                 Objects.equals(model, product.model) &&
                 Objects.equals(description, product.description) &&
-                Objects.equals(purchaseId, product.purchaseId) &&
+                Objects.equals(purchase, product.purchase) &&
                 Objects.equals(orderRequest, product.orderRequest) &&
                 Objects.equals(warehouse, product.warehouse) &&
                 Objects.equals(category, product.category);
@@ -148,6 +134,6 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, brand, model, description, purchaseId, orderRequest, warehouse, category);
+        return Objects.hash(id, price, brand, model, description, purchase, orderRequest, warehouse, category);
     }
 }

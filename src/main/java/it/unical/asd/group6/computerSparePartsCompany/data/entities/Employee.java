@@ -32,16 +32,6 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(LocalDate hiringDate, String username, String password, String email, String telephone_number, String firstname, String lastname) {
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.hiringDate = hiringDate;
-        this.email = email;
-        this.telephoneNumber = telephone_number;
-    }
-
     public Long getId() {
         return id;
     }

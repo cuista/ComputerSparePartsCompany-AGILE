@@ -18,7 +18,7 @@ public class PurchaseNotice {
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID")
-    private Customer customerId;
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "WAREHOUSE_ID", referencedColumnName = "ID")
@@ -31,19 +31,9 @@ public class PurchaseNotice {
     private String productModel;
 
     @Column(name = "QUANTITY")
-    private Long quantity;
+    private Integer quantity;
 
     public PurchaseNotice() {}
-
-    public PurchaseNotice(Long id, LocalDate collectionDate, Customer customerId, Warehouse warehouseId, String productBrand, String productModel, Long quantity) {
-        this.id = id;
-        this.collectionDate = collectionDate;
-        this.customerId = customerId;
-        this.warehouseId = warehouseId;
-        this.productBrand = productBrand;
-        this.productModel = productModel;
-        this.quantity = quantity;
-    }
 
     public Long getId() {
         return id;
@@ -61,12 +51,12 @@ public class PurchaseNotice {
         this.collectionDate = collectionDate;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customerId) {
+        this.customer = customerId;
     }
 
     public Warehouse getWarehouseId() {
@@ -93,11 +83,11 @@ public class PurchaseNotice {
         return productModel;
     }
 
-    public Long getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -108,7 +98,7 @@ public class PurchaseNotice {
         PurchaseNotice notice = (PurchaseNotice) o;
         return Objects.equals(id, notice.id) &&
                 Objects.equals(collectionDate, notice.collectionDate) &&
-                Objects.equals(customerId, notice.customerId) &&
+                Objects.equals(customer, notice.customer) &&
                 Objects.equals(warehouseId, notice.warehouseId) &&
                 Objects.equals(productBrand, notice.productBrand) &&
                 Objects.equals(productModel, notice.productModel) &&
@@ -117,6 +107,6 @@ public class PurchaseNotice {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, collectionDate, customerId, warehouseId, productBrand, productModel, quantity);
+        return Objects.hash(id, collectionDate, customer, warehouseId, productBrand, productModel, quantity);
     }
 }
