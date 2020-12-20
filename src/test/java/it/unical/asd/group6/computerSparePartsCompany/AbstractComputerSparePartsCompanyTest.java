@@ -93,10 +93,10 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                         Long.parseLong(record.get(1)),Double.parseDouble(record.get(2)));
             }
 
-            CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+            CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',') //SPOSTATO PRODUCTRES SU PRODUCTS.CSV PER DATI REALI ---> BASTA RINOMINARE IL PATH SOPRA PER CAMBIARE
                     .parse(new InputStreamReader(productsRes.getInputStream()));
             for (CSVRecord record : productsCsv) {
-                insertProduct(Double.parseDouble(record.get(0)), record.get(1), record.get(2), record.get(3));
+                insertProduct(Double.parseDouble(record.get(0)), record.get(1), record.get(2), record.get(3),record.get(4));
             }
 
             CSVParser purchaseNoticesCsv= CSVFormat.DEFAULT.withDelimiter(',')
@@ -141,12 +141,13 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     }
 
-    private void insertProduct(Double price, String brand, String model, String description){
+    private void insertProduct(Double price, String brand, String model, String description, String url){
         Product prod=new Product();
         prod.setPrice(price);
         prod.setBrand(brand);
         prod.setModel(model);
         prod.setDescription(description);
+        prod.setImageUrl(url);
 
         productDao.save(prod);
 
