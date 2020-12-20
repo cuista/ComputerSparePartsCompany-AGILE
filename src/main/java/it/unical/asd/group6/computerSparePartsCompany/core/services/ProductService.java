@@ -18,4 +18,8 @@ public interface ProductService {
     List<Product> getProductsByCategory(String category);
 
     List<Product> getProductsInPriceRange(Double p1, Double p2);
+
+    List<Product> getProductDistinct();
+
+    List<Product> getProductDistinctByCategory(String category);
 }

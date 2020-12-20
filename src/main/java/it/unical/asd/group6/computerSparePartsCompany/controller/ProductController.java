@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
@@ -51,5 +55,15 @@ public class ProductController {
     public ResponseEntity<List<Product>> showProductsByPriceRange(
             @PathVariable("min") Double min, @PathVariable("max") Double max) {
         return ResponseEntity.ok(productService.getProductsInPriceRange(min,max));
+    }
+
+    @GetMapping("/all-products/distinct")
+    public ResponseEntity<List<Product>> getDistinctProducts() {
+        return ResponseEntity.ok(productService.getProductDistinct());
+    }
+
+    @GetMapping("/all-products/distinct/{category}")
+    public ResponseEntity<List<Product>> getDistinctProducts(@PathVariable String category) {
+        return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
 }
