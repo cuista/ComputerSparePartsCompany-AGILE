@@ -50,4 +50,16 @@ public class CustomerServiceImpl implements CustomerService {
         customerDao.delete(customer);
         return customer;
     }
+
+    @Override
+    public Boolean searchByUsername(String username) {
+        Optional<Customer> customer = customerDao.findCustomerByUsername(username);
+        return customer.isPresent();
+    }
+
+    @Override
+    public Boolean searchByEmail(String email) {
+        Optional<Customer> customer = customerDao.findCustomerByEmail(email);
+        return customer.isPresent();
+    }
 }

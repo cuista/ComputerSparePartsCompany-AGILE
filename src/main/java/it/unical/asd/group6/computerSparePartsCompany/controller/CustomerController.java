@@ -50,6 +50,16 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.deleteUser(customer));
     }
 
+    @GetMapping("/user-check")
+    public ResponseEntity<Boolean> checkUser(String username) {
+        return ResponseEntity.ok(customerService.searchByUsername(username));
+    }
+
+    @GetMapping("/email-check")
+    public ResponseEntity<Boolean> checkEmail(String email) {
+        return ResponseEntity.ok(customerService.searchByEmail(email));
+    }
+
     @GetMapping
     public ResponseEntity<List<Customer>> allCustomers() {
         return ResponseEntity.ok(customerService.getAllCustomer());

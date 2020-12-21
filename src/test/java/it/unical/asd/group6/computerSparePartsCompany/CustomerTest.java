@@ -22,6 +22,16 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
     Service test a seguire
      */
     @Test
+    public void checkUser() {
+        assert(customerService.searchByUsername("Marti"));
+    }
+
+    @Test
+    public void checkEmail() {
+        assert(customerService.searchByEmail("Marti.Brunell@mail.com"));
+    }
+
+    @Test
     public void testRegistration() {
         Customer c = new Customer();
         c.setEmail("mvspod");

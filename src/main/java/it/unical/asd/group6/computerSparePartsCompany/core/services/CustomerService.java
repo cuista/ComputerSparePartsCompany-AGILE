@@ -12,4 +12,8 @@ public interface CustomerService {
     List<Customer> getAllCustomer();
 
     Customer deleteUser(Customer customer);
+
+    Boolean searchByUsername(String username);
+
+    Boolean searchByEmail(String email);
 }
