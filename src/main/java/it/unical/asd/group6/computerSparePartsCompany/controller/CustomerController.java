@@ -41,7 +41,13 @@ public class CustomerController {
         customer.setUsername(username);
         customer.setPassword(password);
         customer.setVATIdentificationNumber(vatID);
+        System.out.println(customer);
         return ResponseEntity.ok(customerService.registerNewCustomer(customer));
+    }
+
+    @DeleteMapping("/delete-customer")
+    public ResponseEntity<Customer> delete(Customer customer) {
+        return ResponseEntity.ok(customerService.deleteUser(customer));
     }
 
     @GetMapping

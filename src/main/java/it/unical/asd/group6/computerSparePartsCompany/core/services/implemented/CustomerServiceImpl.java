@@ -44,4 +44,10 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> getAllCustomer() {
         return customerDao.findAll();
     }
+
+    @Override
+    public Customer deleteUser(Customer customer) {
+        customerDao.delete(customer);
+        return customer;
+    }
 }

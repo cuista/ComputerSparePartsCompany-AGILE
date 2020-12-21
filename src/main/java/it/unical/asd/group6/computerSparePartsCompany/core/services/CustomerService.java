@@ -10,4 +10,6 @@ public interface CustomerService {
     Boolean checkLogin(String username, String password);
 
     List<Customer> getAllCustomer();
+
+    Customer deleteUser(Customer customer);
 }
