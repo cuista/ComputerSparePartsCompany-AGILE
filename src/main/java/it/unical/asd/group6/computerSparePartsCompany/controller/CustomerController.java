@@ -29,10 +29,10 @@ public class CustomerController {
 
     @PostMapping("/register-param")
     public ResponseEntity<Boolean> signUp (
-            @RequestParam String name, @RequestParam String surname,
-            @RequestParam String phoneNumber, @RequestParam String email,
-            @RequestParam String username, @RequestParam String password,
-            @RequestParam Long vatID) {
+            @RequestParam("name") String name, @RequestParam("surname") String surname,
+            @RequestParam("phoneNumber") String phoneNumber, @RequestParam("email") String email,
+            @RequestParam("username") String username, @RequestParam("password") String password,
+            @RequestParam("vatID") Long vatID) {
         Customer customer = new Customer();
         customer.setName(name);
         customer.setSurname(surname);
@@ -51,16 +51,16 @@ public class CustomerController {
     }
 
     @GetMapping("/user-check")
-    public ResponseEntity<Boolean> checkUser(String username) {
+    public ResponseEntity<Boolean> checkUser(@RequestParam("username")String username) {
         return ResponseEntity.ok(customerService.searchByUsername(username));
     }
 
     @GetMapping("/email-check")
-    public ResponseEntity<Boolean> checkEmail(String email) {
+    public ResponseEntity<Boolean> checkEmail(@RequestParam("email")String email) {
         return ResponseEntity.ok(customerService.searchByEmail(email));
     }
 
-    @GetMapping
+    @GetMapping("/all-customers")
     public ResponseEntity<List<Customer>> allCustomers() {
         return ResponseEntity.ok(customerService.getAllCustomer());
     }
