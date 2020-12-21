@@ -22,4 +22,6 @@ public interface ProductService {
     List<Product> getProductDistinct();
 
     List<Product> getProductDistinctByCategory(String category);
+
+    Product addProduct(Product p);
 }

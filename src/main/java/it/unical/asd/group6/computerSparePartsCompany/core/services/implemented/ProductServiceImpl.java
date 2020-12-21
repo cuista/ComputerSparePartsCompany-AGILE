@@ -74,4 +74,9 @@ public class ProductServiceImpl implements ProductService {
         }
         return products;
     }
+
+    @Override
+    public Product addProduct(Product p) {
+        return productDao.save(p);
+    }
 }

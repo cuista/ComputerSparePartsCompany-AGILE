@@ -66,4 +66,17 @@ public class ProductController {
     public ResponseEntity<List<Product>> getDistinctProducts(@PathVariable String category) {
         return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
+
+    @PostMapping("/add-product")
+    public ResponseEntity<Product> add(
+            @RequestParam Double price, @RequestParam String brand,
+            @RequestParam String model, @RequestParam String description, @RequestParam String url) {
+        Product p = new Product();
+        p.setPrice(price);
+        p.setBrand(brand);
+        p.setModel(model);
+        p.setDescription(description);
+        p.setImageUrl(url);
+        return ResponseEntity.ok(productService.addProduct(p));
+    }
 }
