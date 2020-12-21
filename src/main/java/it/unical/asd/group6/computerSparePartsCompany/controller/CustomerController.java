@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/customer")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -25,6 +27,11 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.registerNewCustomer(customer));
     }
 
+    @GetMapping
+    public ResponseEntity<List<Customer>> allCustomers() {
+        return ResponseEntity.ok(customerService.getAllCustomer());
+    }
+    
     @GetMapping("/stringtest")
     public ResponseEntity<String> stringtest() {
         return ResponseEntity.ok(String.format("this is a string"));

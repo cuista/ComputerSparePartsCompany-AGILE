@@ -39,4 +39,9 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
         return opt.isPresent();
     }
+
+    @Override
+    public List<Customer> getAllCustomer() {
+        return customerDao.findAll();
+    }
 }
