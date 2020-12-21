@@ -21,19 +21,8 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Boolean> doSignUp (
-            @RequestParam String name, @RequestParam String surname,
-            @RequestParam String phoneNumber, @RequestParam String email,
-            @RequestParam String username, @RequestParam String password, @RequestParam Long vatID) {
-        Customer cust = new Customer();
-        cust.setName(name);
-        cust.setSurname(surname);
-        cust.setPhoneNumber(phoneNumber);
-        cust.setEmail(email);
-        cust.setUsername(username);
-        cust.setPassword(password);
-        cust.setVATIdentificationNumber(vatID);
-        return ResponseEntity.ok(customerService.registerNewCustomer(cust));
+    public ResponseEntity<Boolean> doSignUp (@RequestBody Customer customer) {
+        return ResponseEntity.ok(customerService.registerNewCustomer(customer));
     }
 
     @GetMapping("/stringtest")
