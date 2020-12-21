@@ -27,11 +27,28 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.registerNewCustomer(customer));
     }
 
+    @PostMapping("/register-param")
+    public ResponseEntity<Boolean> signUp (
+            @RequestParam String name, @RequestParam String surname,
+            @RequestParam String phoneNumber, @RequestParam String email,
+            @RequestParam String username, @RequestParam String password,
+            @RequestParam Long vatID) {
+        Customer customer = new Customer();
+        customer.setName(name);
+        customer.setSurname(surname);
+        customer.setPhoneNumber(phoneNumber);
+        customer.setEmail(email);
+        customer.setUsername(username);
+        customer.setPassword(password);
+        customer.setVATIdentificationNumber(vatID);
+        return ResponseEntity.ok(customerService.registerNewCustomer(customer));
+    }
+
     @GetMapping
     public ResponseEntity<List<Customer>> allCustomers() {
         return ResponseEntity.ok(customerService.getAllCustomer());
     }
-    
+
     @GetMapping("/stringtest")
     public ResponseEntity<String> stringtest() {
         return ResponseEntity.ok(String.format("this is a string"));

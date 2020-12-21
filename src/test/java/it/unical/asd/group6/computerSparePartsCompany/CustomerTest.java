@@ -22,6 +22,23 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
     Service test a seguire
      */
     @Test
+    public void testRegistration() {
+        Customer c = new Customer();
+        c.setEmail("mvspod");
+        c.setVATIdentificationNumber(123L);
+        c.setPassword("password");
+        c.setUsername("username");
+        c.setPhoneNumber("13534634");
+        c.setSurname("aaaa");
+        c.setName("bbb");
+        customerDao.save(c);
+        assert(customerService.checkLogin("username","password"));
+        for(Customer customer: customerDao.findAll()) {
+            System.out.println(customer.toString());
+        }
+    }
+
+    @Test
     public void testLoginWithService() {
         assert(customerService.checkLogin("Marti","Brunell"));
     }

@@ -158,7 +158,6 @@ public class Customer {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", VATIdentificationNumber=" + VATIdentificationNumber +
-                ", purchases=" + purchases +
                 '}';
     }
 }
