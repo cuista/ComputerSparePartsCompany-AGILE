@@ -17,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Boolean registerNewCustomer(Customer customer) {
-        if (!checkPresenceInDatabase(customer)){
+        if (true){
             customerDao.save(customer);
             return true;
         }else
