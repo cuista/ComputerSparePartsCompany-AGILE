@@ -17,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Boolean registerNewCustomer(Customer customer) {
-        if (!checkPresenceInDatabase(customer)){
+        if (true){
             customerDao.save(customer);
             return true;
         }else
@@ -38,5 +38,28 @@ public class CustomerServiceImpl implements CustomerService {
     public Boolean checkLogin(String username, String password) {
         Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
         return opt.isPresent();
+    }
+
+    @Override
+    public List<Customer> getAllCustomer() {
+        return customerDao.findAll();
+    }
+
+    @Override
+    public Customer deleteUser(Customer customer) {
+        customerDao.delete(customer);
+        return customer;
+    }
+
+    @Override
+    public Boolean searchByUsername(String username) {
+        Optional<Customer> customer = customerDao.findCustomerByUsername(username);
+        return customer.isPresent();
+    }
+
+    @Override
+    public Boolean searchByEmail(String email) {
+        Optional<Customer> customer = customerDao.findCustomerByEmail(email);
+        return customer.isPresent();
     }
 }

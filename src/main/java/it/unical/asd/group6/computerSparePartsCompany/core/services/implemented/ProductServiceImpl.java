@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -56,4 +57,26 @@ public class ProductServiceImpl implements ProductService {
         return products.orElse(null);
     }
 
+    @Override
+    public List<Product> getProductDistinct() {
+        List<Product> products = productDao.findAll().stream().distinct().collect(Collectors.toList());
+        if(products.isEmpty()) {
+            return null;
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> getProductDistinctByCategory(String category) {
+        List<Product> products = productDao.findAllByCategory(category).get().stream().distinct().collect(Collectors.toList());
+        if(products.isEmpty()) {
+            return null;
+        }
+        return products;
+    }
+
+    @Override
+    public Product addProduct(Product p) {
+        return productDao.save(p);
+    }
 }

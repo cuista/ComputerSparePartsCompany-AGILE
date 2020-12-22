@@ -23,6 +23,9 @@ public class PurchaseNoticeTest extends AbstractComputerSparePartsCompanyTest {
      */
     @Test
     public void testGetView() {
+        for(PurchaseNotice purchaseNotice : purchaseNoticeService.getView()) {
+            System.out.println(purchaseNotice.toString());
+        }
         assert(!purchaseNoticeService.getView().isEmpty());
     }
 

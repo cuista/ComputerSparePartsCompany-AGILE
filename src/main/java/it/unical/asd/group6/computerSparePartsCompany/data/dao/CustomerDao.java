@@ -18,4 +18,8 @@ public interface CustomerDao extends JpaRepository<Customer,Long> {
     Optional<Customer> findCustomerByVATIdentificationNumber(Long vat);
 
     Optional<Customer> findCustomerByUsernameAndPassword(String username, String password);
+
+    Optional<Customer> findCustomerByUsername(String username);
+
+    Optional<Customer> findCustomerByEmail(String email);
 }

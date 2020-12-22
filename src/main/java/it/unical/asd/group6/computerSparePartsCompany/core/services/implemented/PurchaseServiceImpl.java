@@ -13,7 +13,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     PurchaseDao purchaseDao;
 
     @Override
-    public Purchase registerNewPurchase(Purchase purchase) {
-        return purchaseDao.save(purchase);
+    public Boolean registerNewPurchase(Purchase purchase) {
+        purchaseDao.save(purchase);
+        return true;
     }
 }
