@@ -1,0 +1,34 @@
+<app-topHeader></app-topHeader>
+<div class="h-full py-6 flex">
+  <div class="bg-white w-full">
+    <div class="flex justify-center">
+      <div class=" w-full mx-10 my-3 shadow-2xl bg-white rounded">
+
+        <!--mi serve un div che contenga -->
+        <div class ="md:flex">
+          <div class ="py-3 md:w-2/4 mx-3 p-floating-container" style="max-width: 400px; max-height: 400px;">
+            <img src="{{url}}">
+          </div>
+          <div class ="py-3 md:w-2/4 mx-3 p-floating-container">
+              <p style="display: inline-block; border-bottom: 4px solid #4900bc;" class = "text-2xl my-3">{{name}}</p>
+              <div class="w-full text-black-700 text-opacity-100 font-semibold text-xl">{{prezzo}}</div>
+              <div class="w-full text-black-700 text-opacity-100 font-semibold text-green-600 text-xl">{{availability}}</div>
+              <div class="text-sm">
+                {{description}}
+              </div>
+              <div class="flex justify-center pt-6">
+                <button id="addToCart" type = "button" class="h-12 bg-blue-600 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Add to cart</button>
+              </div>
+              <div class="flex justify-center py-2">
+                <button id="modify" type = "button" class="h-12 bg-blue-600 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Modify</button>
+              </div>
+              <div class="flex justify-center">
+                <button id="delete" type = "button" class="h-12 bg-blue-600 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Delete</button>
+              </div>
+          </div>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
