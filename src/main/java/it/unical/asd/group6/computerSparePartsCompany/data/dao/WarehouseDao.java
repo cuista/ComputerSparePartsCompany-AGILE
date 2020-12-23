@@ -15,6 +15,5 @@ public interface WarehouseDao extends JpaRepository<Warehouse,Long> {
     Optional<List<Warehouse>> findAllByRegion(String region);
 
     Optional<List<Warehouse>> findAllByCity(String city);
-
-
+    Optional<Warehouse> findWarehouseById(Long id);
 }

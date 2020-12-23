@@ -23,5 +23,5 @@ public interface ProductService {
 
     List<Product> getProductDistinctByCategory(String category);
 
-    Product addProduct(Product p);
+    Boolean addProduct(Product p);
 }
