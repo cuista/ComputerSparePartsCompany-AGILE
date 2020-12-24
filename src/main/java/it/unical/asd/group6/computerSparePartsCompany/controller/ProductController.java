@@ -1,7 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CategoryServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.WarehouseServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.ProductServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Warehouse;
@@ -9,11 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
@@ -25,6 +23,9 @@ public class ProductController {
 
     @Autowired
     WarehouseServiceImpl warehouseService;
+
+    @Autowired
+    CategoryServiceImpl categoryService;
 
     @GetMapping("/all-products")
     public ResponseEntity<List<Product>> showAll(){
@@ -76,7 +77,7 @@ public class ProductController {
     public ResponseEntity<Boolean> add(
             @RequestParam Double price, @RequestParam String brand,
             @RequestParam String model, @RequestParam String description, @RequestParam String url,
-            @RequestParam Long idWarehouse) {
+            @RequestParam Long idWarehouse, @RequestParam Long idCategory) {
         Product p = new Product();
         p.setPrice(price);
         p.setBrand(brand);
@@ -85,6 +86,8 @@ public class ProductController {
         p.setImageUrl(url);
         Warehouse wh = warehouseService.getWarehouseById(idWarehouse);
         p.setWarehouse(wh);
+        Category category = categoryService.getCategoryById(idCategory);
+        p.setCategory(category);
         return ResponseEntity.ok(productService.addProduct(p));
     }
 
@@ -96,7 +99,7 @@ public class ProductController {
     @PostMapping("/update-product-by-all")
     public ResponseEntity<Boolean> updatePrice(
             @RequestParam String brand, @RequestParam String model, @RequestParam Double price,
-            @RequestParam String description, @RequestParam String url) {
+            @RequestParam String description, @RequestParam String url, @RequestParam Long idCategory) {
         List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
         if(temp == null) {
             return  ResponseEntity.ok(false);
@@ -106,6 +109,7 @@ public class ProductController {
             p.setPrice(price);
             p.setDescription(description);
             p.setImageUrl(url);
+            p.setCategory(categoryService.getCategoryById(idCategory));
             productService.addProduct(p);
         }
         return ResponseEntity.ok(true);
@@ -151,6 +155,21 @@ public class ProductController {
         productService.deleteProduct(brand,model);
         for(Product p: temp) {
             p.setImageUrl(url);
+            productService.addProduct(p);
+        }
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/update-product-by-category")
+    public ResponseEntity<Boolean> updateUrl(
+            @RequestParam String brand, @RequestParam String model, @RequestParam Long idCategory) {
+        List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
+        if(temp == null) {
+            return  ResponseEntity.ok(false);
+        }
+        productService.deleteProduct(brand,model);
+        for(Product p: temp) {
+            p.setCategory(categoryService.getCategoryById(idCategory));
             productService.addProduct(p);
         }
         return ResponseEntity.ok(true);
