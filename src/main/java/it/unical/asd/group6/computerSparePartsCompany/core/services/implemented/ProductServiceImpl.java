@@ -5,6 +5,7 @@ import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -76,7 +77,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product addProduct(Product p) {
-        return productDao.save(p);
+    public Boolean addProduct(Product p) {
+        Optional<List<Product>> productOptional = productDao.findAllByBrandAndModel(p.getBrand(), p.getModel());
+        if (!productOptional.isPresent()){
+            productDao.save(p);
+            return true;
+        }
+        else{
+            List<Product> products = productOptional.get();
+            if(p.equals(products.get(0))){
+                productDao.save(p);
+                return true;
+            }else
+                return false;
+        }
+
     }
+
+    @Transactional
+    public Boolean deleteProduct(String brand, String model){
+        productDao.deleteAllByBrandAndModel(brand, model);
+        Optional<List<Product>> productOptional = productDao.findAllByBrandAndModel(brand, model);
+        return !productOptional.isPresent();
+    }
+
+
 }

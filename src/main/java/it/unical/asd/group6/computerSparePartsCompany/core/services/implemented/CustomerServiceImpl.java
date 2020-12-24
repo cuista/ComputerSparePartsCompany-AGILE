@@ -62,4 +62,11 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customer = customerDao.findCustomerByEmail(email);
         return customer.isPresent();
     }
+
+    @Override
+    public Optional<Customer> getCustomerByUsername(String username)
+    {
+        Optional<Customer> customer = customerDao.findCustomerByUsername(username);
+        return customer;
+    }
 }
