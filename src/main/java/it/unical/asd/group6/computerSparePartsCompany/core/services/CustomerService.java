@@ -19,4 +19,5 @@ public interface CustomerService {
     Boolean searchByEmail(String email);
 
     Optional<Customer> getCustomerByUsername(String username);
+
 }

@@ -76,4 +76,9 @@ public class CustomerController {
     {
         return ResponseEntity.ok(customerService.getCustomerByUsername(username));
     }
+
+    @DeleteMapping("/del-customer")
+    public ResponseEntity<Boolean> deleteCustomer(@RequestParam String username) {
+        return ResponseEntity.ok(customerService.deleteCustomer(username));
+    }
 }

@@ -23,4 +23,6 @@ public interface CustomerDao extends JpaRepository<Customer,Long> {
 
     Optional<Customer> findCustomerByEmail(String email);
 
+    void deleteByUsername(String username);
+
 }

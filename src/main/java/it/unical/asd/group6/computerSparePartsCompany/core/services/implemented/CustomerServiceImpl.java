@@ -3,8 +3,10 @@ package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerService;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,4 +71,10 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customer = customerDao.findCustomerByUsername(username);
         return customer;
     }
-}
+
+    @Transactional
+    public Boolean deleteCustomer(String username){
+        customerDao.deleteByUsername(username);
+        Optional<Customer> customerOptional = customerDao.findCustomerByUsername(username);
+        return !customerOptional.isPresent();
+    }}
