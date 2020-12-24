@@ -40,6 +40,9 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     @Value("classpath:data/purchasenotices.csv")
     private Resource purchaseNoticesRes;
 
+    @Value("classpath:data/categories.csv")
+    private Resource categoriesRes;
+
     @Autowired
     protected EmployeeDao employeeDao;
 
@@ -57,6 +60,9 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Autowired
     protected PurchaseNoticeDao purchaseNoticeDao;
+
+    @Autowired
+    protected CategoryDao categoriesDao;
 
     private static boolean isInitialized = false;
 
@@ -107,9 +113,21 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                                 Integer.parseInt(record.get(5)));
             }
 
+            CSVParser categoryCSV = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(categoriesRes.getInputStream()));
+            for (CSVRecord record: categoryCSV){
+                insertCategory(record.get(0));
+            }
 
             isInitialized=true;
         }
+    }
+
+    private void insertCategory(String category) {
+        Category category1 = new Category();
+        category1.setCategoryName(category);
+
+        categoriesDao.save(category1);
     }
 
     private void insertEmployee(String username, String password, String firstname, String lastname,
