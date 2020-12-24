@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
@@ -68,5 +69,11 @@ public class CustomerController {
     @GetMapping("/stringtest")
     public ResponseEntity<String> stringtest() {
         return ResponseEntity.ok(String.format("this is a string"));
+    }
+
+    @GetMapping("/by-username")
+    public ResponseEntity<Optional<Customer>> getCustomerByUsername(String username)
+    {
+        return ResponseEntity.ok(customerService.getCustomerByUsername(username));
     }
 }
