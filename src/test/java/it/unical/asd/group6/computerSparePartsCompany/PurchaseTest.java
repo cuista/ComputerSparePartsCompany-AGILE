@@ -28,8 +28,7 @@ public class PurchaseTest extends AbstractComputerSparePartsCompanyTest{
         Purchase purchase = new Purchase();
         purchase.setDate(LocalDate.of(1997, Month.JULY,4));
         purchase.setTotalPrice(487.0);
-        Purchase temp = purchaseService.registerNewPurchase(purchase);
-        assert(temp != null);
+        assert(purchaseService.registerNewPurchase(purchase));
     }
 
     /*
