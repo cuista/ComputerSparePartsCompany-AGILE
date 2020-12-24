@@ -98,18 +98,18 @@ public class ProductController {
 
     @PostMapping("/update-product-by-all")
     public ResponseEntity<Boolean> updatePrice(
-            @RequestParam String brand, @RequestParam String model, @RequestParam Double price,
-            @RequestParam String description, @RequestParam String url, @RequestParam Long idCategory) {
+            @RequestParam String brand, @RequestParam String model, @RequestParam String price,
+            @RequestParam String description, @RequestParam String url, @RequestParam String idCategory) {
         List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
         productService.deleteProduct(brand,model);
         for(Product p: temp) {
-            p.setPrice(price);
+            p.setPrice(Double.parseDouble(price));
             p.setDescription(description);
             p.setImageUrl(url);
-            p.setCategory(categoryService.getCategoryById(idCategory));
+            p.setCategory(categoryService.getCategoryById(Long.parseLong(idCategory)));
             productService.addProduct(p);
         }
         return ResponseEntity.ok(true);
