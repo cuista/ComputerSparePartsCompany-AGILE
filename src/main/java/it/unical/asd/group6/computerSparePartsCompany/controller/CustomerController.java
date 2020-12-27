@@ -83,17 +83,17 @@ public class CustomerController {
     }
 
     @GetMapping("/report-totalpurchases")
-    public ResponseEntity<Integer> getTotalPurchases(@RequestParam String email, @RequestParam String username){
-        return ResponseEntity.ok(customerService.getReportTotalPurchases(email, username));
+    public ResponseEntity<Integer> getTotalPurchases(@RequestParam String username){
+        return ResponseEntity.ok(customerService.getReportTotalPurchases(username));
     }
 
     @GetMapping("/report-totalamount")
-    public ResponseEntity<Double> getTotalAmount(@RequestParam String email, @RequestParam String username){
-        return ResponseEntity.ok(customerService.getReportTotalAmountSpent(email, username));
+    public ResponseEntity<Double> getTotalAmount(@RequestParam String username){
+        return ResponseEntity.ok(customerService.getReportTotalAmountSpent(username));
     }
 
     @GetMapping("/report-favoritecategory")
-    public ResponseEntity<Long> getFavoriteCategory(@RequestParam String email, @RequestParam String username){
-        return ResponseEntity.ok(customerService.getReportFavoriteCategory(email, username));
+    public ResponseEntity<Long> getFavoriteCategory(@RequestParam String username){
+        return ResponseEntity.ok(customerService.getReportFavoriteCategory(username));
     }
 }

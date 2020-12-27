@@ -80,9 +80,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Integer getReportTotalPurchases(String email, String username) {
+    public Integer getReportTotalPurchases(String username) {
         int totalPurchases;
-        Optional<Customer> optCust = customerDao.findCustomerByEmailAndUsername(email, username);
+        Optional<Customer> optCust = customerDao.findCustomerByUsername(username);
         if (optCust.isPresent()){
             Customer customer = optCust.get();
             totalPurchases = customer.getPurchases().size();
@@ -92,9 +92,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Double getReportTotalAmountSpent(String email, String username) {
+    public Double getReportTotalAmountSpent(String username) {
         double sum = 0.0;
-        Optional<Customer> optCust = customerDao.findCustomerByEmailAndUsername(email, username);
+        Optional<Customer> optCust = customerDao.findCustomerByUsername(username);
         if (optCust.isPresent()){
             Customer customer = optCust.get();
             List<Purchase> purchases = customer.getPurchases();
@@ -107,8 +107,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Long getReportFavoriteCategory(String email, String username) {
-        Optional<Customer> optCust = customerDao.findCustomerByEmailAndUsername(email, username);
+    public Long getReportFavoriteCategory(String username) {
+        Optional<Customer> optCust = customerDao.findCustomerByUsername(username);
         if (optCust.isPresent()){
             Customer customer = optCust.get();
             List<Purchase> purchases = customer.getPurchases();

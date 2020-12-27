@@ -48,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         int totalPurchases = 0;
         List<Customer> customers = customerDao.findAll();
         for(Customer c: customers){
-            totalPurchases += customerService.getReportTotalPurchases(c.getEmail(), c.getUsername());
+            totalPurchases += customerService.getReportTotalPurchases(c.getUsername());
         }
         return totalPurchases;
     }
@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         double totalSpent = 0.0;
         List<Customer> customers = customerDao.findAll();
         for(Customer c: customers){
-            totalSpent += customerService.getReportTotalAmountSpent(c.getEmail(), c.getUsername());
+            totalSpent += customerService.getReportTotalAmountSpent(c.getUsername());
         }
         return totalSpent;
     }
