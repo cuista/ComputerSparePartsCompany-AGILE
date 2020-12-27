@@ -20,4 +20,9 @@ public interface CustomerService {
 
     Optional<Customer> getCustomerByUsername(String username);
 
+    Integer getReportTotalPurchases(String email, String username);
+
+    Double getReportTotalAmountSpent(String email, String username);
+
+    Long getReportFavoriteCategory(String email, String username);
 }

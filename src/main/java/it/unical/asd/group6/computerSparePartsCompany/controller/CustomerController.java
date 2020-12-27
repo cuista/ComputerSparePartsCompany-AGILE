@@ -81,4 +81,19 @@ public class CustomerController {
     public ResponseEntity<Boolean> deleteCustomer(@RequestParam String username) {
         return ResponseEntity.ok(customerService.deleteCustomer(username));
     }
+
+    @GetMapping("/report-totalpurchases")
+    public ResponseEntity<Integer> getTotalPurchases(@RequestParam String email, @RequestParam String username){
+        return ResponseEntity.ok(customerService.getReportTotalPurchases(email, username));
+    }
+
+    @GetMapping("/report-totalamount")
+    public ResponseEntity<Double> getTotalAmount(@RequestParam String email, @RequestParam String username){
+        return ResponseEntity.ok(customerService.getReportTotalAmountSpent(email, username));
+    }
+
+    @GetMapping("/report-favoritecategory")
+    public ResponseEntity<Long> getFavoriteCategory(@RequestParam String email, @RequestParam String username){
+        return ResponseEntity.ok(customerService.getReportFavoriteCategory(email, username));
+    }
 }
