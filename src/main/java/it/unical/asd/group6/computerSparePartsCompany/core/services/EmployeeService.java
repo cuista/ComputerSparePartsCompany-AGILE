@@ -10,4 +10,10 @@ public interface EmployeeService {
     public boolean checkLogin(String username, String password);
 
     Optional<Employee> getEmployeeByUsername(String username);
+
+    Integer getReportTotalPurchases();
+
+    Double getReportTotalAmountSpent();
+
+    Long getReportFavoriteCategory();
 }

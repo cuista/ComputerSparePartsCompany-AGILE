@@ -28,4 +28,18 @@ public class EmployeeController {
     {
         return ResponseEntity.ok(employeeService.getEmployeeByUsername(username));
     }
+
+    @GetMapping("/report-totalpurchases")
+    public ResponseEntity<Integer> getTotalPurchases(){
+        return ResponseEntity.ok(employeeService.getReportTotalPurchases());
+    }
+
+    @GetMapping("/report-totalamount")
+    public ResponseEntity<Double> getTotalAmount(){
+        return ResponseEntity.ok(employeeService.getReportTotalAmountSpent());
+    }
+
+    @GetMapping("/report-favoritecategory")
+    public ResponseEntity<Long> getFavoriteCategory(){
+        return ResponseEntity.ok(employeeService.getReportFavoriteCategory());}
 }
