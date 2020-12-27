@@ -106,11 +106,13 @@ public class ProductController {
         }
         productService.deleteProduct(brand,model);
         for(Product p: temp) {
-            p.setPrice(Double.parseDouble(price));
-            p.setDescription(description);
-            p.setImageUrl(url);
-            p.setCategory(categoryService.getCategoryById(Long.parseLong(idCategory)));
-            productService.addProduct(p);
+            if (p.getPurchase() == null){
+                p.setPrice(Double.parseDouble(price));
+                p.setDescription(description);
+                p.setImageUrl(url);
+                p.setCategory(categoryService.getCategoryById(Long.parseLong(idCategory)));
+                productService.addProduct(p);
+            }
         }
         return ResponseEntity.ok(true);
     }
@@ -124,8 +126,10 @@ public class ProductController {
         }
         productService.deleteProduct(brand,model);
         for(Product p: temp) {
-            p.setPrice(price);
-            productService.addProduct(p);
+            if (p.getPurchase() == null) {
+                p.setPrice(price);
+                productService.addProduct(p);
+            }
         }
         return ResponseEntity.ok(true);
     }
@@ -139,8 +143,10 @@ public class ProductController {
         }
         productService.deleteProduct(brand,model);
         for(Product p: temp) {
-            p.setDescription(description);
-            productService.addProduct(p);
+            if (p.getPurchase() == null) {
+                p.setDescription(description);
+                productService.addProduct(p);
+            }
         }
         return ResponseEntity.ok(true);
     }
@@ -154,8 +160,10 @@ public class ProductController {
         }
         productService.deleteProduct(brand,model);
         for(Product p: temp) {
-            p.setImageUrl(url);
-            productService.addProduct(p);
+            if (p.getPurchase() == null) {
+                p.setImageUrl(url);
+                productService.addProduct(p);
+            }
         }
         return ResponseEntity.ok(true);
     }
@@ -169,8 +177,10 @@ public class ProductController {
         }
         productService.deleteProduct(brand,model);
         for(Product p: temp) {
-            p.setCategory(categoryService.getCategoryById(idCategory));
-            productService.addProduct(p);
+            if (p.getPurchase() == null) {
+                p.setCategory(categoryService.getCategoryById(idCategory));
+                productService.addProduct(p);
+            }
         }
         return ResponseEntity.ok(true);
     }
