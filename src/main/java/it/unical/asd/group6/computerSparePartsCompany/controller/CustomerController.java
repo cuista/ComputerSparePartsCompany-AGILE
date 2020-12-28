@@ -93,7 +93,7 @@ public class CustomerController {
     }
 
     @GetMapping("/report-favoritecategory")
-    public ResponseEntity<Long> getFavoriteCategory(@RequestParam String username){
+    public ResponseEntity<String> getFavoriteCategory(@RequestParam String username){
         return ResponseEntity.ok(customerService.getReportFavoriteCategory(username));
     }
 

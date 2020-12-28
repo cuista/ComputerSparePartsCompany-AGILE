@@ -31,6 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     /*
     Ritorna TRUE se l'employee, con le rispettive credenziali, è presente nel db
      */
+
     @Override
     public boolean checkLogin(String username, String password) {
         Optional<Employee> opt = employeeDao.findEmployeeByUsernameAndPassword(username, password);
@@ -65,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Long getReportFavoriteCategory() {
+    public String getReportFavoriteCategory() {
         List<Customer> customers = customerDao.findAll();
         HashMap<Long, Integer> countCategory = initializeHashMapCategory();
         for(Customer c: customers) {
@@ -86,8 +87,8 @@ public class EmployeeServiceImpl implements EmployeeService{
                     maxCount = countCategory.get(id);
                 }
             }
-            
-            return favId;
+
+            return categoryDao.findCategoryById(favId).getCategoryName();
         }
         return null;
     }

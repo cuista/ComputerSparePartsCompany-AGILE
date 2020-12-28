@@ -15,5 +15,5 @@ public interface EmployeeService {
 
     Double getReportTotalAmountSpent();
 
-    Long getReportFavoriteCategory();
+    String getReportFavoriteCategory();
 }

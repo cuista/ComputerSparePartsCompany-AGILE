@@ -106,7 +106,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Long getReportFavoriteCategory(String username) {
+    public String getReportFavoriteCategory(String username) {
         Optional<Customer> optCust = customerDao.findCustomerByUsername(username);
         if (optCust.isPresent()) {
             Customer customer = optCust.get();
@@ -129,7 +129,7 @@ public class CustomerServiceImpl implements CustomerService {
                 }
             }
 
-            return favId;
+            return categoryDao.findCategoryById(favId).getCategoryName();
         }
         return null;
     }

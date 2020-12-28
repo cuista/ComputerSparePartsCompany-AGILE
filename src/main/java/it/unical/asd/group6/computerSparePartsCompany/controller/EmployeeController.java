@@ -40,7 +40,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/report-favoritecategory")
-    public ResponseEntity<Long> getFavoriteCategory(){
+    public ResponseEntity<String> getFavoriteCategory(){
         return ResponseEntity.ok(employeeService.getReportFavoriteCategory());
     }
 
