@@ -32,6 +32,6 @@ public interface CustomerDao extends JpaRepository<Customer,Long> {
 
     @Modifying
     @Query("UPDATE Customer c SET c.password =:password where c.username=:username")
-    void updateCustomerPassword(@Param("username")String username,String password);
+    void updateCustomerPassword(@Param("username")String username,@Param("password")String password);
 
 }

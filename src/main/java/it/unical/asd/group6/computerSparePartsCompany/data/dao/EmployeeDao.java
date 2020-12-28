@@ -25,5 +25,5 @@ public interface EmployeeDao extends JpaRepository<Employee,Long>, JpaSpecificat
 
     @Modifying
     @Query("UPDATE Employee e SET e.password =:password where e.username=:username")
-    void updateEmployeePassword(@Param("username")String username, String password);
+    void updateEmployeePassword(@Param("username")String username,@Param("password") String password);
 }
