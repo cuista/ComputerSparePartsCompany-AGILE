@@ -77,7 +77,7 @@ public class ProductController {
     public ResponseEntity<Boolean> add(
             @RequestParam Double price, @RequestParam String brand,
             @RequestParam String model, @RequestParam String description, @RequestParam String url,
-            @RequestParam Long idWarehouse, @RequestParam Long idCategory) {
+            @RequestParam Long idWarehouse, @RequestParam Long idCategory, @RequestParam Long idOrder) {
         Product p = new Product();
         p.setPrice(price);
         p.setBrand(brand);
