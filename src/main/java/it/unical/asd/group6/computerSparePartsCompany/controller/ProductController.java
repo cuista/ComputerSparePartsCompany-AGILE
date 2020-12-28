@@ -97,21 +97,17 @@ public class ProductController {
     }
 
     @PostMapping("/update-product-by-all")
-    public ResponseEntity<Boolean> updatePrice(
-            @RequestParam String brand, @RequestParam String model, @RequestParam String price,
-            @RequestParam String description, @RequestParam String url, @RequestParam String idCategory) {
+    public ResponseEntity<Boolean> updateAll(
+            @RequestParam String brand, @RequestParam String model, @RequestParam Double price,
+            @RequestParam String description, @RequestParam String url, @RequestParam Long idCategory) {
         List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
+        Category cat = categoryService.getCategoryById(idCategory);
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
-        productService.deleteProduct(brand,model);
         for(Product p: temp) {
             if (p.getPurchase() == null){
-                p.setPrice(Double.parseDouble(price));
-                p.setDescription(description);
-                p.setImageUrl(url);
-                p.setCategory(categoryService.getCategoryById(Long.parseLong(idCategory)));
-                productService.addProduct(p);
+                productService.updateProductAll(p.getId(), price, description, url, cat);
             }
         }
         return ResponseEntity.ok(true);
@@ -124,11 +120,9 @@ public class ProductController {
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
-        productService.deleteProduct(brand,model);
         for(Product p: temp) {
             if (p.getPurchase() == null) {
-                p.setPrice(price);
-                productService.addProduct(p);
+                productService.updateProductPrice(p.getId(), price);
             }
         }
         return ResponseEntity.ok(true);
@@ -141,11 +135,9 @@ public class ProductController {
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
-        productService.deleteProduct(brand,model);
         for(Product p: temp) {
             if (p.getPurchase() == null) {
-                p.setDescription(description);
-                productService.addProduct(p);
+               productService.updateProductDescription(p.getId(), description);
             }
         }
         return ResponseEntity.ok(true);
@@ -158,11 +150,9 @@ public class ProductController {
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
-        productService.deleteProduct(brand,model);
         for(Product p: temp) {
             if (p.getPurchase() == null) {
-                p.setImageUrl(url);
-                productService.addProduct(p);
+                productService.updateProductUrl(p.getId(), url);
             }
         }
         return ResponseEntity.ok(true);
@@ -172,14 +162,13 @@ public class ProductController {
     public ResponseEntity<Boolean> updateUrl(
             @RequestParam String brand, @RequestParam String model, @RequestParam Long idCategory) {
         List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
+        Category cat = categoryService.getCategoryById(idCategory);
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
-        productService.deleteProduct(brand,model);
         for(Product p: temp) {
             if (p.getPurchase() == null) {
-                p.setCategory(categoryService.getCategoryById(idCategory));
-                productService.addProduct(p);
+                productService.updateProductCategory(p.getId(), cat);
             }
         }
         return ResponseEntity.ok(true);

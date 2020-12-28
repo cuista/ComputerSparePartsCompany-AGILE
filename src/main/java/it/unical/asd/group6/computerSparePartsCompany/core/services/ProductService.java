@@ -1,6 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,4 +26,22 @@ public interface ProductService {
     List<Product> getProductDistinctByCategory(String category);
 
     Boolean addProduct(Product p);
+
+    @Transactional
+    Boolean deleteProduct(String brand, String model);
+
+    @Transactional
+    void updateProductAll(Long id, Double price, String desc, String url, Category cat);
+
+    @Transactional
+    void updateProductPrice(Long id, Double price);
+
+    @Transactional
+    void updateProductDescription(Long id, String desc);
+
+    @Transactional
+    void updateProductUrl(Long id, String url);
+
+    @Transactional
+    void updateProductCategory(Long id, Category cat);
 }

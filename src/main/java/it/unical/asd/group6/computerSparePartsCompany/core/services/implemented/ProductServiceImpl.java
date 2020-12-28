@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.ProductDao;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,11 +95,42 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
     @Transactional
     public Boolean deleteProduct(String brand, String model){
         productDao.deleteAllByBrandAndModel(brand, model);
         Optional<List<Product>> productOptional = productDao.findAllByBrandAndModel(brand, model);
         return !productOptional.isPresent();
+    }
+
+    @Override
+    @Transactional
+    public void updateProductAll(Long id, Double price, String desc, String url, Category cat){
+        productDao.updateProductAll(id, desc, price, url, cat);
+    }
+
+    @Override
+    @Transactional
+    public void updateProductPrice(Long id, Double price){
+        productDao.updateProductPrice(id, price);
+    }
+
+    @Override
+    @Transactional
+    public void updateProductDescription(Long id, String desc){
+        productDao.updateProductDescription(id, desc);
+    }
+
+    @Override
+    @Transactional
+    public void updateProductUrl(Long id, String url){
+        productDao.updateProductURL(id, url);
+    }
+
+    @Override
+    @Transactional
+    public void updateProductCategory(Long id, Category cat){
+        productDao.updateProductCategory(id, cat);
     }
 
 
