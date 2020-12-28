@@ -105,4 +105,10 @@ public class CustomerController {
         else
             return ResponseEntity.ok(false);
     }
+
+    @PostMapping("/update-data")
+    public ResponseEntity<Boolean> changeCustomerData(@RequestParam String username,@RequestParam String name,@RequestParam String surname, @RequestParam String phoneNumber,@RequestParam String iva)
+    {
+        return ResponseEntity.ok(customerService.updateDataCustomer(username,name,surname,phoneNumber,Long.parseLong(iva)));
+    }
 }

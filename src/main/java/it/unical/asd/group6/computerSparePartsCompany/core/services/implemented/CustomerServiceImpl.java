@@ -145,4 +145,11 @@ public class CustomerServiceImpl implements CustomerService {
         customerDao.updateCustomerPassword(username,password);
         return true;
     }
+
+    @Transactional
+    public Boolean updateDataCustomer(String username,String name,String surname,String phoneNumber,Long iva)
+    {
+        customerDao.updateCustomerData(username,name,surname,phoneNumber,iva);
+        return true;
+    }
 }
