@@ -19,4 +19,8 @@ public interface CustomerService {
     Boolean searchByEmail(String email);
 
     Optional<Customer> getCustomerByUsername(String username);
+
+    void updateCustomerInfos(Customer c);
+
+    //boolean addCustomer(Customer c);
 }

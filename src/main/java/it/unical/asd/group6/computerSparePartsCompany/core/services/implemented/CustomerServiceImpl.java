@@ -64,9 +64,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> getCustomerByUsername(String username)
-    {
+    public Optional<Customer> getCustomerByUsername(String username) {
         Optional<Customer> customer = customerDao.findCustomerByUsername(username);
         return customer;
     }
+
+    @Override
+    public void updateCustomerInfos(Customer customer) {
+       customerDao.save(customer);
+    }
+
+
 }

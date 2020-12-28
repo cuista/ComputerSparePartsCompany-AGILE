@@ -1,9 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.services.EmployeeService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.EmployeeDao;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +28,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     {
         Optional<Employee> employee = employeeDao.findEmployeeByUsername(username);
         return employee;
+    }
+
+    @Override
+    public void updateEmployeeInfos(Employee employee) {
+        employeeDao.save(employee);
     }
 }
