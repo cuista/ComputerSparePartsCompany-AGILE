@@ -75,18 +75,18 @@ public class ProductController {
 
     @PostMapping("/add-product")
     public ResponseEntity<Boolean> add(
-            @RequestParam Double price, @RequestParam String brand,
+            @RequestParam String price, @RequestParam String brand,
             @RequestParam String model, @RequestParam String description, @RequestParam String url,
-            @RequestParam Long idWarehouse, @RequestParam Long idCategory, @RequestParam Long idOrder) {
+            @RequestParam String idWarehouse, @RequestParam String idCategory, @RequestParam String idOrder) {
         Product p = new Product();
-        p.setPrice(price);
+        p.setPrice(Double.parseDouble(price));
         p.setBrand(brand);
         p.setModel(model);
         p.setDescription(description);
         p.setImageUrl(url);
-        Warehouse wh = warehouseService.getWarehouseById(idWarehouse);
+        Warehouse wh = warehouseService.getWarehouseById(Long.parseLong(idWarehouse));
         p.setWarehouse(wh);
-        Category category = categoryService.getCategoryById(idCategory);
+        Category category = categoryService.getCategoryById(Long.parseLong(idCategory));
         p.setCategory(category);
         return ResponseEntity.ok(productService.addProduct(p));
     }
