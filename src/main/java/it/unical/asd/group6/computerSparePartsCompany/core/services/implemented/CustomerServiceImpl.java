@@ -26,17 +26,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Boolean registerNewCustomer(Customer customer) {
-        if (true){
+        if (true) {
             customerDao.save(customer);
             return true;
-        }else
+        } else
             return false;
 
     }
 
     private boolean checkPresenceInDatabase(Customer customer) {
         List<Customer> customers = customerDao.findAll();
-        for (Customer c: customers){
+        for (Customer c : customers) {
             if (c.getEmail().equals(customer.getEmail()) || c.getUsername().equals(customer.getUsername()))
                 return true;
         }
@@ -73,8 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> getCustomerByUsername(String username)
-    {
+    public Optional<Customer> getCustomerByUsername(String username) {
         Optional<Customer> customer = customerDao.findCustomerByUsername(username);
         return customer;
     }
@@ -83,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Integer getReportTotalPurchases(String username) {
         int totalPurchases;
         Optional<Customer> optCust = customerDao.findCustomerByUsername(username);
-        if (optCust.isPresent()){
+        if (optCust.isPresent()) {
             Customer customer = optCust.get();
             totalPurchases = customer.getPurchases().size();
             return totalPurchases;
@@ -95,10 +94,10 @@ public class CustomerServiceImpl implements CustomerService {
     public Double getReportTotalAmountSpent(String username) {
         double sum = 0.0;
         Optional<Customer> optCust = customerDao.findCustomerByUsername(username);
-        if (optCust.isPresent()){
+        if (optCust.isPresent()) {
             Customer customer = optCust.get();
             List<Purchase> purchases = customer.getPurchases();
-            for(Purchase p: purchases){
+            for (Purchase p : purchases) {
                 sum += p.getTotalPrice();
             }
             return sum;
@@ -109,14 +108,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Long getReportFavoriteCategory(String username) {
         Optional<Customer> optCust = customerDao.findCustomerByUsername(username);
-        if (optCust.isPresent()){
+        if (optCust.isPresent()) {
             Customer customer = optCust.get();
             List<Purchase> purchases = customer.getPurchases();
             HashMap<Long, Integer> countCategory = initializeHashMapCategory();
-                for(Purchase p: purchases){
-                    List<Product> products = p.getProducts();
-                    for(Product pr: products){
-                        countCategory.put(pr.getCategory().getId(), countCategory.get(pr.getCategory().getId()) + 1);
+            for (Purchase p : purchases) {
+                List<Product> products = p.getProducts();
+                for (Product pr : products) {
+                    countCategory.put(pr.getCategory().getId(), countCategory.get(pr.getCategory().getId()) + 1);
                 }
             }
             return countCategory.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
@@ -127,15 +126,23 @@ public class CustomerServiceImpl implements CustomerService {
     private HashMap<Long, Integer> initializeHashMapCategory() {
         HashMap<Long, Integer> hm = new HashMap<Long, Integer>();
         List<Category> categories = categoryDao.findAll();
-        for(Category c: categories)
+        for (Category c : categories)
             hm.put(c.getId(), 0);
         return hm;
     }
 
 
     @Transactional
-    public Boolean deleteCustomer(String username){
+    public Boolean deleteCustomer(String username) {
         customerDao.deleteByUsername(username);
         Optional<Customer> customerOptional = customerDao.findCustomerByUsername(username);
         return !customerOptional.isPresent();
-    }}
+    }
+
+    @Transactional
+    public Boolean updateCustomer(String username,String password)
+    {
+        customerDao.updateCustomerPassword(username,password);
+        return true;
+    }
+}

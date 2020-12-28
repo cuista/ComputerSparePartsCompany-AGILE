@@ -96,4 +96,10 @@ public class CustomerController {
     public ResponseEntity<Long> getFavoriteCategory(@RequestParam String username){
         return ResponseEntity.ok(customerService.getReportFavoriteCategory(username));
     }
+
+    @PostMapping("/c")
+    public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password)
+    {
+        return ResponseEntity.ok(customerService.updateCustomer(username,password));
+    }
 }

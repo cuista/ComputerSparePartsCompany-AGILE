@@ -3,6 +3,9 @@ package it.unical.asd.group6.computerSparePartsCompany.data.dao;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,5 +29,9 @@ public interface CustomerDao extends JpaRepository<Customer,Long> {
     Optional<Customer> findCustomerByEmail(String email);
 
     void deleteByUsername(String username);
+
+    @Modifying
+    @Query("UPDATE Customer c SET c.password =:password where c.username=:username")
+    void updateCustomerPassword(@Param("username")String username,String password);
 
 }
