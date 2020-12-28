@@ -97,7 +97,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getReportFavoriteCategory(username));
     }
 
-    @PostMapping("/c")
+    @PostMapping("/change-password")
     public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password)
     {
         return ResponseEntity.ok(customerService.updateCustomer(username,password));
