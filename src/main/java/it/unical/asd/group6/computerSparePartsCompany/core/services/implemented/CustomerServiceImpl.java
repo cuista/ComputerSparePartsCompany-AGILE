@@ -118,7 +118,18 @@ public class CustomerServiceImpl implements CustomerService {
                     countCategory.put(pr.getCategory().getId(), countCategory.get(pr.getCategory().getId()) + 1);
                 }
             }
-            return countCategory.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+
+            Long favId = null;
+            int maxCount = -1;
+
+            for (Long id: countCategory.keySet()){
+                if (countCategory.get(id) > maxCount){
+                    favId = id;
+                    maxCount = countCategory.get(id);
+                }
+            }
+
+            return favId;
         }
         return null;
     }
