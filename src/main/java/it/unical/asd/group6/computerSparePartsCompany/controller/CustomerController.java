@@ -98,8 +98,11 @@ public class CustomerController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password)
+    public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password,@RequestParam String oldPassword)
     {
-        return ResponseEntity.ok(customerService.updateCustomer(username,password));
+        if(oldPassword.equals(customerService.getCustomerByUsername(username).get().getPassword()))
+            return ResponseEntity.ok(customerService.updateCustomer(username,password));
+        else
+            return ResponseEntity.ok(false);
     }
 }

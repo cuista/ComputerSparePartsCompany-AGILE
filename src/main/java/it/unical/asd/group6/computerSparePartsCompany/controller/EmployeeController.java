@@ -45,8 +45,10 @@ public class EmployeeController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password)
+    public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password,@RequestParam String oldPassword)
     {
-        return ResponseEntity.ok(employeeService.updateEmployee(username,password));
-    }
+        if(oldPassword.equals(employeeService.getEmployeeByUsername(username).get().getPassword()))
+            return ResponseEntity.ok(employeeService.updateEmployee(username,password));
+        else
+            return ResponseEntity.ok(false);    }
 }
