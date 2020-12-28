@@ -24,7 +24,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/by-username")
-    public ResponseEntity<Optional<Employee>> getCustomerByUsername(String username)
+    public ResponseEntity<Optional<Employee>> getEmployeeByUsername(String username)
     {
         return ResponseEntity.ok(employeeService.getEmployeeByUsername(username));
     }
@@ -41,5 +41,12 @@ public class EmployeeController {
 
     @GetMapping("/report-favoritecategory")
     public ResponseEntity<Long> getFavoriteCategory(){
-        return ResponseEntity.ok(employeeService.getReportFavoriteCategory());}
+        return ResponseEntity.ok(employeeService.getReportFavoriteCategory());
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password)
+    {
+        return ResponseEntity.ok(employeeService.updateEmployee(username,password));
+    }
 }

@@ -3,6 +3,9 @@ package it.unical.asd.group6.computerSparePartsCompany.data.dao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -19,4 +22,8 @@ public interface EmployeeDao extends JpaRepository<Employee,Long>, JpaSpecificat
     Optional<Employee> findEmployeeByUsernameAndPassword(String username, String password);
 
     Optional<Employee> findEmployeeByUsername(String username);
+
+    @Modifying
+    @Query("UPDATE Employee e SET e.password =:password where e.username=:username")
+    void updateEmployeePassword(@Param("username")String username, String password);
 }

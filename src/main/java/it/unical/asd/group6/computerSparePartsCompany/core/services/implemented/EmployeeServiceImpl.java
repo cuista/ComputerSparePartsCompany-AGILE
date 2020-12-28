@@ -7,6 +7,7 @@ import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -86,5 +87,12 @@ public class EmployeeServiceImpl implements EmployeeService{
         for(Category c: categories)
             hm.put(c.getId(), 0);
         return hm;
+    }
+
+    @Transactional
+    public Boolean updateEmployee(String username,String password)
+    {
+        employeeDao.updateEmployeePassword(username,password);
+        return true;
     }
 }
