@@ -15,4 +15,6 @@ public interface PurchaseNoticeDao extends JpaRepository<PurchaseNotice,Long> {
     Optional<List<PurchaseNotice>> findAllByCustomerId(Long customerId);
 
     Optional<List<PurchaseNotice>> findAllByQuantityGreaterThan(Integer quantity);
+
+    List<PurchaseNotice> findAll();
 }

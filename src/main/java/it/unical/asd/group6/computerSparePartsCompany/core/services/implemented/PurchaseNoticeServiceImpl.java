@@ -18,4 +18,17 @@ public class PurchaseNoticeServiceImpl implements PurchaseNoticeService {
     public List<PurchaseNotice> getView() {
         return purchaseNoticeDao.findAll();
     }
+
+    @Override
+    public Boolean add(PurchaseNotice p)
+    {
+        purchaseNoticeDao.save(p);
+        return true;
+    }
+
+    @Override
+    public List<PurchaseNotice>getAll()
+    {
+        return purchaseNoticeDao.findAll();
+    }
 }

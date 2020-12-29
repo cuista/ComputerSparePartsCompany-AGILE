@@ -163,4 +163,10 @@ public class CustomerServiceImpl implements CustomerService {
         customerDao.updateCustomerData(username,name,surname,phoneNumber,iva);
         return true;
     }
+
+    @Override
+    public Optional<Customer> getCustomerById(Long id)
+    {
+        return customerDao.findCustomerById(id);
+    }
 }

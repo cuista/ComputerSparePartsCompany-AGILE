@@ -25,4 +25,6 @@ public interface CustomerService {
     Double getReportTotalAmountSpent(String username);
 
     String getReportFavoriteCategory(String username);
+
+    Optional<Customer> getCustomerById(Long id);
 }

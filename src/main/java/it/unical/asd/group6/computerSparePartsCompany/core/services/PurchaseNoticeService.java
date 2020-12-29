@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PurchaseNoticeService {
     List<PurchaseNotice> getView();
+    Boolean add(PurchaseNotice p);
+    List<PurchaseNotice> getAll();
 }
