@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -172,5 +173,16 @@ public class ProductController {
             }
         }
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/filter-product-by-vars")
+    public ResponseEntity<List<Product>> filterProducts(
+            @RequestParam String category, @RequestParam List<String> brands,
+            @RequestParam String min, @RequestParam String max) {
+        Category my_category = categoryService.getCategoryByName(category);
+        if (brands.isEmpty()) {
+            return ResponseEntity.ok(productService.distinctProductByCategory(my_category, Double.parseDouble(min),Double.parseDouble(max)));
+        }
+        return ResponseEntity.ok(productService.distinctProductByCategoryAndBrandCollection(my_category, brands, Double.parseDouble(min),Double.parseDouble(max)));
     }
 }

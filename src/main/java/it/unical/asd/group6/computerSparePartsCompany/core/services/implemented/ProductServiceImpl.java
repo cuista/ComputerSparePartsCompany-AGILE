@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -131,6 +132,18 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public void updateProductCategory(Long id, Category cat){
         productDao.updateProductCategory(id, cat);
+    }
+
+    @Override
+    public List<Product> distinctProductByCategory(Category category, double min, double max) {
+        List<Product> temp = productDao.findProductByCategoryAndPriceBetween(category, min, max);
+        return  temp.stream().distinct().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> distinctProductByCategoryAndBrandCollection(Category category, Collection<String> brands, double min, double max) {
+        List<Product> temp = productDao.findProductByCategoryAndBrandInAndPriceBetween(category, brands, min, max);
+        return  temp.stream().distinct().collect(Collectors.toList());
     }
 
 

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,4 +55,7 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
     void updateProductAll(@Param("id")Long id, @Param("description") String description, @Param("price") Double price, @Param("url") String url, @Param("category") Category category);
 
 
+    List<Product> findProductByCategoryAndPriceBetween(Category category, double min, double max);
+
+    List<Product> findProductByCategoryAndBrandInAndPriceBetween(Category category, Collection<String> brands, double min, double max);
 }

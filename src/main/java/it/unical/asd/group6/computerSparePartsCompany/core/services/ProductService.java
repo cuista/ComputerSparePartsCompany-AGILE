@@ -2,8 +2,10 @@ package it.unical.asd.group6.computerSparePartsCompany.core.services;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ProductService {
@@ -44,4 +46,8 @@ public interface ProductService {
 
     @Transactional
     void updateProductCategory(Long id, Category cat);
+
+    List<Product> distinctProductByCategory(Category category, double min, double max);
+
+    List<Product> distinctProductByCategoryAndBrandCollection(Category category, Collection<String> brands, double min, double max);
 }
