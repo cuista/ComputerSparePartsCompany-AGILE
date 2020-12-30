@@ -1,5 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,11 +24,16 @@ public class Purchase {
     @JoinColumn(name = "CUSTOMER", referencedColumnName="ID")
     private Customer customer;
 
-    @OneToMany(mappedBy = "purchase", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Product> products = new ArrayList<>();
 
     @Column(name = "TOTAL_PRICE")
     private Double totalPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "WAREHOUSE", referencedColumnName = "ID")
+    private Warehouse warehouse;
 
     public Purchase() {}
 
@@ -72,6 +79,22 @@ public class Purchase {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void updateProductAssociation(){
+        for(Product prod : this.products){
+            prod.setPurchase(this);
+        }
     }
 
     @Override

@@ -74,5 +74,8 @@ public class CustomerServiceImpl implements CustomerService {
        customerDao.save(customer);
     }
 
-
+    @Override
+    public Optional<Customer> getCustomerById(Long id) {
+        return customerDao.findById(id);
+    }
 }

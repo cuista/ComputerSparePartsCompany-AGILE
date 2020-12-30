@@ -22,5 +22,7 @@ public interface CustomerService {
 
     void updateCustomerInfos(Customer c);
 
+    Optional<Customer> getCustomerById(Long id);
+
     //boolean addCustomer(Customer c);
 }

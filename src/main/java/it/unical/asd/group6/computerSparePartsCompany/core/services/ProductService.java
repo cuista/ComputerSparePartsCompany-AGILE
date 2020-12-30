@@ -24,4 +24,8 @@ public interface ProductService {
     List<Product> getProductDistinctByCategory(String category);
 
     Boolean addProduct(Product p);
+
+    List<Product> getProductByBrandAndModel(String brand, String model);
+
+    Product getProductById(Long id);
 }

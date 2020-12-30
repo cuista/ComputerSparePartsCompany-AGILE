@@ -1,5 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -30,6 +32,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "PURCHASE_ID", referencedColumnName = "ID" , nullable = true)
+    @JsonManagedReference
     private Purchase purchase;
 
     @ManyToOne
