@@ -3,6 +3,7 @@ package it.unical.asd.group6.computerSparePartsCompany.core.services;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
     List<Product> getAllProduct();
@@ -28,4 +29,8 @@ public interface ProductService {
     List<Product> getProductByBrandAndModel(String brand, String model);
 
     Product getProductById(Long id);
+
+    Optional<List<Product>> getAllProductsForAPurchase(Long id);
+
+    Optional<List<Product>> getAllPurchasedProducts();
 }

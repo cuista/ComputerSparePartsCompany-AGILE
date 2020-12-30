@@ -65,4 +65,17 @@ public class PurchaseController {
         return ResponseEntity.ok(purchaseService.getAllPurchases());
 
     }
+
+    @GetMapping("/{purchaseId}/products-purchased")
+    public ResponseEntity<List<Product>> getAllPurchasedProductForAPurchase(@PathVariable String purchaseId){
+
+        return ResponseEntity.ok(productService.getAllProductsForAPurchase(Long.parseLong(purchaseId)).get());
+
+    }
+
+    @GetMapping("/get-all-purchased-products")
+    public ResponseEntity<List<Product>> getAllPurchasedProduct(){
+
+        return ResponseEntity.ok(productService.getAllPurchasedProducts().get());
+    }
 }

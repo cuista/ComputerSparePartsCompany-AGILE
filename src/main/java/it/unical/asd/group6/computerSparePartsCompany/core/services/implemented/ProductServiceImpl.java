@@ -111,6 +111,24 @@ public class ProductServiceImpl implements ProductService {
         return product.get();
     }
 
+    @Override
+    public Optional<List<Product>> getAllProductsForAPurchase(Long id) {
+
+        Optional<List<Product>> productsByPurchase= productDao.productsByPurchase(id);
+
+
+        if (!productsByPurchase.isPresent()){
+            return null;
+        }
+
+        return productsByPurchase;
+    }
+
+    @Override
+    public Optional<List<Product>> getAllPurchasedProducts() {
+        return productDao.findAllByPurchase_IdIsNotNull();
+    }
+
     @Transactional
     public Boolean deleteProduct(String brand, String model){
         productDao.deleteAllByBrandAndModel(brand, model);
