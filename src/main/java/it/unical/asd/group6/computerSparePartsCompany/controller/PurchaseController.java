@@ -40,7 +40,7 @@ public class PurchaseController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price, @RequestParam String date, @RequestParam List<String> ids)
+    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price, @RequestParam String date, @RequestParam String id)
     {
         Purchase p = new Purchase();
         Optional<Customer> c = customerService.getCustomerByUsername(username);
@@ -48,11 +48,14 @@ public class PurchaseController {
             p.setCustomer(c.get());
         p.setDate(LocalDate.parse(date));
         p.setTotalPrice(Double.parseDouble(price));
-        for(int i = 0; i<ids.size(); i++)
+        String[]ids = id.split("-");
+
+        for(int i = 0; i<ids.length; i++)
         {
-            Product m = productService.getById(ids.get(i));
+            Product m = productService.getById(Long.parseLong(ids[i])).get();
             p.addProducts(m);
         }
+        purchaseService.add(p);
         return ResponseEntity.ok(true);
     }
 

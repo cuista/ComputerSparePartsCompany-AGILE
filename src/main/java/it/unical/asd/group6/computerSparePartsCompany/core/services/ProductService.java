@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
     List<Product> getAllProduct();
@@ -51,5 +52,5 @@ public interface ProductService {
 
     List<Product> distinctProductByCategoryAndBrandCollection(Category category, Collection<String> brands, double min, double max);
 
-    Product getById(String id);
+    Optional<Product> getById(Long id);
 }

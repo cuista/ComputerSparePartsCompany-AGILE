@@ -149,7 +149,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getById(String id)
+    public Optional<Product> getById(Long id)
     {
         return productDao.findById(id);
     }

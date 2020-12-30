@@ -7,4 +7,5 @@ import java.util.List;
 public interface PurchaseService {
     Boolean registerNewPurchase(Purchase purchase);
     List<Purchase> getAll();
+    Boolean add(Purchase p);
 }

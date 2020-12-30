@@ -25,4 +25,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     {
         return purchaseDao.findAll();
     }
+
+    @Override
+    public Boolean add(Purchase p)
+    {
+        purchaseDao.save(p);
+        return true;
+    }
 }
