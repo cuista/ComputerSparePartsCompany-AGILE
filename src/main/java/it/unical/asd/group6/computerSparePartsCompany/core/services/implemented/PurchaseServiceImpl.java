@@ -6,6 +6,8 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.PurchaseServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
@@ -16,5 +18,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     public Boolean registerNewPurchase(Purchase purchase) {
         purchaseDao.save(purchase);
         return true;
+    }
+
+    @Override
+    public List<Purchase> getAll()
+    {
+        return purchaseDao.findAll();
     }
 }

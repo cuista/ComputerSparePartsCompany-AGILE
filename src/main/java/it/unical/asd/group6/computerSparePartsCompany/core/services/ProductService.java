@@ -50,4 +50,6 @@ public interface ProductService {
     List<Product> distinctProductByCategory(Category category, double min, double max);
 
     List<Product> distinctProductByCategoryAndBrandCollection(Category category, Collection<String> brands, double min, double max);
+
+    Product getById(String id);
 }

@@ -16,6 +16,8 @@ import java.util.Optional;
 @Repository
 public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificationExecutor<Product> {
 
+    Product findById(String id);
+
     Optional<List<Product>> findAllByBrand(String brand);
 
     Optional<List<Product>> findAllByBrandAndModel(String brand, String model);

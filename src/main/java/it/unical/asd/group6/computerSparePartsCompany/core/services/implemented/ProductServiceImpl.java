@@ -148,5 +148,9 @@ public class ProductServiceImpl implements ProductService {
         return  temp.stream().distinct().collect(Collectors.toList());
     }
 
-
+    @Override
+    public Product getById(String id)
+    {
+        return productDao.findById(id);
+    }
 }
