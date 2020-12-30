@@ -26,7 +26,7 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
 
     Optional<List<Product>> findAllByModel(String model);
 
-    Optional<List<Product>> findAllByCategory(String category);
+    //Optional<List<Product>> findAllByCategory(String category);
 
     Optional<List<Product>> findAllByPriceBetween(Double p1, Double p2);
 
@@ -55,7 +55,8 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
     void updateProductAll(@Param("id")Long id, @Param("description") String description, @Param("price") Double price, @Param("url") String url, @Param("category") Category category);
 
 
-    List<Product> findProductByCategoryAndPriceBetween(Category category, double min, double max);
+    List<Product> findAllByCategoryIdAndPriceBetween(Long category, Double min, Double max);
 
-    List<Product> findProductByCategoryAndBrandInAndPriceBetween(Category category, Collection<String> brands, double min, double max);
+    List<Product> findAllByCategoryIdAndBrandInAndPriceBetween(Long category, Collection<String> brands, double min, double max);
+
 }

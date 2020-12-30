@@ -50,8 +50,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsByCategory(String category){
-        Optional<List<Product>> productOptional = productDao.findAllByCategory(category);
-        return productOptional.orElse(null);
+        /*Optional<List<Product>> productOptional = productDao.findAllByCategory(category);
+        return productOptional.orElse(null);*/
+        return null;
     }
 
     @Override
@@ -71,11 +72,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductDistinctByCategory(String category) {
-        List<Product> products = productDao.findAllByCategory(category).get().stream().distinct().collect(Collectors.toList());
+        /*List<Product> products = productDao.findAllByCategory(category).get().stream().distinct().collect(Collectors.toList());
         if(products.isEmpty()) {
             return null;
         }
-        return products;
+        return products;*/
+        return null;
     }
 
     @Override
@@ -136,13 +138,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> distinctProductByCategory(Category category, double min, double max) {
-        List<Product> temp = productDao.findProductByCategoryAndPriceBetween(category, min, max);
+        List<Product> temp = productDao.findAllByCategoryIdAndPriceBetween(category.getId(), min, max);
         return  temp.stream().distinct().collect(Collectors.toList());
     }
 
     @Override
     public List<Product> distinctProductByCategoryAndBrandCollection(Category category, Collection<String> brands, double min, double max) {
-        List<Product> temp = productDao.findProductByCategoryAndBrandInAndPriceBetween(category, brands, min, max);
+        List<Product> temp = productDao.findAllByCategoryIdAndBrandInAndPriceBetween(category.getId(), brands, min, max);
         return  temp.stream().distinct().collect(Collectors.toList());
     }
 

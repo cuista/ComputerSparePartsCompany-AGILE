@@ -177,10 +177,10 @@ public class ProductController {
 
     @GetMapping("/filter-product-by-vars")
     public ResponseEntity<List<Product>> filterProducts(
-            @RequestParam String category, @RequestParam List<String> brands,
+            @RequestParam String category, @RequestParam(required = false) List<String> brands,
             @RequestParam String min, @RequestParam String max) {
         Category my_category = categoryService.getCategoryByName(category);
-        if (brands.isEmpty()) {
+        if (brands == null) {
             return ResponseEntity.ok(productService.distinctProductByCategory(my_category, Double.parseDouble(min),Double.parseDouble(max)));
         }
         return ResponseEntity.ok(productService.distinctProductByCategoryAndBrandCollection(my_category, brands, Double.parseDouble(min),Double.parseDouble(max)));

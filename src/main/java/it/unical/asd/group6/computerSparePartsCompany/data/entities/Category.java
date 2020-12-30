@@ -1,5 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +17,7 @@ public class Category {
     private String categoryName;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Product> products;
 
     public Category() {}
