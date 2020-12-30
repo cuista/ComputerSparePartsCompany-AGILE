@@ -52,8 +52,9 @@ public class PurchaseController {
 
         for(int i = 0; i<ids.length; i++)
         {
-            Product m = productService.getById(Long.parseLong(ids[i])).get();
-            p.addProducts(m);
+            Optional<Product> m = productService.getById(Long.parseLong(ids[i]));
+            if(m.isPresent())
+                p.addProducts(m.get());
         }
         purchaseService.add(p);
         return ResponseEntity.ok(true);
