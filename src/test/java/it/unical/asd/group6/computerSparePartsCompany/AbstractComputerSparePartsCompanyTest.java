@@ -43,6 +43,12 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     @Value("classpath:data/categories.csv")
     private Resource categoriesRes;
 
+    @Value("classpath:data/orderRequests.csv")
+    private Resource orderRequestsRes;
+
+    @Value("classpath:data/productionHouses.csv")
+    private Resource productionHousesRes;
+
     @Autowired
     protected EmployeeDao employeeDao;
 
@@ -63,6 +69,12 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Autowired
     protected CategoryDao categoriesDao;
+
+    @Autowired
+    protected OrderRequestDao orderRequestDao;
+
+    @Autowired
+    protected ProductionHouseDao productionHouseDao;
 
     private static boolean isInitialized = false;
 
@@ -117,6 +129,18 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                     .parse(new InputStreamReader(categoriesRes.getInputStream()));
             for (CSVRecord record: categoryCSV){
                 insertCategory(record.get(0));
+            }
+
+            CSVParser productionHousesCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(productionHousesRes.getInputStream()));
+            for (CSVRecord record: productionHousesCsv){
+                insertProductionHouse(record.get(0));
+            }
+
+            CSVParser orderRequestsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(orderRequestsRes.getInputStream()));
+            for (CSVRecord record: orderRequestsCsv){
+                insertOrderRequest(Long.parseLong(record.get(0)),Long.parseLong(record.get(1)));
             }
 
             isInitialized=true;
@@ -211,6 +235,26 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
         purchaseNoticeDao.save(purchaseNotice);
 
+    }
+
+    private void insertOrderRequest(Long productionHouse_id, Long warehouse_id) {
+        OrderRequest orderRequest = new OrderRequest();
+
+        ProductionHouse productionHouse=productionHouseDao.findById(productionHouse_id).get();
+        orderRequest.setProductionHouse(productionHouse);
+
+        Warehouse warehouse=warehouseDao.findById(warehouse_id).get();
+        orderRequest.setWarehouse(warehouse);
+
+        orderRequestDao.saveAndFlush(orderRequest);
+    }
+
+    private void insertProductionHouse(String name) {
+        ProductionHouse productionHouse=new ProductionHouse();
+
+        productionHouse.setName(name);
+
+        productionHouseDao.saveAndFlush(productionHouse);
     }
 
 
