@@ -65,4 +65,11 @@ public class PurchaseController {
     {
         return ResponseEntity.ok(purchaseService.getAll());
     }
+
+    @GetMapping("/all-by-customer")
+    public ResponseEntity<List<Purchase>>getAllByCustomer(@RequestParam String username)
+    {
+        return ResponseEntity.ok(purchaseService.getAllByCustomer(customerService.getCustomerByUsername(username).get()));
+    }
+
 }

@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.dao;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,6 @@ public interface PurchaseNoticeDao extends JpaRepository<PurchaseNotice,Long> {
     Optional<List<PurchaseNotice>> findAllByQuantityGreaterThan(Integer quantity);
 
     List<PurchaseNotice> findAll();
+
+    List<PurchaseNotice> findAllByCustomer(Customer c);
 }

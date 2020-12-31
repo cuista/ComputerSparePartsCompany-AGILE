@@ -57,4 +57,10 @@ public class PurchaseNoticeController {
     {
         return purchaseNoticeService.getAll();
     }
+
+    @GetMapping("all-by-customer")
+    public List<PurchaseNotice>getAllByCustomer(@RequestParam String username)
+    {
+        return purchaseNoticeService.getAllByCustomer(customerService.getCustomerByUsername(username).get());
+    }
 }

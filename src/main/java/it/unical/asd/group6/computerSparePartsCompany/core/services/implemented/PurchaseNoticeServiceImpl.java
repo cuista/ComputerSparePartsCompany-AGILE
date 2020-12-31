@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.PurchaseNoticeDao;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.PurchaseNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class PurchaseNoticeServiceImpl implements PurchaseNoticeService {
     public List<PurchaseNotice>getAll()
     {
         return purchaseNoticeDao.findAll();
+    }
+
+    @Override
+    public List<PurchaseNotice> getAllByCustomer(Customer c) {
+        return purchaseNoticeDao.findAllByCustomer(c);
     }
 }
