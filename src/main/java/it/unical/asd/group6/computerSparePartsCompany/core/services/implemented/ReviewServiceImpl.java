@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -39,5 +40,16 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<Review> getAllByBrandAndModel(String brand, String model) {
         return reviewDao.findAllByBrandAndModel(brand,model);
+    }
+
+    @Override
+    public Boolean delete(Review r) {
+        reviewDao.delete(r);
+        return true;
+    }
+
+    @Override
+    public Optional<Review> getAllByCustomerAndTitleAndText(Customer c, String title, String text) {
+        return reviewDao.findAllByCustomerAndTitleAndText(c,title,text);
     }
 }

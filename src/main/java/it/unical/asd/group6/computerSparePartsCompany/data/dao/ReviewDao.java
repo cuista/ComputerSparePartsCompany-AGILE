@@ -5,6 +5,7 @@ import it.unical.asd.group6.computerSparePartsCompany.data.entities.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReviewDao extends JpaRepository<Review,Long> {
 
@@ -12,5 +13,6 @@ public interface ReviewDao extends JpaRepository<Review,Long> {
     Review findAllByText(String text);
     List<Review>findAllByCustomer(Customer c);
     List<Review>findAllByBrandAndModel(String brand,String model);
+    Optional<Review> findAllByCustomerAndTitleAndText(Customer c, String title, String text);
 
 }
