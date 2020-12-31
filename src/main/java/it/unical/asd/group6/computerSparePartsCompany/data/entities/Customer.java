@@ -46,6 +46,10 @@ public class Customer {
     @JsonIgnore
     private List<PurchaseNotice> purchaseNotices=new ArrayList<>();
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Review> reviews=new ArrayList<>();
+
     public Customer(){}
 
     public void addPurchase(Purchase p) {
