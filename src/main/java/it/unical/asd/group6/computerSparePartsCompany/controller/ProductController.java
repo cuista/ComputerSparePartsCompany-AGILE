@@ -78,7 +78,7 @@ public class ProductController {
     public ResponseEntity<Boolean> add(
             @RequestParam String price, @RequestParam String brand,
             @RequestParam String model, @RequestParam String description, @RequestParam String url,
-            @RequestParam String idWarehouse, @RequestParam String idCategory, @RequestParam String idOrder) {
+            @RequestParam String idWarehouse, @RequestParam String categoryName, @RequestParam String idOrder) {
         Product p = new Product();
         p.setPrice(Double.parseDouble(price));
         p.setBrand(brand);
@@ -87,7 +87,7 @@ public class ProductController {
         p.setImageUrl(url);
         Warehouse wh = warehouseService.getWarehouseById(Long.parseLong(idWarehouse));
         p.setWarehouse(wh);
-        Category category = categoryService.getCategoryById(Long.parseLong(idCategory));
+        Category category = categoryService.getCategoryByName(categoryName);
         p.setCategory(category);
         return ResponseEntity.ok(productService.addProduct(p));
     }
@@ -185,4 +185,6 @@ public class ProductController {
         }
         return ResponseEntity.ok(productService.distinctProductByCategoryAndBrandCollection(my_category, brands, Double.parseDouble(min),Double.parseDouble(max)));
     }
+
+    //controller per visualizzare marche
 }
