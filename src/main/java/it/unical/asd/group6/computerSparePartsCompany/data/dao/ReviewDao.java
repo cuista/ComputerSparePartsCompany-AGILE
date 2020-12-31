@@ -14,5 +14,6 @@ public interface ReviewDao extends JpaRepository<Review,Long> {
     List<Review>findAllByCustomer(Customer c);
     List<Review>findAllByBrandAndModel(String brand,String model);
     Optional<Review> findAllByCustomerAndTitleAndText(Customer c, String title, String text);
+    Optional<Review> findAllByCustomerAndTitleAndTextAndBrandAndModel(Customer c, String title, String text,String brand,String model);
 
 }

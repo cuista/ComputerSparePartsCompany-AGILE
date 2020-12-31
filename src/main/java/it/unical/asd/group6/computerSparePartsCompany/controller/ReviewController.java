@@ -55,18 +55,20 @@ public class ReviewController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean>delete(@RequestParam String username,@RequestParam String title,@RequestParam String text)
+    public ResponseEntity<Boolean>delete(@RequestParam String username,@RequestParam String title,@RequestParam String text,@RequestParam String brand,@RequestParam String model)
     {
-        /*questo perchè non possono esistere due recensioni dello stesso utente che abbiamo stesso titolo e testo*/
+        /*questo perchè non possono esistere due recensioni dello stesso utente che abbiamo stesso titolo e testo per uno stesso prodotto*/
         /*questo deve essere completato*/
         Customer c = customerService.getCustomerByUsername(username).get();
-        Optional<Review>r = reviewService.getAllByCustomerAndTitleAndText(c,title,text);
+        Optional<Review>r = reviewService.getAllByCustomerAndTitleAndTextAndBrandAndModel(c,title,text,brand,model);
         if(r.isPresent())
         {
             reviewService.delete(r.get());
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.ok(false);
-
     }
+
+    //@PostMapping("/add")
+
 }

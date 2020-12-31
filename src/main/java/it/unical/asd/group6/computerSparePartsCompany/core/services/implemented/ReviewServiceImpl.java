@@ -52,4 +52,15 @@ public class ReviewServiceImpl implements ReviewService {
     public Optional<Review> getAllByCustomerAndTitleAndText(Customer c, String title, String text) {
         return reviewDao.findAllByCustomerAndTitleAndText(c,title,text);
     }
+
+    @Override
+    public Optional<Review> getAllByCustomerAndTitleAndTextAndBrandAndModel(Customer c, String title, String text, String brand, String model) {
+        return reviewDao.findAllByCustomerAndTitleAndTextAndBrandAndModel(c,title,text,brand,model);
+    }
+
+    @Override
+    public Boolean insert(String username,Review r) {
+        /*INCOMPLETA*/
+        return true;
+    }
 }
