@@ -59,8 +59,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Boolean insert(String username,Review r) {
-        /*INCOMPLETA*/
+    public Boolean insert(Review r) {
+        reviewDao.save(r);
         return true;
     }
+
+    @Override
+    public Optional<Review> getByCustomerAndBrandAndModel(Customer c,String brand,String model)
+    {
+        return reviewDao.findByCustomerAndBrandAndModel(c,brand,model);
+    }
+
+
 }

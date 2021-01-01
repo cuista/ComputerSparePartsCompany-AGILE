@@ -13,5 +13,6 @@ public interface ReviewService {
     Boolean delete(Review r);
     Optional<Review>getAllByCustomerAndTitleAndText(Customer c,String title,String text);
     Optional<Review>getAllByCustomerAndTitleAndTextAndBrandAndModel(Customer c,String title,String text,String brand,String model);
-    Boolean insert(String username,Review r);
+    Boolean insert(Review r);
+    Optional<Review>getByCustomerAndBrandAndModel(Customer c,String brand,String model);
 }

@@ -69,6 +69,32 @@ public class ReviewController {
         return ResponseEntity.ok(false);
     }
 
-    //@PostMapping("/add")
+    @GetMapping("/by-brand-and-model")
+    public ResponseEntity<List<Review>> getAllByBrandAndModel(@RequestParam String brand,@RequestParam String model)
+    {
+        return ResponseEntity.ok(reviewService.getAllByBrandAndModel(brand,model));
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String brand,@RequestParam String model, @RequestParam String title, @RequestParam String text,@RequestParam String rate)
+    {
+        Customer c = customerService.getCustomerByUsername(username).get(); /*esiste sicuramente*/
+        /*se non esiste gia una recensione per quel prodotto allora */
+        Optional<Review> r = reviewService.getByCustomerAndBrandAndModel(c,brand,model);
+        if(r.isPresent())
+            return ResponseEntity.ok(false); /*ha gia messo una recensione per quel prodotto*/
+        else
+        {
+            Review review = new Review();
+            review.setBrand(brand);
+            review.setCustomer(c);
+            review.setModel(model);
+            review.setTitle(title);
+            review.setText(text);
+            review.setText(rate);
+            reviewService.addReview(review);
+        }
+        return ResponseEntity.ok(true);
+    }
 
 }
