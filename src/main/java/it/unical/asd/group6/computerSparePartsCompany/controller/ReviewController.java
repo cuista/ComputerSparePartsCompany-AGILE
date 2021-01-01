@@ -78,6 +78,8 @@ public class ReviewController {
     @PostMapping("/add")
     public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String brand,@RequestParam String model, @RequestParam String title, @RequestParam String text,@RequestParam String rate)
     {
+        /*un utente u non può aggiungere due recensioni allo stesso prodotto*/
+        /*il concetto di recensione si estende alla descrizione totale di tutti gli acquisti e non di un singolo*/
         Customer c = customerService.getCustomerByUsername(username).get(); /*esiste sicuramente*/
         /*se non esiste gia una recensione per quel prodotto allora */
         Optional<Review> r = reviewService.getByCustomerAndBrandAndModel(c,brand,model);
@@ -91,10 +93,22 @@ public class ReviewController {
             review.setModel(model);
             review.setTitle(title);
             review.setText(text);
-            review.setText(rate);
+            review.setRate(Long.parseLong(rate));
             reviewService.addReview(review);
         }
         return ResponseEntity.ok(true);
     }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<Boolean> deleteAll()
+    {
+        List<Review> reviews = reviewService.getAll();
+        for(int i = 0; i<reviews.size(); i++)
+        {
+            reviewService.delete(reviews.get(i));
+        }
+        return ResponseEntity.ok(true);
+    }
+
 
 }
