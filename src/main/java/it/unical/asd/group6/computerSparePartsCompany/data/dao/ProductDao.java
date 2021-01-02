@@ -56,8 +56,8 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
     @Query("UPDATE Product p SET p.description =:description, p.price =:price, p.imageUrl =:url, p.category =:category where p.id=:id")
     void updateProductAll(@Param("id")Long id, @Param("description") String description, @Param("price") Double price, @Param("url") String url, @Param("category") Category category);
 
-    @Query("SELECT p FROM Product p WHERE (:categories is null or p.category IN (:categories))"
-            + " and (:brand is null or p.brand IN (:brand)) and (:model is null"
+    @Query("SELECT p FROM Product p WHERE ((:categories) is null or p.category IN (:categories))"
+            + " and ((:brand) is null or p.brand IN (:brand)) and ((:model) is null"
             + " or p.model IN (:model)) and (p.price >= :min and p.price <= :max)")
     List<Product> findProductByBrandInAndModelInAndPriceBetween(
             @Param("categories") Collection<Category> categories,
