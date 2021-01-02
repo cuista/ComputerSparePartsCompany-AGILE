@@ -1,5 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.service.*;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.implementation.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import org.apache.commons.csv.CSVFormat;
@@ -75,6 +77,24 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Autowired
     protected ProductionHouseDao productionHouseDao;
+
+    @Autowired
+    protected PurchaseService purchaseService;
+
+    @Autowired
+    protected PurchaseNoticeService purchaseNoticeService;
+
+    @Autowired
+    protected ProductService productService;
+
+    @Autowired
+    protected EmployeeService employeeService;
+
+    @Autowired
+    protected CustomerService customerService;
+
+    @Autowired
+    protected ProductionHouseService productionHouseService;
 
     private static boolean isInitialized = false;
 

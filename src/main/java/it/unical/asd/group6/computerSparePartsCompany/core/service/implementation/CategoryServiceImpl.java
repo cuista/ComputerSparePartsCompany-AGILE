@@ -1,6 +1,6 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
+package it.unical.asd.group6.computerSparePartsCompany.core.service.implementation;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.services.CategoryService;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.CategoryService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CategoryDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;

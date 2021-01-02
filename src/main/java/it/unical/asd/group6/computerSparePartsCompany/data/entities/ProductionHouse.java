@@ -15,9 +15,6 @@ public class ProductionHouse {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "productionHouse", fetch = FetchType.EAGER)
-    private List<OrderRequest> orderRequests;
-
     public ProductionHouse() {}
 
     public Long getId() {
@@ -36,27 +33,18 @@ public class ProductionHouse {
         this.name = name;
     }
 
-    public List<OrderRequest> getOrderRequests() {
-        return orderRequests;
-    }
-
-    public void setOrderRequests(List<OrderRequest> orderRequests) {
-        this.orderRequests = orderRequests;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductionHouse that = (ProductionHouse) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(orderRequests, that.orderRequests);
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, orderRequests);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -64,7 +52,7 @@ public class ProductionHouse {
         return "ProductionHouse{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", orderRequests=" + orderRequests +
+                ", orderRequests=" +
                 '}';
     }
 }

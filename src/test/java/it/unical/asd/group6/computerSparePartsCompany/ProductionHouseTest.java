@@ -2,6 +2,7 @@ package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.ProductionHouse;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,13 @@ import java.util.Optional;
 @SpringBootTest
 public class ProductionHouseTest extends AbstractComputerSparePartsCompanyTest{
 
+    /*
+    Test Service
+    */
+    @Test
+    public void testSearchByName() {
+        assert (productionHouseService.searchByName("Intel").getId()==113L);
+    }
 
     /*
     Test DAO

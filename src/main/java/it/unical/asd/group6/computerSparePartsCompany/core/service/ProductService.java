@@ -1,4 +1,4 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.services;
+package it.unical.asd.group6.computerSparePartsCompany.core.service;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 
@@ -33,4 +33,6 @@ public interface ProductService {
     Optional<List<Product>> getAllProductsForAPurchase(Long id);
 
     Optional<List<Product>> getAllPurchasedProducts();
+
+    Boolean deleteProduct(String brand, String model);
 }

@@ -1,9 +1,8 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.services;
+package it.unical.asd.group6.computerSparePartsCompany.core.service;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CategoryService {
     Category getCategoryById(Long idCategory);

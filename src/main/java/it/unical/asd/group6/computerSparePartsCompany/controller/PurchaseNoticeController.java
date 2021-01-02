@@ -1,7 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.service.PurchaseNoticeService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseNoticeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +17,7 @@ import java.util.List;
 public class PurchaseNoticeController {
 
     @Autowired
-    PurchaseNoticeServiceImpl purchaseNoticeService;
+    private PurchaseNoticeService purchaseNoticeService;
 
     @GetMapping("/noticeView")
     public ResponseEntity<List<PurchaseNotice>> getView() {

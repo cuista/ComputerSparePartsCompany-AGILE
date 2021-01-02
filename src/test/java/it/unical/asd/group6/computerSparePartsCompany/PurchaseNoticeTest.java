@@ -1,6 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseNoticeServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.implementation.PurchaseNoticeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +14,6 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PurchaseNoticeTest extends AbstractComputerSparePartsCompanyTest {
-
-    @Autowired
-    private PurchaseNoticeServiceImpl purchaseNoticeService;
 
     /*
     Test service a seguire

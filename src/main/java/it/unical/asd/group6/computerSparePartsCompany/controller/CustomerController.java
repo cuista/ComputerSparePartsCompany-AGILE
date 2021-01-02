@@ -1,7 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.service.CustomerService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class CustomerController {
 
     @Autowired
-    CustomerServiceImpl customerService;
+    private CustomerService customerService;
 
     @GetMapping("/login")
     public ResponseEntity<Boolean> doLogin(

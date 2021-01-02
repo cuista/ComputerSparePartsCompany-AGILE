@@ -1,9 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.ProductServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.WarehouseServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.CustomerService;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.ProductService;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.PurchaseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.WarehouseService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,16 @@ import java.util.List;
 public class PurchaseController {
 
     @Autowired
-    ProductServiceImpl productService;
+    private ProductService productService;
 
     @Autowired
-    CustomerServiceImpl customerService;
+    private CustomerService customerService;
 
     @Autowired
-    PurchaseServiceImpl purchaseService;
+    private PurchaseService purchaseService;
 
     @Autowired
-    WarehouseServiceImpl warehouseService;
+    private WarehouseService warehouseService;
 
     @PostMapping("/savePurchase")
     public ResponseEntity<Boolean> addPurchase(@RequestBody Purchase purchase) {

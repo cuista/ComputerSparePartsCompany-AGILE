@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CategoryServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.CategoryService;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.implementation.CategoryServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    CategoryServiceImpl categoryService;
+    private CategoryService categoryService;
 
     @GetMapping("/all-categories")
     public ResponseEntity<List<Category>> getAll() {

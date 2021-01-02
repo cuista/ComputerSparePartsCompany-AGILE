@@ -1,7 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.service.implementation.EmployeeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,6 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EmployeeTest extends AbstractComputerSparePartsCompanyTest{
-
-    @Autowired
-    EmployeeServiceImpl employeeService;
 
     // SERVICE TESTs
 
