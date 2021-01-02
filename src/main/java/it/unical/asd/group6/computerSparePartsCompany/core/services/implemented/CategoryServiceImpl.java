@@ -28,4 +28,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category getCategoryByName(String category) {
         return categoryDao.findCategoryByCategoryName(category);
     }
+
+    @Override
+    public List<Category> getCategoryByList(List<String> category) {
+        return categoryDao.findCategoryByCategoryNameIn(category);
+    }
 }

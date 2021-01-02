@@ -149,6 +149,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> distinctProductFiltered(
+            Collection<Category> categories,
+            Collection<String> brands, Collection<String> models, Double min, Double max) {
+        List<Product> toDistinct = productDao.findProductByBrandInAndModelInAndPriceBetween(categories,brands,models,min,max);
+        return toDistinct.stream().distinct().collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<Product> getById(Long id)
     {
         return productDao.findById(id);

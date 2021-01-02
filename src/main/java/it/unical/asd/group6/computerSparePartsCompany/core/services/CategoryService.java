@@ -3,7 +3,6 @@ package it.unical.asd.group6.computerSparePartsCompany.core.services;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CategoryService {
     Category getCategoryById(Long idCategory);
@@ -11,4 +10,6 @@ public interface CategoryService {
     List<Category> getAllCategories();
 
     Category getCategoryByName(String category);
+
+    List<Category> getCategoryByList(List<String> category);
 }

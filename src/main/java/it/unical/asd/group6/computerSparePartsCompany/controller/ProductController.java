@@ -60,8 +60,8 @@ public class ProductController {
 
     @GetMapping("/all-products/min={min}&&max={max}")
     public ResponseEntity<List<Product>> showProductsByPriceRange(
-            @PathVariable("min") Double min, @PathVariable("max") Double max) {
-        return ResponseEntity.ok(productService.getProductsInPriceRange(min,max));
+            @PathVariable("min") String min, @PathVariable("max") String max) {
+        return ResponseEntity.ok(productService.getProductsInPriceRange(Double.valueOf(min),Double.valueOf(max)));
     }
 
     @GetMapping("/all-products/distinct")
@@ -160,10 +160,10 @@ public class ProductController {
     }
 
     @PostMapping("/update-product-by-category")
-    public ResponseEntity<Boolean> updateUrl(
-            @RequestParam String brand, @RequestParam String model, @RequestParam Long idCategory) {
+    public ResponseEntity<Boolean> updateCategory(
+            @RequestParam String brand, @RequestParam String model, @RequestParam String category) {
         List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
-        Category cat = categoryService.getCategoryById(idCategory);
+        Category cat = categoryService.getCategoryByName(category);
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
@@ -177,13 +177,23 @@ public class ProductController {
 
     @GetMapping("/filter-product-by-vars")
     public ResponseEntity<List<Product>> filterProducts(
-            @RequestParam String category, @RequestParam(required = false) List<String> brands,
+            @RequestParam(required = false) List<String> category, @RequestParam(required = false) List<String> brands,
+            @RequestParam(required = false) List<String> models,
             @RequestParam String min, @RequestParam String max) {
-        Category my_category = categoryService.getCategoryByName(category);
+        //return null;
+
+        List<Category> my_categories = null;
+        if(category != null) {
+            my_categories = categoryService.getCategoryByList(category);
+        }
+        return ResponseEntity.ok(productService.distinctProductFiltered(my_categories,brands,models,Double.valueOf(min),Double.valueOf(max)));
+        /*Category my_category = categoryService.getCategoryByName(category);
+        List<Product> temp = productService.getAllProduct();
         if (brands == null) {
             return ResponseEntity.ok(productService.distinctProductByCategory(my_category, Double.parseDouble(min),Double.parseDouble(max)));
         }
         return ResponseEntity.ok(productService.distinctProductByCategoryAndBrandCollection(my_category, brands, Double.parseDouble(min),Double.parseDouble(max)));
+        */
     }
 
     //controller per visualizzare marche

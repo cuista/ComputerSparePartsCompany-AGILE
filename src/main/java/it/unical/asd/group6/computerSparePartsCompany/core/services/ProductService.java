@@ -52,5 +52,7 @@ public interface ProductService {
 
     List<Product> distinctProductByCategoryAndBrandCollection(Category category, Collection<String> brands, double min, double max);
 
+    List<Product> distinctProductFiltered(Collection<Category> categories, Collection<String> brands, Collection<String> models, Double min, Double max);
+
     Optional<Product> getById(Long id);
 }
