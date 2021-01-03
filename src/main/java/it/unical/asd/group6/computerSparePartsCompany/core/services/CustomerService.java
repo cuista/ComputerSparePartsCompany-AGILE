@@ -27,4 +27,6 @@ public interface CustomerService {
     String getReportFavoriteCategory(String username);
 
     Optional<Customer> getCustomerById(Long id);
+
+    List<String>getAllUsernames();
 }

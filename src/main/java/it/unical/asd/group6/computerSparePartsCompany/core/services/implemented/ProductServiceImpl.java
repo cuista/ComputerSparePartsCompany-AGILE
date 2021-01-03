@@ -174,6 +174,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsByFilters(Category c, String brand, Double min, Double max) {
-        return productDao.findByFilters(c,brand,min,max);
+        List<Product>l =  productDao.findByFilters(c,brand,min,max);
+        return  l.stream().distinct().collect(Collectors.toList());
     }
 }

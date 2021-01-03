@@ -111,4 +111,10 @@ public class CustomerController {
     {
         return ResponseEntity.ok(customerService.updateDataCustomer(username,name,surname,phoneNumber,Long.parseLong(iva)));
     }
+
+    @GetMapping("/all-usernames")
+    public ResponseEntity<List<String>>getUsernames()
+    {
+        return ResponseEntity.ok(customerService.getAllUsernames());
+    }
 }

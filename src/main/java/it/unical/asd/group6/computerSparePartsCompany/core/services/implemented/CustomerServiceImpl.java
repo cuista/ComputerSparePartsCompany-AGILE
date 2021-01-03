@@ -169,4 +169,9 @@ public class CustomerServiceImpl implements CustomerService {
     {
         return customerDao.findCustomerById(id);
     }
+
+    @Override
+    public List<String> getAllUsernames() {
+        return customerDao.getAllUsernames();
+    }
 }
