@@ -63,4 +63,13 @@ public class PurchaseNoticeController {
     {
         return purchaseNoticeService.getAllByCustomer(customerService.getCustomerByUsername(username).get());
     }
+
+    @GetMapping("/all-by-filters")
+    public ResponseEntity<List<PurchaseNotice>>getAllByFilters(@RequestParam(required = false)String username,@RequestParam(required = false)String date)
+    {
+        LocalDate l = null;
+        if(date!=null)
+            l = LocalDate.parse(date);
+        return ResponseEntity.ok(purchaseNoticeService.getAllPurchaseNoticeByFilters(username,l));
+    }
 }

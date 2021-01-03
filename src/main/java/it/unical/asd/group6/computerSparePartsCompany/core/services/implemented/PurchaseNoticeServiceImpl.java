@@ -7,6 +7,7 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.PurchaseNoti
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,4 +38,11 @@ public class PurchaseNoticeServiceImpl implements PurchaseNoticeService {
     public List<PurchaseNotice> getAllByCustomer(Customer c) {
         return purchaseNoticeDao.findAllByCustomer(c);
     }
+
+    @Override
+    public List<PurchaseNotice> getAllPurchaseNoticeByFilters(String username, LocalDate l) {
+        return purchaseNoticeDao.getByFilters(username,l);
+    }
+
+
 }
