@@ -161,4 +161,14 @@ public class ProductServiceImpl implements ProductService {
     {
         return productDao.findById(id);
     }
+
+    @Override
+    public List<String> getAllBrands() {
+        return productDao.getAllBrands();
+    }
+
+    @Override
+    public List<String> getAllBrandsForCategory(Category category) {
+        return productDao.getAllBrandsByCategory(category);
+    }
 }

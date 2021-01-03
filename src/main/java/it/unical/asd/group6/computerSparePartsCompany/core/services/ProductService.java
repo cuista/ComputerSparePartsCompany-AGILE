@@ -55,4 +55,10 @@ public interface ProductService {
     List<Product> distinctProductFiltered(Collection<Category> categories, Collection<String> brands, Collection<String> models, Double min, Double max);
 
     Optional<Product> getById(Long id);
+
+    List<String> getAllBrands();
+
+    List<String> getAllBrandsForCategory(Category category);
+
+
 }

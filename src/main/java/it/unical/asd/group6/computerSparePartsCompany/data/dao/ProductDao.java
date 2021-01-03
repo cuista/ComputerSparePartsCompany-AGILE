@@ -68,4 +68,9 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
 
     List<Product> findAllByCategoryIdAndBrandInAndPriceBetween(Long category, Collection<String> brands, double min, double max);
 
+    @Query("SELECT DISTINCT p.brand FROM Product p")
+    List<String> getAllBrands();
+
+    @Query("SELECT DISTINCT p.brand FROM Product p where p.category =:c")
+    List<String> getAllBrandsByCategory(@Param("c") Category category);
 }

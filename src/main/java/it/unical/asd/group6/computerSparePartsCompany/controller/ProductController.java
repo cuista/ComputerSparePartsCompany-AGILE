@@ -196,5 +196,16 @@ public class ProductController {
         */
     }
 
-    //controller per visualizzare marche
+    @GetMapping("/get-brands")
+    public ResponseEntity<List<String>> getBrands()
+    {
+        return ResponseEntity.ok(productService.getAllBrands());
+    }
+
+    @GetMapping("/get-brands-by-category")
+    public ResponseEntity<List<String>> getBrandsByCategory(@RequestParam String category)
+    {
+        Category c = categoryService.getCategoryByName(category);
+        return ResponseEntity.ok(productService.getAllBrandsForCategory(c));
+    }
 }
