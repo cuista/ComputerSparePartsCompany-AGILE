@@ -60,5 +60,7 @@ public interface ProductService {
 
     List<String> getAllBrandsForCategory(Category category);
 
+    List<Product>getProductsByFilters(Category c,String brand,Double min,Double max);
+
 
 }

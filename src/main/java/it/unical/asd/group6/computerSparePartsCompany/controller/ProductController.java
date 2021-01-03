@@ -208,4 +208,19 @@ public class ProductController {
         Category c = categoryService.getCategoryByName(category);
         return ResponseEntity.ok(productService.getAllBrandsForCategory(c));
     }
+
+    @GetMapping("/get-products-by-filters")
+    public ResponseEntity<List<Product>> getByFilters(@RequestParam(required = false) String category,@RequestParam(required = false) String brand, @RequestParam(required = false) String min, @RequestParam(required = false) String max)
+    {
+        Category c = null;
+        if(categoryService.getCategoryByName(category) != null)
+            c = categoryService.getCategoryByName(category);
+        Double minP = null;
+        if(min != null)
+            minP = Double.parseDouble(min);
+        Double maxP = null;
+        if(max != null)
+            maxP = Double.parseDouble(max);
+        return ResponseEntity.ok(productService.getProductsByFilters(c,brand,minP,maxP));
+    }
 }
