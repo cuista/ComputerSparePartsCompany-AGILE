@@ -23,4 +23,10 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getAll() {
         return ResponseEntity.ok(categoryService.getAllCategories());
     }
+
+    @GetMapping("/all-name")
+    public ResponseEntity<List<String>>getAllNames()
+    {
+        return ResponseEntity.ok(categoryService.getAllName());
+    }
 }

@@ -12,4 +12,5 @@ public interface CategoryService {
     Category getCategoryByName(String category);
 
     List<Category> getCategoryByList(List<String> category);
+    List<String>getAllName();
 }
