@@ -4,12 +4,14 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.ReviewServic
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.PurchaseNoticeDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.ReviewDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -68,6 +70,12 @@ public class ReviewServiceImpl implements ReviewService {
     public Optional<Review> getByCustomerAndBrandAndModel(Customer c,String brand,String model)
     {
         return reviewDao.findByCustomerAndBrandAndModel(c,brand,model);
+    }
+
+    @Override
+    public List<Review> findByFilters(String username, Long rate,String brand,String model) {
+        List<Review>l =  reviewDao.findByFilters(username,rate,brand, model);
+        return  l.stream().distinct().collect(Collectors.toList());
     }
 
 

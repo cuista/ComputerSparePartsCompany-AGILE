@@ -15,4 +15,5 @@ public interface ReviewService {
     Optional<Review>getAllByCustomerAndTitleAndTextAndBrandAndModel(Customer c,String title,String text,String brand,String model);
     Boolean insert(Review r);
     Optional<Review>getByCustomerAndBrandAndModel(Customer c,String brand,String model);
+    List<Review>findByFilters(String username,Long rate,String brand,String model);
 }

@@ -110,5 +110,14 @@ public class ReviewController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping("/all-by-filters")
+    public ResponseEntity<List<Review>>getByFilters(@RequestParam(required = false)String username,@RequestParam(required = false)String rate,@RequestParam String brand,@RequestParam String model)
+    {
+        Long r = null;
+        if(rate!=null)
+            r = Long.parseLong(rate);
+        return ResponseEntity.ok(reviewService.findByFilters(username,r,brand,model));
+    }
+
 
 }
