@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, Renderer2 } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ReCaptcha2Component } from 'ngx-captcha';
 import { RegistrationService } from '../Services/data/registration.service';
+
+declare var grecaptcha: any; 
 
 @Component({
   selector: 'app-registration',
@@ -12,11 +16,21 @@ export class RegistrationComponent implements OnInit {
   correctFormatData = true;
   message = "";
   showMessage = false;
+  rec = null;
 
-  constructor(private registrationService: RegistrationService,
+  recaptchaKeySite = "6Leq5REaAAAAAPSUOgTK-Ylj73t9iv3w5F02X4mv";
+  recaptchaKeySecret = "6Leq5REaAAAAAD6qCQGHvCylsxUqaTmvWMLxNkBb";
+
+  constructor(
+    private registrationService: RegistrationService,
     private route: Router) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem('user')!=null)
+    {
+      this.route.navigate(['/404']);
+    }
+    grecaptcha.render('recaptcha', {'sitekey' : '6Ldk0RYaAAAAAPkmDFrs4UgGpfGu3rlDPegrwBve'});
   }
 
   hiddenMessage()
@@ -78,6 +92,11 @@ export class RegistrationComponent implements OnInit {
           (document.getElementById("labelUsername") as HTMLInputElement).style.visibility = "hidden"; 
         }
       });
+  }
+
+  setRecOriginal()
+  {
+    (document.getElementById("hiddenRecaptcha") as HTMLInputElement).setAttribute("class","text-sm text-gray-500");
   }
 
   existsEmail(email: string)
@@ -170,6 +189,11 @@ export class RegistrationComponent implements OnInit {
       (document.getElementById("labelPassword") as HTMLInputElement).style.visibility = "hidden"; 
       this.correctFormatData = false;
     }
+    if(grecaptcha.getResponse() == "")
+    {
+      this.correctFormatData = false;
+      (document.getElementById("hiddenRecaptcha") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
+    }
 
     this.existsEmail(email);
     this.existsUsername(username);
@@ -184,7 +208,7 @@ export class RegistrationComponent implements OnInit {
           }
           else 
           {
-  
+            
           }
         });
     }

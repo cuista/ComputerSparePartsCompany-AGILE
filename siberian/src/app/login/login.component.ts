@@ -18,7 +18,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    if(sessionStorage.getItem('user')!=null)
+    {
+      this.route.navigate(['/404']);
+    }
   }
 
   hideMessage()
@@ -38,7 +41,18 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("user",username);
           /*devo andare a controllarmi il tipo di login che viene fatto*/
           sessionStorage.setItem("type","customer"); /* per il momento lascio praticamente questo */
-          this.route.navigate(['']);
+          if(sessionStorage.getItem('fromCart') != null)
+          {
+            this.route.navigate(['/cart']);
+            sessionStorage.removeItem('fromCart');
+          }
+          else if(sessionStorage.getItem('fromAddReview') != null)
+          {
+            this.route.navigate(['/addReview']);
+            sessionStorage.removeItem('fromAddReview');
+          }
+          else
+            this.route.navigate(['']);
         }
         else 
         {

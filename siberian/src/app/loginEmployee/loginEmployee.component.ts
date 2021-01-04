@@ -37,6 +37,11 @@ export class LoginEmployeeComponent implements OnInit {
           sessionStorage.setItem("user",username);
           /*devo andare a controllarmi il tipo di login che viene fatto*/
           sessionStorage.setItem("type","employee"); /* per il momento lascio praticamente questo */
+          if(sessionStorage.getItem('fromCart') != null)
+          {
+            sessionStorage.removeItem('fromCart');
+            sessionStorage.removeItem('cartProducts');
+          }
           this.route.navigate(['']);
         }
         else 

@@ -1,38 +1,45 @@
 <app-topHeader></app-topHeader>
 <div>
   <div id="identity" class="flex justify-center text-4xl text-gray-500 mt-2">
-      Alfredo Farò
+      {{name}} {{surname}}
   </div>
   <div class="flex justify-center w-full">
     <img src = "https://www.flaticon.com/svg/static/icons/svg/783/783886.svg" style="max-width: 200px; max-height: 200px;" class="mt-3">
   </div>
-  <div id = "email" class="flex justify-center w-full text-2xl text-gray-500">
-    AlfredoFaro98
-  </div>
-  <div id = "phoneNumber" class="flex justify-center w-full text-2xl text-gray-500">
-    3895508616
-  </div>
-  <div id = "email" class="flex justify-center w-full text-2xl text-gray-500">
-    alfredo.faro1998@mail.edu
-  </div>
-  <div id = "vatID" class="flex justify-center w-full text-2xl text-gray-500" style="visibility: hidden;">
-    vatidentificationNumber
+  <div class="flex justify-center">
+    <div class="w-full">
+      <div id = "email" class="flex justify-center w-full text-2xl font-semibold text-gray-500">
+        {{username}}
+      </div>
+      <div id = "phoneNumber" class="flex justify-center w-full font-semibold text-gray-600">
+        {{phoneNumber}}
+      </div>
+      <div id = "email" class="flex justify-center w-full font-semibold text-gray-600">
+        {{email}}
+      </div>
+      <div id = "vatID" class="flex justify-center w-full font-semibold text-gray-600">
+        {{vatidentificationNumber}}
+      </div>
+      <div id="change" class="flex justify-center w-full font-semibold text-gray-600">
+        <button id="changeData" (click) = "changeData()" type = "button" class="bg-blue-600 w-1/2 sm:w-1/4 mx-2 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Update data</button>
+      </div>
+    </div>
   </div> 
 </div>
 
 
-<div class="sm:flex hidden" id="customerData" >
+<div class="sm:flex mt-3" id="customerData" >
   <div class="align-middle m-2 shadow-2xl sm:w-1/3 w-full py-10">
     <div class="w-full text-center font-semibold text-gray-600 inline-block">Purchases</div>
-    <div class="w-full text-center font-semibold text-gray-600 text-2xl inline-block">35</div>
+    <div class="w-full text-center font-semibold text-gray-600 text-2xl inline-block">{{totalPurchases}}</div>
   </div>
   <div class="align-middle m-2 shadow-2xl sm:w-1/3 w-full py-10">
     <div class="w-full text-center font-semibold text-gray-600 inline-block">Total amount</div>
-    <div class="w-full text-center font-semibold text-gray-600 text-2xl inline-block">$ 3509</div>
+    <div class="w-full text-center font-semibold text-gray-600 text-2xl inline-block">$ {{totalAmount}}</div>
   </div>
   <div class="align-middle m-2 shadow-2xl sm:w-1/3 w-full py-10">
     <div class="w-full text-center font-semibold text-gray-600 inline-block">Favourite category</div>
-    <div class="w-full text-center font-semibold text-gray-600 text-2xl inline-block">Ram</div>
+    <div class="w-full text-center font-semibold text-gray-600 text-2xl inline-block">{{favoriteCategory}}</div>
   </div>
 </div>
 
@@ -40,14 +47,15 @@
 <div class="sm:flex justify-center" id="employeeData">
   <div class="align-middle m-2 shadow-2xl sm:w-1/3 w-full py-10">
     <div class="w-full text-center font-semibold text-gray-600 inline-block">Hire date</div>
-    <div class="w-full text-center font-semibold text-gray-600 text-2xl inline-block">23/12/2007</div>
+    <div class="w-full text-center font-semibold text-gray-600 text-2xl inline-block">{{hiringDate}}</div>
   </div>
 </div>
 
-<div class="flex w-full justify-center my-10">
+<div class="flex w-full justify-center my-5">
   <!-- Qua dentro devo andare ad inserire i bottoni per il logout e per l'eliminazione dell'account-->
-  <button (click) = "logout()" type = "button" class="bg-blue-600 w-1/2 sm:w-1/4 mx-2 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Logout</button>
-  <button (click) = "changePassword()" type = "button" class="bg-blue-600 w-1/2 sm:w-1/4 mx-2 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Change Password</button>
-  <button (click) = "deleteAccount()" type = "button" class="bg-blue-600 w-1/2 sm:w-1/4 mx-2 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Delete Account</button>
+  
+  <button (click) = "logout()" type = "button" class="bg-blue-600 w-full sm:w-1/4 mx-2 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Logout</button>
+  <button (click) = "changePassword()" type = "button" class="bg-blue-600 w-full sm:w-1/4 mx-2 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Change Password</button>
+  <button id="deleteAccount" (click) = "deleteAccount()" type = "button" class="bg-blue-600 w-full sm:w-1/4 mx-2 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Delete Account</button>
 </div>
 <app-footer></app-footer>
