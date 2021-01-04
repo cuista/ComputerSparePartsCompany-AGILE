@@ -7,6 +7,7 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.PurchaseServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -38,5 +39,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<Purchase> getAllByCustomer(Customer c)
     {
         return purchaseDao.findAllByCustomer(c);
+    }
+
+    @Override
+    public List<Purchase> getAllByFilters(String username, LocalDate l) {
+        return purchaseDao.getByFilters(username,l);
     }
 }

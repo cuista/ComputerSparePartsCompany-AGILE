@@ -4,11 +4,8 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerServ
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.ProductServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.WarehouseServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -70,6 +67,15 @@ public class PurchaseController {
     public ResponseEntity<List<Purchase>>getAllByCustomer(@RequestParam String username)
     {
         return ResponseEntity.ok(purchaseService.getAllByCustomer(customerService.getCustomerByUsername(username).get()));
+    }
+
+    @GetMapping("/all-by-filters")
+    public ResponseEntity<List<Purchase>>getAllByFilters(@RequestParam(required = false)String username, @RequestParam(required = false)String date)
+    {
+        LocalDate l = null;
+        if(date!=null)
+            l = LocalDate.parse(date);
+        return ResponseEntity.ok(purchaseService.getAllByFilters(username,l));
     }
 
 }
