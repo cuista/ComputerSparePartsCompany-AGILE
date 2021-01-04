@@ -177,4 +177,10 @@ public class ProductServiceImpl implements ProductService {
         List<Product>l =  productDao.findByFilters(c,brand,min,max);
         return  l.stream().distinct().collect(Collectors.toList());
     }
+
+    @Override
+    public List<Product> getProductByRegex(String s) {
+        List<Product> products = productDao.findProductByBrandOrModelOrDescription(s);
+        return  products.stream().distinct().collect(Collectors.toList());
+    }
 }

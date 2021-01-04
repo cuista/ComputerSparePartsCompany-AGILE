@@ -223,4 +223,10 @@ public class ProductController {
             maxP = Double.parseDouble(max);
         return ResponseEntity.ok(productService.getProductsByFilters(c,brand,minP,maxP));
     }
+
+    @GetMapping("/get-product-by-regex")
+    public ResponseEntity<List<Product>> productsByRegex (@RequestParam String s) {
+        String regex = "%" + s.toLowerCase() + "%";
+        return ResponseEntity.ok(productService.getProductByRegex(regex));
+    }
 }

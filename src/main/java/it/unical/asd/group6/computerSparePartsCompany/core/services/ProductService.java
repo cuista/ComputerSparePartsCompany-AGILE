@@ -62,5 +62,5 @@ public interface ProductService {
 
     List<Product>getProductsByFilters(Category c,String brand,Double min,Double max);
 
-
+    List<Product> getProductByRegex(String s);
 }

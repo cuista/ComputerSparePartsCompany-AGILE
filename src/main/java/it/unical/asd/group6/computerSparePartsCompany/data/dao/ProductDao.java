@@ -80,5 +80,6 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
             "and (((:min) is null or (:max) is null) or (p.price >= :min and p.price <= :max))")
     List<Product> findByFilters(@Param("c") Category c, @Param("brand") String brand,@Param("min") Double priceMin,@Param("max")Double priceMax);
 
-
+    @Query(nativeQuery=true, value="SELECT * FROM PRODUCT WHERE LCASE (BRAND) LIKE ?1 OR LCASE (MODEL) LIKE ?1 OR LCASE (DESCRIPTION) LIKE ?1")
+    List<Product> findProductByBrandOrModelOrDescription(String regex);
 }
