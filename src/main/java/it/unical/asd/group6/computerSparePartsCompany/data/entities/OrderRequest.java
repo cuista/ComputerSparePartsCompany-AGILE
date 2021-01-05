@@ -1,7 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 // The name Order for this entity gave many problems with Spring Boot
@@ -16,14 +17,22 @@ public class OrderRequest {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCTION_HOUSE_ID", referencedColumnName = "ID")
+    @JsonManagedReference
     private ProductionHouse productionHouse;
 
     @ManyToOne
     @JoinColumn(name = "WAREHOUSE_ID", referencedColumnName = "ID")
+    @JsonManagedReference
     private Warehouse warehouse;
 
-    @OneToMany(mappedBy = "orderRequest", fetch = FetchType.EAGER)
-    private List<Product> products;
+    @Column(name = "PRODUCT_BRAND")
+    private String productBrand;
+
+    @Column(name = "PRODUCT_MODEL")
+    private String productModel;
+
+    @Column(name = "PRODUCT_QUANTITY")
+    private Integer productQuantity;
 
     public OrderRequest() {}
 
@@ -51,12 +60,28 @@ public class OrderRequest {
         this.warehouse = warehouse;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public String getProductBrand() {
+        return productBrand;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
+    }
+
+    public String getProductModel() {
+        return productModel;
+    }
+
+    public void setProductModel(String productModel) {
+        this.productModel = productModel;
+    }
+
+    public Integer getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(Integer productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
     @Override
@@ -67,12 +92,14 @@ public class OrderRequest {
         return Objects.equals(id, that.id) &&
                 Objects.equals(productionHouse, that.productionHouse) &&
                 Objects.equals(warehouse, that.warehouse) &&
-                Objects.equals(products, that.products);
+                Objects.equals(productBrand, that.productBrand) &&
+                Objects.equals(productModel, that.productModel) &&
+                Objects.equals(productQuantity, that.productQuantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productionHouse, warehouse, products);
+        return Objects.hash(id, productionHouse, warehouse, productBrand, productModel, productQuantity);
     }
 
     @Override
@@ -81,7 +108,11 @@ public class OrderRequest {
                 "id=" + id +
                 ", productionHouse=" + productionHouse +
                 ", warehouse=" + warehouse +
-                ", products=" + products +
+                ", productBrand='" + productBrand + '\'' +
+                ", productModel='" + productModel + '\'' +
+                ", productQuantity=" + productQuantity +
                 '}';
     }
+
+
 }

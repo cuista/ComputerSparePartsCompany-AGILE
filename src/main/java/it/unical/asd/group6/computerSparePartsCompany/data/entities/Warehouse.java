@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -45,6 +46,10 @@ public class Warehouse {
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Purchase> purchases= new ArrayList<>();
+
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<OrderRequest> orderRequestsSent = new ArrayList<>();
 
     public Warehouse(){}
 
@@ -125,6 +130,18 @@ public class Warehouse {
     }
 
     public void addPurchase(Purchase pur){this.purchases.add(pur);}
+
+    public void addOrderRequest(OrderRequest orderRequest){
+        this.orderRequestsSent.add(orderRequest);
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void updateOrderRequestsAssociation(){
+        for(OrderRequest orderRequest: this.orderRequestsSent){
+            orderRequest.setWarehouse(this);
+        }
+    }
 
     @Override
     public String toString() {

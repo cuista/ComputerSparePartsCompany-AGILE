@@ -1,6 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +17,10 @@ public class ProductionHouse {
 
     @Column(name = "NAME")
     private String name;
+
+    @OneToMany(mappedBy = "productionHouse", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<OrderRequest> orderRequestsReceived=new ArrayList<>();
 
     public ProductionHouse() {}
 
@@ -31,6 +38,18 @@ public class ProductionHouse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addOrderRequest(OrderRequest orderRequest){
+        this.orderRequestsReceived.add(orderRequest);
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void updateOrderRequestsAssociation(){
+        for(OrderRequest orderRequest: this.orderRequestsReceived){
+            orderRequest.setProductionHouse(this);
+        }
     }
 
     @Override

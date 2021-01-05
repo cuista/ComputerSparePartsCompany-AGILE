@@ -37,6 +37,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID", nullable = true)
+    @JsonManagedReference
     private OrderRequest orderRequest;
 
     @ManyToOne

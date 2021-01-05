@@ -1,7 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.ProductionHouse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +32,8 @@ public class OrderRequestTest extends AbstractComputerSparePartsCompanyTest{
 
     @Test
     public void testFindAllByProductionHouseAndWarehouse_OK(){
-        Optional<List<OrderRequest>> orderRequests=orderRequestDao.findAllByProductionHouseAndWarehouse(productionHouseDao.findByName("Intel").get(),warehouseDao.findById(21L).get());
+
+        Optional<List<OrderRequest>> orderRequests=orderRequestDao.findAllByProductionHouseAndWarehouse(productionHouseDao.findByName("Intel").get(),warehouseDao.findById(23L).get());
 
         assert(orderRequests.get().size()==1);
     }

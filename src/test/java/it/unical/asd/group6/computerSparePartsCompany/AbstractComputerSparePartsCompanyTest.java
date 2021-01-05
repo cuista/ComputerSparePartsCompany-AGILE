@@ -1,7 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.service.*;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.implementation.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import org.apache.commons.csv.CSVFormat;
@@ -160,7 +159,8 @@ public abstract class AbstractComputerSparePartsCompanyTest {
             CSVParser orderRequestsCsv = CSVFormat.DEFAULT.withDelimiter(',')
                     .parse(new InputStreamReader(orderRequestsRes.getInputStream()));
             for (CSVRecord record: orderRequestsCsv){
-                insertOrderRequest(Long.parseLong(record.get(0)),Long.parseLong(record.get(1)));
+                insertOrderRequest(Long.parseLong(record.get(0)),Long.parseLong(record.get(1)),record.get(2),record.get(3),
+                        Integer.parseInt(record.get(4)));
             }
 
             isInitialized=true;
@@ -257,7 +257,7 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     }
 
-    private void insertOrderRequest(Long productionHouse_id, Long warehouse_id) {
+    private void insertOrderRequest(Long productionHouse_id, Long warehouse_id, String productBrand, String productModel, Integer productQuantity) {
         OrderRequest orderRequest = new OrderRequest();
 
         ProductionHouse productionHouse=productionHouseDao.findById(productionHouse_id).get();
@@ -265,6 +265,10 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
         Warehouse warehouse=warehouseDao.findById(warehouse_id).get();
         orderRequest.setWarehouse(warehouse);
+
+        orderRequest.setProductBrand(productBrand);
+        orderRequest.setProductModel(productModel);
+        orderRequest.setProductQuantity(productQuantity);
 
         orderRequestDao.saveAndFlush(orderRequest);
     }

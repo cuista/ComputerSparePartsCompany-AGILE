@@ -17,4 +17,5 @@ public interface OrderRequestDao extends JpaRepository<OrderRequest,Long>, JpaSp
     Optional<List<OrderRequest>> findAllByWarehouse(Warehouse warehouse);
     Optional<List<OrderRequest>> findAllByProductionHouseAndWarehouse(ProductionHouse productionHouse,Warehouse warehouse);
 
+    Optional<List<OrderRequest>> findAllByWarehouse_Id(Long warehouse_id);
 }
