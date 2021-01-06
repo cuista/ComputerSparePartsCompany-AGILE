@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.services.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import org.apache.commons.csv.CSVFormat;
@@ -43,6 +44,12 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     @Value("classpath:data/categories.csv")
     private Resource categoriesRes;
 
+    @Value("classpath:data/orderRequests.csv")
+    private Resource orderRequestsRes;
+
+    @Value("classpath:data/productionHouses.csv")
+    private Resource productionHousesRes;
+
     @Autowired
     protected EmployeeDao employeeDao;
 
@@ -63,6 +70,30 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Autowired
     protected CategoryDao categoriesDao;
+
+    @Autowired
+    protected OrderRequestDao orderRequestDao;
+
+    @Autowired
+    protected ProductionHouseDao productionHouseDao;
+
+    @Autowired
+    protected PurchaseService purchaseService;
+
+    @Autowired
+    protected PurchaseNoticeService purchaseNoticeService;
+
+    @Autowired
+    protected ProductService productService;
+
+    @Autowired
+    protected EmployeeService employeeService;
+
+    @Autowired
+    protected CustomerService customerService;
+
+    @Autowired
+    protected ProductionHouseService productionHouseService;
 
     private static boolean isInitialized = false;
 
@@ -117,6 +148,19 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                     .parse(new InputStreamReader(categoriesRes.getInputStream()));
             for (CSVRecord record: categoryCSV){
                 insertCategory(record.get(0));
+            }
+
+            CSVParser productionHousesCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(productionHousesRes.getInputStream()));
+            for (CSVRecord record: productionHousesCsv){
+                insertProductionHouse(record.get(0));
+            }
+
+            CSVParser orderRequestsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(orderRequestsRes.getInputStream()));
+            for (CSVRecord record: orderRequestsCsv){
+                insertOrderRequest(Long.parseLong(record.get(0)),Long.parseLong(record.get(1)),record.get(2),record.get(3),
+                        Integer.parseInt(record.get(4)));
             }
 
             isInitialized=true;
@@ -211,6 +255,30 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
         purchaseNoticeDao.save(purchaseNotice);
 
+    }
+
+    private void insertOrderRequest(Long productionHouse_id, Long warehouse_id, String productBrand, String productModel, Integer productQuantity) {
+        OrderRequest orderRequest = new OrderRequest();
+
+        ProductionHouse productionHouse=productionHouseDao.findById(productionHouse_id).get();
+        orderRequest.setProductionHouse(productionHouse);
+
+        Warehouse warehouse=warehouseDao.findById(warehouse_id).get();
+        orderRequest.setWarehouse(warehouse);
+
+        orderRequest.setProductBrand(productBrand);
+        orderRequest.setProductModel(productModel);
+        orderRequest.setProductQuantity(productQuantity);
+
+        orderRequestDao.saveAndFlush(orderRequest);
+    }
+
+    private void insertProductionHouse(String name) {
+        ProductionHouse productionHouse=new ProductionHouse();
+
+        productionHouse.setName(name);
+
+        productionHouseDao.saveAndFlush(productionHouse);
     }
 
 

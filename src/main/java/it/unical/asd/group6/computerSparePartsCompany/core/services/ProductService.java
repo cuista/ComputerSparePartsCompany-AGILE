@@ -63,4 +63,13 @@ public interface ProductService {
     List<Product>getProductsByFilters(Category c,String brand,Double min,Double max);
 
     List<Product> getProductByRegex(String s);
+
+    List<Product> getProductByBrandAndModel(String brand, String model);
+
+    Product getProductById(Long id);
+
+    Optional<List<Product>> getAllProductsForAPurchase(Long id);
+
+    Optional<List<Product>> getAllPurchasedProducts();
+
 }

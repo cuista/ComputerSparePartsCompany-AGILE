@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface EmployeeService {
 
-    public boolean checkLogin(String username, String password);
+    boolean checkLogin(String username, String password);
 
     Optional<Employee> getEmployeeByUsername(String username);
 
@@ -16,4 +16,6 @@ public interface EmployeeService {
     Double getReportTotalAmountSpent();
 
     String getReportFavoriteCategory();
+
+    void updateEmployeeInfos(Employee e);
 }

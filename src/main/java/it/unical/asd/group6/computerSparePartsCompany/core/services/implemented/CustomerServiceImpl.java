@@ -158,8 +158,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Transactional
-    public Boolean updateDataCustomer(String username,String name,String surname,String phoneNumber,Long iva)
-    {
+    public Boolean updateDataCustomer(String username,String name,String surname,String phoneNumber,Long iva) {
         customerDao.updateCustomerData(username,name,surname,phoneNumber,iva);
         return true;
     }
@@ -174,4 +173,10 @@ public class CustomerServiceImpl implements CustomerService {
     public List<String> getAllUsernames() {
         return customerDao.getAllUsernames();
     }
+
+    @Override
+    public void updateCustomerInfos(Customer customer) {
+       customerDao.save(customer);
+    }
+
 }

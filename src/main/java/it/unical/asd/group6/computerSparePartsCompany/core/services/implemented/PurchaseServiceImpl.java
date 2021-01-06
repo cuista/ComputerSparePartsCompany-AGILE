@@ -45,4 +45,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<Purchase> getAllByFilters(String username, LocalDate l) {
         return purchaseDao.getByFilters(username,l);
     }
+
+    @Override
+    public List<Purchase> getAllPurchases() {
+        return purchaseDao.findAll();
+    }
 }

@@ -29,4 +29,8 @@ public interface CustomerService {
     Optional<Customer> getCustomerById(Long id);
 
     List<String>getAllUsernames();
+
+    void updateCustomerInfos(Customer c);
+
+    //boolean addCustomer(Customer c);
 }
