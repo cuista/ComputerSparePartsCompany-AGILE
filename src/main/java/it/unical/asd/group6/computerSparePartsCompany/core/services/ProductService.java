@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.ProductDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import org.springframework.http.ResponseEntity;
@@ -10,23 +11,23 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<Product> getAllProduct();
+    List<ProductDTO> getAllProduct();
 
-    List<Product> getAllProductByBrand(String brand);
+    List<ProductDTO> getAllProductByBrand(String brand);
 
-    List<Product> getAllProductByBrandAndModel(String brand, String model);
+    List<ProductDTO> getAllProductByBrandAndModel(String brand, String model);
 
-    List<Product> getAllProductByPriceIsLessThan(Double price);
+    List<ProductDTO> getAllProductByPriceIsLessThan(Double price);
 
-    List<Product> getProductsByModel(String model);
+    List<ProductDTO> getProductsByModel(String model);
 
-    List<Product> getProductsByCategory(String category);
+    List<ProductDTO> getProductsByCategory(String category);
 
-    List<Product> getProductsInPriceRange(Double p1, Double p2);
+    List<ProductDTO> getProductsInPriceRange(Double p1, Double p2);
 
-    List<Product> getProductDistinct();
+    List<ProductDTO> getProductDistinct();
 
-    List<Product> getProductDistinctByCategory(String category);
+    List<ProductDTO> getProductDistinctByCategory(String category);
 
     Boolean addProduct(Product p);
 
@@ -52,7 +53,7 @@ public interface ProductService {
 
     List<Product> distinctProductByCategoryAndBrandCollection(Category category, Collection<String> brands, double min, double max);
 
-    List<Product> distinctProductFiltered(Collection<Category> categories, Collection<String> brands, Collection<String> models, Double min, Double max);
+    List<ProductDTO> distinctProductFiltered(Collection<Category> categories, Collection<String> brands, Collection<String> models, Double min, Double max);
 
     Optional<Product> getById(Long id);
 
@@ -60,16 +61,17 @@ public interface ProductService {
 
     List<String> getAllBrandsForCategory(Category category);
 
-    List<Product>getProductsByFilters(Category c,String brand,Double min,Double max);
+    List<ProductDTO> getProductsByFilters(Category c,String brand,Double min,Double max);
 
-    List<Product> getProductByRegex(String s);
+    List<ProductDTO> getProductByRegex(String s);
 
-    List<Product> getProductByBrandAndModel(String brand, String model);
+    List<ProductDTO> getProductByBrandAndModel(String brand, String model);
 
     Product getProductById(Long id);
 
-    Optional<List<Product>> getAllProductsForAPurchase(Long id);
+    List<ProductDTO> getAllProductsForAPurchase(Long id);
 
-    Optional<List<Product>> getAllPurchasedProducts();
+    List<ProductDTO> getAllPurchasedProducts();
 
+    List<Product> getAllEntityProductByBrandAndModel(String brand, String model);
 }

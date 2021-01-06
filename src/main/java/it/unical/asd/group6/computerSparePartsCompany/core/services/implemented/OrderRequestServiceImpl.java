@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class OrderRequestServiceImpl implements OrderRequestService {
 
     @Autowired
-    private OrderRequestDao orderRequestDao;
+    OrderRequestDao orderRequestDao;
 
     @Autowired
     ModelMapper modelMapper;
@@ -36,8 +36,9 @@ public class OrderRequestServiceImpl implements OrderRequestService {
     }
 
     @Override
-    public OrderRequest saveOrderRequest(OrderRequest orderRequest) {
-        return orderRequestDao.save(orderRequest);
+    public OrderRequestDTO saveOrderRequest(OrderRequest orderRequest) {
+        OrderRequest orderReq = orderRequestDao.save(orderRequest);
+        return modelMapper.map(orderReq, OrderRequestDTO.class);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class OrderRequestController {
     }
 
     @PostMapping("/save-orderRequest")
-    public ResponseEntity<OrderRequest> addOrderRequest(@RequestParam String warehouse, @RequestParam String prodHouse,
+    public ResponseEntity<OrderRequestDTO> addOrderRequest(@RequestParam String warehouse, @RequestParam String prodHouse,
                                                         @RequestParam String productBrand, @RequestParam String productModel,
                                                         @RequestParam Integer productQuantity){
 

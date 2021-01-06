@@ -3,6 +3,7 @@ package it.unical.asd.group6.computerSparePartsCompany.controller;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.CategoryService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.ProductDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Warehouse;
@@ -28,48 +29,48 @@ public class ProductController {
     private CategoryService categoryService;
 
     @GetMapping("/all-products")
-    public ResponseEntity<List<Product>> showAll(){
+    public ResponseEntity<List<ProductDTO>> showAll(){
         return ResponseEntity.ok(productService.getAllProduct());
     }
 
     @GetMapping("/all-products/brand={brand}")
-    public ResponseEntity<List<Product>> showAllByBrand(@PathVariable("brand") String brand){
+    public ResponseEntity<List<ProductDTO>> showAllByBrand(@PathVariable("brand") String brand){
         return ResponseEntity.ok(productService.getAllProductByBrand(brand));
     }
 
     @GetMapping("/all-products/brand={brand}/model={model}")
-    public ResponseEntity<List<Product>> showAllByBrandAndModel(@PathVariable("brand") String brand, @PathVariable("model") String model){
+    public ResponseEntity<List<ProductDTO>> showAllByBrandAndModel(@PathVariable("brand") String brand, @PathVariable("model") String model){
         return ResponseEntity.ok(productService.getAllProductByBrandAndModel(brand, model));
     }
 
     @GetMapping("/all-products/price={price}")
-    public ResponseEntity<List<Product>> showAllByByPriceIsLessThan(@PathVariable("price") Double price){
+    public ResponseEntity<List<ProductDTO>> showAllByByPriceIsLessThan(@PathVariable("price") Double price){
         return ResponseEntity.ok(productService.getAllProductByPriceIsLessThan(price));
     }
 
     @GetMapping("/all-products/mod={model}")
-    public ResponseEntity<List<Product>> showAllByModel(@PathVariable("model") String model){
+    public ResponseEntity<List<ProductDTO>> showAllByModel(@PathVariable("model") String model){
         return ResponseEntity.ok(productService.getProductsByModel(model));
     }
 
     @GetMapping("/all-products/categ={category}")
-    public ResponseEntity<List<Product>> showAllByCategory(@PathVariable("category") String category) {
+    public ResponseEntity<List<ProductDTO>> showAllByCategory(@PathVariable("category") String category) {
         return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
 
     @GetMapping("/all-products/min={min}&&max={max}")
-    public ResponseEntity<List<Product>> showProductsByPriceRange(
+    public ResponseEntity<List<ProductDTO>> showProductsByPriceRange(
             @PathVariable("min") String min, @PathVariable("max") String max) {
         return ResponseEntity.ok(productService.getProductsInPriceRange(Double.valueOf(min),Double.valueOf(max)));
     }
 
     @GetMapping("/all-products/distinct")
-    public ResponseEntity<List<Product>> getDistinctProducts() {
+    public ResponseEntity<List<ProductDTO>> getDistinctProducts() {
         return ResponseEntity.ok(productService.getProductDistinct());
     }
 
     @GetMapping("/all-products/distinct/{category}")
-    public ResponseEntity<List<Product>> getDistinctProducts(@PathVariable String category) {
+    public ResponseEntity<List<ProductDTO>> getDistinctProducts(@PathVariable String category) {
         return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
 
@@ -100,7 +101,7 @@ public class ProductController {
     public ResponseEntity<Boolean> updateAll(
             @RequestParam String brand, @RequestParam String model, @RequestParam String price,
             @RequestParam String description, @RequestParam String url, @RequestParam String categoryName) {
-        List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
+        List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         Category cat = categoryService.getCategoryByName(categoryName);
         if(temp == null) {
             return  ResponseEntity.ok(false);
@@ -116,7 +117,7 @@ public class ProductController {
     @PostMapping("/update-product-by-price")
     public ResponseEntity<Boolean> updatePrice(
             @RequestParam String brand, @RequestParam String model, @RequestParam Double price) {
-        List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
+        List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
@@ -131,7 +132,7 @@ public class ProductController {
     @PostMapping("/update-product-by-description")
     public ResponseEntity<Boolean> updateDescription(
             @RequestParam String brand, @RequestParam String model, @RequestParam String description) {
-        List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
+        List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
@@ -146,7 +147,7 @@ public class ProductController {
     @PostMapping("/update-product-by-url")
     public ResponseEntity<Boolean> updateUrl(
             @RequestParam String brand, @RequestParam String model, @RequestParam String url) {
-        List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
+        List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         if(temp == null) {
             return  ResponseEntity.ok(false);
         }
@@ -161,7 +162,7 @@ public class ProductController {
     @PostMapping("/update-product-by-category")
     public ResponseEntity<Boolean> updateCategory(
             @RequestParam String brand, @RequestParam String model, @RequestParam String category) {
-        List<Product> temp = productService.getAllProductByBrandAndModel(brand, model);
+        List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         Category cat = categoryService.getCategoryByName(category);
         if(temp == null) {
             return  ResponseEntity.ok(false);
@@ -175,7 +176,7 @@ public class ProductController {
     }
 
     @GetMapping("/filter-product-by-vars")
-    public ResponseEntity<List<Product>> filterProducts(
+    public ResponseEntity<List<ProductDTO>> filterProducts(
             @RequestParam(required = false) List<String> category, @RequestParam(required = false) List<String> brands,
             @RequestParam(required = false) List<String> models,
             @RequestParam String min, @RequestParam String max) {
@@ -196,21 +197,18 @@ public class ProductController {
     }
 
     @GetMapping("/get-brands")
-    public ResponseEntity<List<String>> getBrands()
-    {
+    public ResponseEntity<List<String>> getBrands() {
         return ResponseEntity.ok(productService.getAllBrands());
     }
 
     @GetMapping("/get-brands-by-category")
-    public ResponseEntity<List<String>> getBrandsByCategory(@RequestParam String category)
-    {
+    public ResponseEntity<List<String>> getBrandsByCategory(@RequestParam String category) {
         Category c = categoryService.getCategoryByName(category);
         return ResponseEntity.ok(productService.getAllBrandsForCategory(c));
     }
 
     @GetMapping("/get-products-by-filters")
-    public ResponseEntity<List<Product>> getByFilters(@RequestParam(required = false) String category,@RequestParam(required = false) String brand, @RequestParam(required = false) String min, @RequestParam(required = false) String max)
-    {
+    public ResponseEntity<List<ProductDTO>> getByFilters(@RequestParam(required = false) String category,@RequestParam(required = false) String brand, @RequestParam(required = false) String min, @RequestParam(required = false) String max) {
         Category c = null;
         if(categoryService.getCategoryByName(category) != null)
             c = categoryService.getCategoryByName(category);
@@ -224,7 +222,7 @@ public class ProductController {
     }
 
     @GetMapping("/get-product-by-regex")
-    public ResponseEntity<List<Product>> productsByRegex (@RequestParam String s) {
+    public ResponseEntity<List<ProductDTO>> productsByRegex (@RequestParam String s) {
         String regex = "%" + s.toLowerCase() + "%";
         return ResponseEntity.ok(productService.getProductByRegex(regex));
     }

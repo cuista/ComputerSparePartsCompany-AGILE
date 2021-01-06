@@ -4,6 +4,7 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerServ
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.ProductServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.WarehouseServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.ProductDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
@@ -45,8 +46,7 @@ public class PurchaseController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price, @RequestParam String date, @RequestParam String id)
-    {
+    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price, @RequestParam String date, @RequestParam String id) {
         Purchase p = new Purchase();
         Optional<Customer> c = customerService.getCustomerByUsername(username);
         if(c.isPresent())
@@ -55,8 +55,7 @@ public class PurchaseController {
         p.setTotalPrice(Double.parseDouble(price));
         String[]ids = id.split("-");
 
-        for(int i = 0; i<ids.length; i++)
-        {
+        for(int i = 0; i<ids.length; i++) {
             Optional<Product> m = productService.getById(Long.parseLong(ids[i]));
             if(m.isPresent())
                 p.addProducts(m.get());
@@ -72,14 +71,12 @@ public class PurchaseController {
     }
 
     @GetMapping("/all-by-customer")
-    public ResponseEntity<List<PurchaseDTO>>getAllByCustomer(@RequestParam String username)
-    {
+    public ResponseEntity<List<PurchaseDTO>>getAllByCustomer(@RequestParam String username) {
         return ResponseEntity.ok(purchaseService.getAllByCustomer(customerService.getCustomerByUsername(username).get()));
     }
 
     @GetMapping("/all-by-filters")
-    public ResponseEntity<List<PurchaseDTO>>getAllByFilters(@RequestParam(required = false)String username, @RequestParam(required = false)String date)
-    {
+    public ResponseEntity<List<PurchaseDTO>>getAllByFilters(@RequestParam(required = false)String username, @RequestParam(required = false)String date) {
         LocalDate l = null;
         if(date!=null)
             l = LocalDate.parse(date);
@@ -88,7 +85,7 @@ public class PurchaseController {
 
 
     @PostMapping("/savePurchase-by-parameters")
-    public ResponseEntity<Purchase> addPurchase(@RequestParam Long customerId, @RequestParam String date,
+    public ResponseEntity<Boolean> addPurchase(@RequestParam Long customerId, @RequestParam String date,
                                                 @RequestBody List<Long> productsId,@RequestParam Double price,
                                                 @RequestParam Long warehouse){
 
@@ -118,15 +115,13 @@ public class PurchaseController {
     }
 
     @GetMapping("/{purchaseId}/products-purchased")
-    public ResponseEntity<List<Product>> getAllPurchasedProductForAPurchase(@PathVariable String purchaseId){
+    public ResponseEntity<List<ProductDTO>> getAllPurchasedProductForAPurchase(@PathVariable String purchaseId){
 
-        return ResponseEntity.ok(productService.getAllProductsForAPurchase(Long.parseLong(purchaseId)).get());
-
+        return ResponseEntity.ok(productService.getAllProductsForAPurchase(Long.parseLong(purchaseId)));
     }
 
     @GetMapping("/get-all-purchased-products")
-    public ResponseEntity<List<Product>> getAllPurchasedProduct(){
-
-        return ResponseEntity.ok(productService.getAllPurchasedProducts().get());
+    public ResponseEntity<List<ProductDTO>> getAllPurchasedProduct(){
+        return ResponseEntity.ok(productService.getAllPurchasedProducts());
     }
 }

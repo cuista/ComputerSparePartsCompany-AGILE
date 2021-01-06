@@ -11,7 +11,7 @@ public interface OrderRequestService {
 
     public OrderRequestDTO getOrderRequestById(Long id);
 
-    public OrderRequest saveOrderRequest(OrderRequest orderRequest);
+    public OrderRequestDTO saveOrderRequest(OrderRequest orderRequest);
 
     List<OrderRequestDTO> getAllOrderRequestsForWarehouse(Long parseLong);
 }
