@@ -4,6 +4,7 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.OrderRequest
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductionHouseService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.OrderRequestDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,14 +31,14 @@ public class OrderRequestController {
     private ProductService productService;
 
     @GetMapping("/get-all-orderRequests")
-    public ResponseEntity<List<OrderRequest>> getAllOrderRequests(){
+    public ResponseEntity<List<OrderRequestDTO>> getAllOrderRequests(){
         return ResponseEntity.ok(orderRequestService.getAllOrderRequests());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderRequest> getOrderRequestById(@PathVariable String id){
+    public ResponseEntity<OrderRequestDTO> getOrderRequestById(@PathVariable String id){
 
-        OrderRequest orderRequest=orderRequestService.getOrderRequestById(Long.parseLong(id));
+        OrderRequestDTO orderRequest=orderRequestService.getOrderRequestById(Long.parseLong(id));
 
         return ResponseEntity.ok(orderRequest);
     }
@@ -63,8 +64,8 @@ public class OrderRequestController {
     }
 
     @GetMapping("/{warehouse}/get-all-requested-products")
-    public ResponseEntity<List<OrderRequest>> getAllOrderedProductsFromAWarehouse(@PathVariable String warehouse){
-        List<OrderRequest> orderRequestsSent = orderRequestService.getAllOrderRequestsForWarehouse(Long.parseLong(warehouse));
+    public ResponseEntity<List<OrderRequestDTO>> getAllOrderedProductsFromAWarehouse(@PathVariable String warehouse){
+        List<OrderRequestDTO> orderRequestsSent = orderRequestService.getAllOrderRequestsForWarehouse(Long.parseLong(warehouse));
 
         return ResponseEntity.ok(orderRequestsSent);
 

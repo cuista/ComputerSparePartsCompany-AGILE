@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
 
@@ -9,10 +10,10 @@ import java.util.List;
 
 public interface PurchaseService {
     Boolean registerNewPurchase(Purchase purchase);
-    List<Purchase> getAll();
+    List<PurchaseDTO> getAll();
     Boolean add(Purchase p);
-    List<Purchase> getAllByCustomer(Customer c);
-    List<Purchase> getAllByFilters(String username, LocalDate l);
+    List<PurchaseDTO> getAllByCustomer(Customer c);
+    List<PurchaseDTO> getAllByFilters(String username, LocalDate l);
 
-    List<Purchase> getAllPurchases();
+    List<PurchaseDTO> getAllPurchases();
 }

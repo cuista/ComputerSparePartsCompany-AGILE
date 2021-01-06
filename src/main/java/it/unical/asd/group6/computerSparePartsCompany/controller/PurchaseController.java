@@ -4,6 +4,7 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerServ
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.ProductServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.WarehouseServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerService;
@@ -65,19 +66,19 @@ public class PurchaseController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Purchase>> getAll()
+    public ResponseEntity<List<PurchaseDTO>> getAll()
     {
         return ResponseEntity.ok(purchaseService.getAll());
     }
 
     @GetMapping("/all-by-customer")
-    public ResponseEntity<List<Purchase>>getAllByCustomer(@RequestParam String username)
+    public ResponseEntity<List<PurchaseDTO>>getAllByCustomer(@RequestParam String username)
     {
         return ResponseEntity.ok(purchaseService.getAllByCustomer(customerService.getCustomerByUsername(username).get()));
     }
 
     @GetMapping("/all-by-filters")
-    public ResponseEntity<List<Purchase>>getAllByFilters(@RequestParam(required = false)String username, @RequestParam(required = false)String date)
+    public ResponseEntity<List<PurchaseDTO>>getAllByFilters(@RequestParam(required = false)String username, @RequestParam(required = false)String date)
     {
         LocalDate l = null;
         if(date!=null)
@@ -110,7 +111,7 @@ public class PurchaseController {
     }
 
     @GetMapping("/get-all-purchases")
-    public ResponseEntity<List<Purchase>> getAllPurchases(){
+    public ResponseEntity<List<PurchaseDTO>> getAllPurchases(){
 
         return ResponseEntity.ok(purchaseService.getAllPurchases());
 
