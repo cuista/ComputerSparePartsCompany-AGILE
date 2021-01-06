@@ -1,8 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.CategoryService;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.ProductService;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.WarehouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.CategoryService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Warehouse;

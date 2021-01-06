@@ -1,10 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.implementation.PurchaseNoticeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 

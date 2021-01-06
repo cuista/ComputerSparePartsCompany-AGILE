@@ -1,6 +1,6 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.service.implementation;
+package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.WarehouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.WarehouseDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;

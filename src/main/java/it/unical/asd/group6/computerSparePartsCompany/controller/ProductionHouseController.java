@@ -1,6 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.ProductionHouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductionHouseService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.ProductionHouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.service.implementation;
+package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.exception.ProductionHouseNotFoundException;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.ProductionHouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductionHouseService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.ProductionHouseDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.ProductionHouse;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.service.implementation;
+package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.ProductDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.ProductService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

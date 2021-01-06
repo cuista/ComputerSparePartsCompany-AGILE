@@ -1,8 +1,8 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.service.implementation;
+package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.exception.NoOrderRequestsSentForWarehouseException;
 import it.unical.asd.group6.computerSparePartsCompany.core.exception.OrderRequestNotFoundException;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.OrderRequestService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.OrderRequestService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.OrderRequestDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
