@@ -1,6 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.*;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import org.apache.commons.csv.CSVFormat;

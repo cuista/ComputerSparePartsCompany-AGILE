@@ -1,9 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.OrderRequestService;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.ProductService;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.ProductionHouseService;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.WarehouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.OrderRequestService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductionHouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

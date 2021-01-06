@@ -1,6 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.PurchaseNoticeService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.PurchaseNoticeService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.EmployeeService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.EmployeeService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

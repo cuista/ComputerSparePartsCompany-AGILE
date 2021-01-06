@@ -1,9 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.service.CustomerService;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.ProductService;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.PurchaseService;
-import it.unical.asd.group6.computerSparePartsCompany.core.service.WarehouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.PurchaseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
 import org.springframework.beans.factory.annotation.Autowired;
