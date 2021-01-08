@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductionHouseService;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.ProductionHouseDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.ProductionHouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public class ProductionHouseController {
     private ProductionHouseService productionHouseService;
 
     @PostMapping("/search-by-name")
-    public ResponseEntity<ProductionHouse> searchProductionHouse(@RequestParam(name="name") String name) {
+    public ResponseEntity<ProductionHouseDTO> searchProductionHouse(@RequestParam(name="name") String name) {
         return ResponseEntity.ok(productionHouseService.searchByName(name));
     }
 
