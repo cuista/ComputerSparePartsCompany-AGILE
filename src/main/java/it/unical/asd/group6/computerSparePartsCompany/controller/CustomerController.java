@@ -1,8 +1,10 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerService;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.CustomerByUsernameNotFoundException;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/customer")
@@ -18,6 +21,9 @@ public class CustomerController {
 
     @Autowired
     CustomerServiceImpl customerService;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @GetMapping("/login")
     public ResponseEntity<Boolean> doLogin(
@@ -59,8 +65,13 @@ public class CustomerController {
     }
 
     @GetMapping("/all-customers")
-    public ResponseEntity<List<Customer>> allCustomers() {
-        return ResponseEntity.ok(customerService.getAllCustomer());
+    public ResponseEntity<List<CustomerDTO>> allCustomers() {
+
+        List<Customer> customers = customerService.getAllCustomer();
+
+        List<CustomerDTO> customerDTOS= customers.stream().map(cust -> modelMapper.map(cust, CustomerDTO.class)).collect(Collectors.toList());
+
+        return ResponseEntity.ok(customerDTOS);
     }
 
     @GetMapping("/stringtest")
@@ -69,9 +80,13 @@ public class CustomerController {
     }
 
     @GetMapping("/by-username")
-    public ResponseEntity<Optional<Customer>> getCustomerByUsername(String username)
-    {
-        return ResponseEntity.ok(customerService.getCustomerByUsername(username));
+    public ResponseEntity<CustomerDTO> getCustomerByUsername(String username) {
+
+        Customer customer = customerService.getCustomerByUsername(username).orElseThrow(() -> new CustomerByUsernameNotFoundException(username));
+
+        CustomerDTO customerDTO = modelMapper.map(customer,CustomerDTO.class);
+
+        return ResponseEntity.ok(customerDTO);
     }
 
     @DeleteMapping("/del-customer")

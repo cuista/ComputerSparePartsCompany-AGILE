@@ -1,11 +1,13 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseNoticeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.WarehouseServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseNoticeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseNoticeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Warehouse;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/purchaseNotice")
@@ -28,10 +31,17 @@ public class PurchaseNoticeController {
     @Autowired
     WarehouseServiceImpl warehouseService;
 
+    @Autowired
+    ModelMapper modelMapper;
 
-    @GetMapping("/noticeView")
-    public ResponseEntity<List<PurchaseNotice>> getView() {
-        return ResponseEntity.ok(purchaseNoticeService.getView());
+
+    @GetMapping("/all-noticeViews")
+    public ResponseEntity<List<PurchaseNoticeDTO>> getView() {
+        List<PurchaseNotice> purchaseNotices = purchaseNoticeService.getView();
+
+        List<PurchaseNoticeDTO> purchaseNoticeDTOS = purchaseNotices.stream().map(purchNot -> modelMapper.map(purchNot, PurchaseNoticeDTO.class)).collect(Collectors.toList());
+
+        return ResponseEntity.ok(purchaseNoticeDTOS);
     }
 
     @PostMapping("/add-notice")
@@ -52,24 +62,27 @@ public class PurchaseNoticeController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping("/all")
-    public List<PurchaseNotice> getAll()
-    {
-        return purchaseNoticeService.getAll();
-    }
-
     @GetMapping("all-by-customer")
-    public List<PurchaseNotice>getAllByCustomer(@RequestParam String username)
-    {
-        return purchaseNoticeService.getAllByCustomer(customerService.getCustomerByUsername(username).get());
+    public ResponseEntity<List<PurchaseNoticeDTO>> getAllByCustomer(@RequestParam String username) {
+
+        List<PurchaseNotice> purchaseNoticesByCustomer=purchaseNoticeService.getAllByCustomer(customerService.getCustomerByUsername(username).get());
+
+        List<PurchaseNoticeDTO> purchaseNoticeDTOS=purchaseNoticesByCustomer.stream().map(purchNot -> modelMapper.map(purchNot, PurchaseNoticeDTO.class)).collect(Collectors.toList());
+
+        return ResponseEntity.ok(purchaseNoticeDTOS);
     }
 
     @GetMapping("/all-by-filters")
-    public ResponseEntity<List<PurchaseNotice>>getAllByFilters(@RequestParam(required = false)String username,@RequestParam(required = false)String date)
+    public ResponseEntity<List<PurchaseNoticeDTO>>getAllByFilters(@RequestParam(required = false)String username,@RequestParam(required = false)String date)
     {
         LocalDate l = null;
         if(date!=null)
             l = LocalDate.parse(date);
-        return ResponseEntity.ok(purchaseNoticeService.getAllPurchaseNoticeByFilters(username,l));
+
+        List<PurchaseNotice> purchaseNoticesByFilters=purchaseNoticeService.getAllPurchaseNoticeByFilters(username,l);
+
+        List<PurchaseNoticeDTO> purchaseNoticeDTOSByFilters=purchaseNoticesByFilters.stream().map(purchNot -> modelMapper.map(purchNot, PurchaseNoticeDTO.class)).collect(Collectors.toList());
+
+        return ResponseEntity.ok(purchaseNoticeDTOSByFilters);
     }
 }
