@@ -67,11 +67,9 @@ public class CustomerController {
     @GetMapping("/all-customers")
     public ResponseEntity<List<CustomerDTO>> allCustomers() {
 
-        List<Customer> customers = customerService.getAllCustomer();
+        List<CustomerDTO> customers = customerService.getAllCustomer();
 
-        List<CustomerDTO> customerDTOS= customers.stream().map(cust -> modelMapper.map(cust, CustomerDTO.class)).collect(Collectors.toList());
-
-        return ResponseEntity.ok(customerDTOS);
+        return ResponseEntity.ok(customers);
     }
 
     @GetMapping("/stringtest")
@@ -82,9 +80,7 @@ public class CustomerController {
     @GetMapping("/by-username")
     public ResponseEntity<CustomerDTO> getCustomerByUsername(String username) {
 
-        Customer customer = customerService.getCustomerByUsername(username).orElseThrow(() -> new CustomerByUsernameNotFoundException(username));
-
-        CustomerDTO customerDTO = modelMapper.map(customer,CustomerDTO.class);
+        CustomerDTO customerDTO = customerService.getCustomerByUsername(username).orElseThrow(() -> new CustomerByUsernameNotFoundException(username));
 
         return ResponseEntity.ok(customerDTO);
     }
@@ -133,6 +129,7 @@ public class CustomerController {
     @PutMapping("/{username}")
     public ResponseEntity<Customer> updateCustomerWithPut(@RequestBody Customer newCustomer, @PathVariable String username){
 
+        //FIXME SPOSTARE TUTTA L'IMPLEMENTAZIONE NEL SERVICE ALTRIMENTI KAPUT
         Optional<Customer> optionalCustomer = customerService.getCustomerByUsername(username);
 
         if (!optionalCustomer.isPresent()){

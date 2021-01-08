@@ -47,7 +47,7 @@ public class PurchaseController {
     public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price, @RequestParam String date, @RequestParam String id)
     {
         Purchase p = new Purchase();
-        Optional<Customer> c = customerService.getCustomerByUsername(username);
+        Optional<Customer> c = customerService.getCustomerByUsername(username); //FIXME SERVE SPOSTARE QUESTA IMPLEMENTAZIONE NEL RISPETTIVO SERVICE ALTRIMENTI KAPUT
         if(c.isPresent())
             p.setCustomer(c.get());
         p.setDate(LocalDate.parse(date));
@@ -74,6 +74,7 @@ public class PurchaseController {
     public ResponseEntity<List<Purchase>>getAllByCustomer(@RequestParam String username)
     {
         return ResponseEntity.ok(purchaseService.getAllByCustomer(customerService.getCustomerByUsername(username).get()));
+        //FIXME IL METODO GETCUSTOMERBYUSERNAME HA BISOGNO DI UN CUSTOMERDTO INVECE CHE DI UN CUSTOMER
     }
 
     @GetMapping("/all-by-filters")

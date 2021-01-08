@@ -50,6 +50,9 @@ public class OrderRequestController {
         OrderRequest orderRequest = new OrderRequest();
 
         orderRequest.setWarehouse(warehouseService.getWarehouseById(Long.parseLong(warehouse)));
+
+        //FIXME IL TIPO TORNATO E' PRODUCTIONHOUSEDTO MA IL TIPO VOLUTO DAL SET E' PRODUCTIONHOUSE ---> COSA SI DEVE FARE?
+
         orderRequest.setProductionHouse(productionHouseService.searchByName(prodHouse));
 
         orderRequest.setProductBrand(productBrand);

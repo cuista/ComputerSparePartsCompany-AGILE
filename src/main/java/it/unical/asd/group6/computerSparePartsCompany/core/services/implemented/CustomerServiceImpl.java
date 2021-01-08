@@ -2,18 +2,22 @@ package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CategoryDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerService;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -23,6 +27,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CategoryDao categoryDao;
+
+    @Autowired
+    ModelMapper mapper;
 
     @Override
     public Boolean registerNewCustomer(Customer customer) {
@@ -34,14 +41,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    private boolean checkPresenceInDatabase(Customer customer) {
+    /*private boolean checkPresenceInDatabase(Customer customer) {
         List<Customer> customers = customerDao.findAll();
         for (Customer c : customers) {
             if (c.getEmail().equals(customer.getEmail()) || c.getUsername().equals(customer.getUsername()))
                 return true;
         }
         return false;
-    }
+    }*/
 
     @Override
     public Boolean checkLogin(String username, String password) {
@@ -50,8 +57,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getAllCustomer() {
-        return customerDao.findAll();
+    public List<CustomerDTO> getAllCustomer() {
+        List<Customer> customers = customerDao.findAll();
+
+        return customers.stream().map(cust -> mapper.map(cust,CustomerDTO.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -73,9 +82,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> getCustomerByUsername(String username) {
-        Optional<Customer> customer = customerDao.findCustomerByUsername(username);
-        return customer;
+    public Optional<CustomerDTO> getCustomerByUsername(String username) {
+        CustomerDTO customerDTO = mapper.map(customerDao.findCustomerByUsername(username),CustomerDTO.class);
+        return Optional.of(customerDTO);
     }
 
     @Override

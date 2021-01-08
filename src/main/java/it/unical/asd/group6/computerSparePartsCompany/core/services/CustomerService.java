@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface CustomerService {
 
     Boolean checkLogin(String username, String password);
 
-    List<Customer> getAllCustomer();
+    List<CustomerDTO> getAllCustomer();
 
     Customer deleteUser(Customer customer);
 
@@ -18,7 +19,7 @@ public interface CustomerService {
 
     Boolean searchByEmail(String email);
 
-    Optional<Customer> getCustomerByUsername(String username);
+    Optional<CustomerDTO> getCustomerByUsername(String username);
 
     Integer getReportTotalPurchases(String username);
 

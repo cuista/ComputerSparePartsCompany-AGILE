@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.dao;
 
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
