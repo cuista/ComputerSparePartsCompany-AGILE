@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.EmployeeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,21 +26,21 @@ public class EmployeeController {
     }
 
     @GetMapping("/by-username")
-    public ResponseEntity<Optional<Employee>> getEmployeeByUsername(String username)
+    public ResponseEntity<Optional<EmployeeDTO>> getEmployeeByUsername(String username)
     {
         return ResponseEntity.ok(employeeService.getEmployeeByUsername(username));
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee newEmployee, @PathVariable String username){
+    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody Employee newEmployee, @PathVariable String username){
 
-        Optional<Employee> optionalEmployee = employeeService.getEmployeeByUsername(username);
+        Optional<EmployeeDTO> optionalEmployee = employeeService.getEmployeeByUsername(username);
 
         if (!optionalEmployee.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Employee employee = optionalEmployee.get();
+        EmployeeDTO employee = optionalEmployee.get();
 
         employee.setPassword(newEmployee.getPassword());
         employee.setUsername(newEmployee.getUsername());
