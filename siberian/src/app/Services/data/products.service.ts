@@ -120,6 +120,14 @@ export class ProductsService {
     return await this.httpClient.get("http://localhost:8080//products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
   }
 
+  async getSearchProducts(parameter:string)
+  {
+    const params = new HttpHeaders()
+        .set('s',parameter);
+    const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
+    return await this.httpClient.get(`http://localhost:8080//products/get-product-by-regex?s=${parameter}`,{headers,responseType:'json'}).toPromise();
+  }
+
 
 
 

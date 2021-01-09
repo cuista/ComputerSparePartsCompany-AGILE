@@ -2,118 +2,116 @@
 <div class="h-full py-6 flex">
   <div class="bg-white w-full">
     <div class="flex justify-center">
-      <div class=" w-full sm:mx-10 my-3 shadow-2xl bg-white rounded">
+      <div class="w-full sm:mx-10 my-3 shadow-2xl bg-white rounded">
+        <div class ="sm:flex">
+            <div class ="py-3 md:w-2/4 mx-3 p-floating-container" style = "max-width: 400px; max-height: 400px;">
+              <img src="{{url}}" style="width: 100%; height: 100%;">
+            </div>
+            <div class ="py-3 md:w-2/4 mx-3 p-floating-container">
+                <p style="display: inline-block; border-bottom: 4px solid #4900bc;" class = "text-2xl my-3">{{name}}</p>
+                <div class="w-full text-black-700 text-opacity-100 font-semibold text-xl">${{price}}</div>
+                <div id="availability" class="w-full text-black-700 text-opacity-100 font-semibold text-green-600 text-xl">{{availability}}</div>
+                <div class="text-2xl" *ngIf="averageRate == 1" style="color: #ffc700;">★</div>
+                <div class="text-2xl" *ngIf="averageRate == 2" style="color: #ffc700;">★★</div>
+                <div class="text-2xl" *ngIf="averageRate == 3" style="color: #ffc700;">★★★</div>
+                <div class="text-2xl" *ngIf="averageRate == 4" style="color: #ffc700;">★★★★</div>
+                <div class="text-2xl" *ngIf="averageRate == 5" style="color: #ffc700;">★★★★★</div>
 
-        <!--mi serve un div che contenga -->
-        <div class ="md:flex">
-          <div class ="py-3 md:w-2/4 mx-3 p-floating-container" style = "max-width: 400px; max-height: 400px;">
-            <img src="{{url}}" style="width: 100%; height: 100%;">
-          </div>
-          <div class ="py-3 md:w-2/4 mx-3 p-floating-container">
-              <p style="display: inline-block; border-bottom: 4px solid #4900bc;" class = "text-2xl my-3">{{name}}</p>
-              <div class="w-full text-black-700 text-opacity-100 font-semibold text-xl">${{price}}</div>
-              <div id="availability" class="w-full text-black-700 text-opacity-100 font-semibold text-green-600 text-xl">{{availability}}</div>
-              <div class="text-2xl" *ngIf="averageRate == 1" style="color: #ffc700;">★</div>
-              <div class="text-2xl" *ngIf="averageRate == 2" style="color: #ffc700;">★★</div>
-              <div class="text-2xl" *ngIf="averageRate == 3" style="color: #ffc700;">★★★</div>
-              <div class="text-2xl" *ngIf="averageRate == 4" style="color: #ffc700;">★★★★</div>
-              <div class="text-2xl" *ngIf="averageRate == 5" style="color: #ffc700;">★★★★★</div>
+                <div id="quantity" class="w-full text-black-700 text-opacity-100 font-semibold text-xl">Quantità: la deve vedere solo l'employee</div>
+                <div class="text-sm">
+                  {{description}}
+                </div>
+                <div class="flex justify-center pt-6">
+                  <button id="addToCart" (click)="addToCart()" type = "button" class="h-8 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Add to cart</button>
+                </div>
+                <div class="flex justify-center py-2">
+                  <button (click) = "modifyProduct()" id="modify" type = "button" class="h-8 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Modify</button>
+                </div>
+                <div class="flex justify-center">
+                  <button (click) = "openDeleteModal()" id="delete" type = "button" class="h-8 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Delete</button>
+                </div>
+                <div class="flex justify-center">
+                  <button (click)="addReview()" id="addReview" type = "button" class="h-8 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Add Review</button>
+                </div>
+            </div>
+        </div>
+        <!--review part-->
+        <div id="reviewDiv" class="m-3"> 
+            <!-- <div class="w-full">
+              <p style="display: inline-block; border-bottom: 4px solid #4900bc;" class = "text-2xl my-3">Reviews</p>
+            </div> -->
 
-              <div id="quantity" class="w-full text-black-700 text-opacity-100 font-semibold text-xl">Quantità: la deve vedere solo l'employee</div>
-              <div class="text-sm">
-                {{description}}
+            <div class="sm:mx-10 p-5 bg-white sm:flex">
+              <div class ="pt-2 mx-3 p-floating-container sm:w-1/3 w-full">
+                <div class="text-black font-semibold">Who?</div>
+                <select  name="Users" id="users" class="rounded-sm border py-0 border-gray-500 h-12 w-full">
+                  <option value="All users">All users</option>
+                  <option value="{{b}}" *ngFor="let b of usernames">{{b}}</option>  
+                </select>
               </div>
-              <div class="flex justify-center pt-6">
-                <button id="addToCart" (click)="addToCart()" type = "button" class="h-12 bg-blue-600 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Add to cart</button>
+              <div class ="pt-2 mx-3 p-floating-container sm:w-1/3 w-full">
+                <div class="text-black font-semibold">Which rating?</div>
+                <select name="ratings" id="ratings" class="mx-1 h-12 rounded-sm border w-full border-gray-500">
+                  <option style="color: #ffc700;" value="All ratings">All ratings</option>
+                  <option style="color: #ffc700;" value="★">★</option>
+                  <option style="color: #ffc700;" value="★★">★★</option>
+                  <option style="color: #ffc700;" value="★★★">★★★</option>
+                  <option style="color: #ffc700;" value="★★★★">★★★★</option>
+                  <option style="color: #ffc700;" value="★★★★★">★★★★★</option>                
+                </select>
               </div>
-              <div class="flex justify-center py-2">
-                <button (click) = "modifyProduct()" id="modify" type = "button" class="h-12 bg-blue-600 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Modify</button>
+              
+              <div class="pt-8 p-floating-container sm:w-1/3 w-full flex justify-center">
+                <button (click)="getReviews(1)" style="color: white; background-color:  #4900bc;" class=" w-full h-12 ">Display review</button>
               </div>
+            </div>
+
+
+            <div class="mx-24" *ngFor="let n of pagedItems;">
+              <div *ngIf="reviews.length > 0" class="px-3 border border-gray-500">
+                <div class="text-2xl" *ngIf="n.rate == '1'" style="color: #ffc700;">★</div>
+                <div class="text-2xl" *ngIf="n.rate == '2'" style="color: #ffc700;">★★</div>
+                <div class="text-2xl" *ngIf="n.rate == '3'" style="color: #ffc700;">★★★</div>
+                <div class="text-2xl" *ngIf="n.rate == '4'" style="color: #ffc700;">★★★★</div>
+                <div class="text-2xl" *ngIf="n.rate == '5'" style="color: #ffc700;">★★★★★</div>
+                <div class="text-base">{{n.customer.username}}</div>
+                <div class="text-xl font-semibold">{{n.title}}</div>
+                <div class="text-sm">{{n.text}}</div>
+                <div class="flex justify-center">
+                  <button *ngIf = "username == n.customer.username || userType == 'employee'" (click)="removeReview(n.title,n.text,n.rate)" id="remove" type = "button" class="h-6 bg-blue-600 sm:w-1/5 w-full m-0.5" style = "color:#FFF; background-color:#4900bc;">Remove</button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="reviews.length == 0">
               <div class="flex justify-center">
-                <button (click)="deleteProduct()" id="delete" type = "button" class="h-12 bg-blue-600 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Delete</button>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/792/792130.svg" style="width: 10%; height: 10%;">
               </div>
-              <div class="flex justify-center">
-                <button (click)="addReview()" id="addReview" type = "button" class="h-12 bg-blue-600 w-full hidden" style = "color:#FFF; background-color:#4900bc;">Add Review</button>
-              </div>
-          </div>
-       </div>
-       <!--review part-->
-       <div id="reviewDiv" class="m-3"> 
-          <div class="w-full">
-            <p style="display: inline-block; border-bottom: 4px solid #4900bc;" class = "text-2xl my-3">Reviews</p>
-          </div>
-
-          <div class="sm:mx-10 p-5 bg-white sm:flex">
-            <div class ="pt-2 mx-3 p-floating-container sm:w-1/3 w-full">
-              <div class="text-black font-semibold">Who?</div>
-              <select  name="Users" id="users" class="rounded-sm border py-0 border-gray-500 h-12 w-full">
-                <option value="All users">All users</option>
-                <option value="{{b}}" *ngFor="let b of usernames">{{b}}</option>  
-              </select>
+              <div class="text-center font-semibold text-xl">No review regarding this product</div>
             </div>
-            <div class ="pt-2 mx-3 p-floating-container sm:w-1/3 w-full">
-              <div class="text-black font-semibold">Which rating?</div>
-              <select name="ratings" id="ratings" class="mx-1 h-12 rounded-sm border w-full border-gray-500">
-                <option style="color: #ffc700;" value="All ratings">All ratings</option>
-                <option style="color: #ffc700;" value="★">★</option>
-                <option style="color: #ffc700;" value="★★">★★</option>
-                <option style="color: #ffc700;" value="★★★">★★★</option>
-                <option style="color: #ffc700;" value="★★★★">★★★★</option>
-                <option style="color: #ffc700;" value="★★★★★">★★★★★</option>                
-              </select>
+
+
+
+            <div class="flex justify-center p-3">
+              <ul class="inline-block">
+                <li (click)="getReviews(1)" class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700"> 
+                  <a>First</a>
+                </li>
+                <li (click) = "getReviews(pager.currentPage-1)" class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                  <a>Previous</a>
+                </li>
+                <li (click) = "getReviews(page)" *ngFor="let page of pager.pages" class="inline-block py-3 px-5 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                  <a>{{page}}</a>
+                </li>
+                <li (click) = "getReviews(pager.currentPage+1)" class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                  <a>Next</a>
+                </li>
+                <li (click)="getReviews(pager.endPage)" class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                  <a>Last</a>
+                </li>
+              </ul>
             </div>
-            
-            <div class="pt-8 p-floating-container sm:w-1/3 w-full flex justify-center">
-              <button (click)="getReviews(1)" style="color: white; background-color:  #4900bc;" class=" w-full h-12 ">Display review</button>
-            </div>
-          </div>
-
-
-          <div *ngFor="let n of pagedItems;">
-            <div *ngIf="reviews.length > 0" class="px-3 border border-gray-500">
-              <div class="text-2xl" *ngIf="n.rate == '1'" style="color: #ffc700;">★</div>
-              <div class="text-2xl" *ngIf="n.rate == '2'" style="color: #ffc700;">★★</div>
-              <div class="text-2xl" *ngIf="n.rate == '3'" style="color: #ffc700;">★★★</div>
-              <div class="text-2xl" *ngIf="n.rate == '4'" style="color: #ffc700;">★★★★</div>
-              <div class="text-2xl" *ngIf="n.rate == '5'" style="color: #ffc700;">★★★★★</div>
-              <div class="text-base">{{n.customer.username}}</div>
-              <div class="text-xl font-semibold">{{n.title}}</div>
-              <div class="text-sm">{{n.text}}</div>
-              <div class="flex justify-center">
-                <button *ngIf = "username == n.customer.username || userType == 'employee'" (click)="removeReview(n.title,n.text,n.rate)" id="remove" type = "button" class="h-6 bg-blue-600 sm:w-1/5 w-full m-0.5" style = "color:#FFF; background-color:#4900bc;">Remove</button>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="reviews.length == 0">
-            <div class="flex justify-center">
-              <img src="https://www.flaticon.com/svg/static/icons/svg/792/792130.svg" style="width: 10%; height: 10%;">
-            </div>
-            <div class="text-center font-semibold text-xl">No review regarding this product</div>
-          </div>
-
-
-
-          <div class="flex justify-center p-3">
-            <ul class="inline-block">
-              <li (click)="getReviews(1)" class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700"> 
-                <a>First</a>
-              </li>
-              <li (click) = "getReviews(pager.currentPage-1)" class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                <a>Previous</a>
-              </li>
-              <li (click) = "getReviews(page)" *ngFor="let page of pager.pages" class="inline-block py-3 px-5 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                <a>{{page}}</a>
-              </li>
-              <li (click) = "getReviews(pager.currentPage+1)" class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                <a>Next</a>
-              </li>
-              <li (click)="getReviews(pager.endPage)" class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                <a>Last</a>
-              </li>
-            </ul>
-          </div>
-       </div>
-       
+        </div>
+        
        <!--end review-->
       </div>
     </div>
@@ -122,6 +120,25 @@
 
 
 <app-footer></app-footer>
+<div class="bg-black bg-opacity-50 absolute inset-0 hidden justify-center items-center" id="overlay">
+  <div class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800">
+      <div class="flex justify-between items-center">
+          <h4 class="text-lg font-bold">Confirm?</h4>
+          <svg (click)="openDeleteModal()" class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full" id="close-modal" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+          </svg>
+      </div>
+      <div class="mt-2 text-sm">
+          <p>Are you sure? You are going to delete permanently this product from the store</p>
+      </div>
+      <div class="mt-3 flex justify-end space-x-3">
+          <button (click) = "openDeleteModal()" class="px-3 py-1 rounded hover:bg-white hover:bg-opacity-50 hover:text-blu-900">Cancel</button>
+          <button (click)="deleteProduct()" class="px-3 py-1 text-gray-200 rounded" style = "color:#FFF; background-color:#4900bc;">Delete</button>
+      </div>
+  </div>
+</div>
 
 <style>
   a {
