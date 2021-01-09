@@ -1,18 +1,22 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.services.CategoryService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.OrderRequestService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.ProductDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -27,6 +31,9 @@ public class ProductController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    OrderRequestService orderRequestService;
 
     @GetMapping("/all-products")
     public ResponseEntity<List<ProductDTO>> showAll(){
@@ -79,6 +86,11 @@ public class ProductController {
             @RequestParam String price, @RequestParam String brand,
             @RequestParam String model, @RequestParam String description, @RequestParam String url,
             @RequestParam String idWarehouse, @RequestParam String categoryName, @RequestParam String idOrder) {
+
+        Optional<OrderRequest> orderRequest = orderRequestService.getOrderRequestEntityById(Long.valueOf(idOrder));
+        if(!orderRequest.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         Product p = new Product();
         p.setPrice(Double.parseDouble(price));
         p.setBrand(brand);
@@ -89,6 +101,7 @@ public class ProductController {
         p.setWarehouse(wh);
         Category category = categoryService.getCategoryByName(categoryName);
         p.setCategory(category);
+        p.setOrderRequest(orderRequest.get());
         return ResponseEntity.ok(productService.addProduct(p));
     }
 

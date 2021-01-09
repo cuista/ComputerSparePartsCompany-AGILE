@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +34,11 @@ public class OrderRequestServiceImpl implements OrderRequestService {
     public OrderRequestDTO getOrderRequestById(Long id) {
         OrderRequest orderRequest = orderRequestDao.findById(id).orElseThrow(()-> new OrderRequestNotFoundException(id));
         return modelMapper.map(orderRequest,OrderRequestDTO.class);
+    }
+
+    @Override
+    public Optional<OrderRequest> getOrderRequestEntityById(Long id) {
+        return orderRequestDao.findById(id);
     }
 
     @Override

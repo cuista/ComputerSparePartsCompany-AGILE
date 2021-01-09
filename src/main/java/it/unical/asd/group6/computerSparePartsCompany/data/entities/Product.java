@@ -24,7 +24,7 @@ public class Product {
     private String model;
 
     //@Lob
-    @Column(name="DESCRIPTION")
+    @Column(name="DESCRIPTION", length = 1024)
     private String description;
 
     @Column(name = "IMAGE_URL")
