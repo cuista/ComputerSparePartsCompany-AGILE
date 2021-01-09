@@ -3,7 +3,7 @@
       <div class="md:flex items-center justify-between py-2 px-8 md:px-12">
           <div class="flex justify-between items-center">
              <div class="text-2xl font-bold text-gray-800 md:text-3xl">
-                  <a href="#">Siberian</a>
+                  <a routerLink="/" routerLinkActive = "active">Siberian</a>
              </div>
               <div class="md:hidden">
                   <button type="button" class="block text-gray-800 hover:text-gray-700 focus:text-gray-700 focus:outline-none">
@@ -17,10 +17,10 @@
           
           <div class="flex flex-col md:flex-row md:block -mx-2">
               <a routerLink="/customerPage" id="logName" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">{{username}}</a>  
-              <a routerLink="/login" id="login" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">Login</a>  
               <a routerLink="/orders" id="orders" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden">Shop Lists</a>
               <a routerLink="/sales" id="sales" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden">Sales</a>  
-              <a routerLink="/cart" id="cart" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden">Cart</a>
+              <a routerLink="/cart" id="cart" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">Cart</a>
+              <a routerLink="/login" id="login" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">Login</a>  
               <a routerLink="/insert" id="insert" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden">Insert Product</a>
               <a routerLink="/registerSale" id="registerSale" routerLinkActive="active" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden">Register Sale</a>
               <a routerLink="/home" id = "logout" (click) = "logout()" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2">Logout</a>

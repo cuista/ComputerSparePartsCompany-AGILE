@@ -1,5 +1,7 @@
 import { ClassField } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PurchaseService } from '../Services/data/purchase.service';
 
 @Component({
   selector: 'app-insertSale',
@@ -10,9 +12,16 @@ export class InsertSaleComponent implements OnInit {
 
   correctFormData = true;
   products:string[] = []; /* lista dei prodotti che vengono inseriti nella vendita */
-  constructor() { }
+  constructor(
+    private route: Router,
+    private purchaseService: PurchaseService
+  ) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem("type") == "customer")
+    {
+      this.route.navigate(["/404"]);
+    }
   }
 
   /* complete */
@@ -88,10 +97,10 @@ export class InsertSaleComponent implements OnInit {
     return true;
   }
 
-  validateClient(clientId: string)
+  validateClient(username: string)
   {
-    let re = new RegExp("^[0-9]+$", "g");
-    return(re.test(clientId) == true);
+
+    return true;
   }
 
   validatePrice(price: string)
@@ -99,12 +108,6 @@ export class InsertSaleComponent implements OnInit {
     /*34.00 459.99 */
     let re = new RegExp("^[0-9]+\.[0-9]{2}$", "g");
     return(re.test(price) == true);
-  }
-
-  validateWarehouse(warehouseId:string)
-  {
-    let re = new RegExp("^[0-9]+$", "g");
-    return(re.test(warehouseId) == true);
   }
 
   validateProductCodes()
@@ -125,10 +128,10 @@ export class InsertSaleComponent implements OnInit {
 
   saveSale()
   {
+    this.correctFormData = true;
     /* mi ottengo i campi */
     let date = (document.getElementById("date") as HTMLInputElement).value as string;
-    let clientID = (document.getElementById("client") as HTMLInputElement).value as string;
-    let warehouseID = (document.getElementById("warehouse") as HTMLInputElement).value as string;
+    let username = (document.getElementById("client") as HTMLInputElement).value as string;
     let price = (document.getElementById("price") as HTMLInputElement).value as string;
 
     if(this.validateDate(date) == false)
@@ -139,12 +142,12 @@ export class InsertSaleComponent implements OnInit {
      (document.getElementById("hiddenDate") as HTMLInputElement).innerHTML = "Insert date"; 
      (document.getElementById("labelDate") as HTMLInputElement).style.visibility = "hidden"; 
     }
-    if(this.validateClient(clientID) == false)
+    if(this.validateClient(username) == false || username == "")
     {
       this.correctFormData = false;
       (document.getElementById("client") as HTMLInputElement).setAttribute("class","form-input w-full h-14 mt-2 py-3 px-3 bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-700 text-gray-800 border-2 border-red-400 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50");
       (document.getElementById("hiddenClient") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
-      (document.getElementById("hiddenClient") as HTMLInputElement).innerHTML = "Client is a numeric id"; 
+      (document.getElementById("hiddenClient") as HTMLInputElement).innerHTML = "This user does not exist"; 
       (document.getElementById("labelClient") as HTMLInputElement).style.visibility = "hidden";
     }
     if(this.validatePrice(price) == false)
@@ -154,14 +157,6 @@ export class InsertSaleComponent implements OnInit {
       (document.getElementById("hiddenPrice") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
       (document.getElementById("hiddenPrice") as HTMLInputElement).innerHTML = "Insert price according this format dd.dd (Ex. 34.90)"; 
       (document.getElementById("labelPrice") as HTMLInputElement).style.visibility = "hidden"; 
-    }
-    if(this.validateWarehouse(warehouseID) == false)
-    {
-      this.correctFormData = false;
-      (document.getElementById("warehouse") as HTMLInputElement).setAttribute("class","form-input w-full h-14 mt-2 py-3 px-3 bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-700 text-gray-800 border-2 border-red-400 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50");
-      (document.getElementById("hiddenWarehouse") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
-      (document.getElementById("hiddenWarehouse") as HTMLInputElement).innerHTML = "Warehouse is a numeric id"; 
-      (document.getElementById("labelWarehouse") as HTMLInputElement).style.visibility = "hidden";
     }
     if(this.validateProductCodes() == false)
     {
@@ -174,7 +169,14 @@ export class InsertSaleComponent implements OnInit {
 
     if(this.correctFormData == true)
     {
+      let id = "";
+      for(var i = 0; i<this.products.length; i++)
+      {
+        id += "-"+this.products[i];
+      }
+      /* poi mi passo sta stringa id e vado a controllare se ogni id è CORRETTO */
       /* qua dentro vado ad effettuare il salvataggio per il caricamento della vendita */
+      this.purchaseService.savePurchase(date,username,price,id);
     }
   }
 

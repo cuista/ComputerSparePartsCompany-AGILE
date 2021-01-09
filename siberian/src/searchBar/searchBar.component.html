@@ -1,3 +1,46 @@
-<p>
-  searchBar works!
-</p>
+<p class="emphy">Type any of USA, India, Argentina, Armenia</p>
+<div class="container">
+  <input (keyup) = "f()"id="barra" class="search-input" type="text" placeholder="Search here..." />
+  <div id="suggerimenti" class="suggestions">
+  </div>
+</div>
+
+<style>
+
+body {
+  background: #dc5959;
+}
+.container {
+  width: 60%;
+  margin: 10px auto;
+  background: #333;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4), 0 4px 4px rgba(0, 0, 0, 0.2);
+}
+.container input {
+  background: transparent;
+  border: 0;
+  font-size: 30px;
+  color: #fff;
+}
+.suggestions {
+  border-top: 2px solid #999;
+}
+.suggestions > div {
+  padding: 15px;
+  font-size: 20px;
+  color: #fff;
+  border-top: 1px solid #666;
+  cursor: pointer;
+}
+.suggestions > div:hover {
+  background-color: #1e4dd4;
+}
+.emphy {
+  width: 50%;
+  margin: 40px auto;
+  text-align: center;
+  color: #fff;
+}
+</style>

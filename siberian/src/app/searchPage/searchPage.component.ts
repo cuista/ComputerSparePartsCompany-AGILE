@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from '../Services/data/products.service';
 
 @Component({
   selector: 'app-searchPage',
@@ -7,11 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private productService: ProductsService
+  ) { }
 
   ngOnInit() {
   }
 
-  
+  array = [] as any;
 
+  async f()
+  {
+    var stringa = (document.getElementById("bar") as HTMLInputElement).value as string;
+    this.array = await this.productService.getSearchProducts(stringa);
+    alert(JSON.stringify(this.array))
+        
+  }
 }

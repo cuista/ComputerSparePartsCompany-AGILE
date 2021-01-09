@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddReviewComponent } from './addReview/addReview.component';
 import { CartComponent } from './cart/cart.component';
+import { ChangeDataUserComponent } from './changeDataUser/changeDataUser.component';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
 import { CustomerPageComponent } from './customerPage/customerPage.component';
 import { HomeComponent } from './home/home.component';
@@ -8,8 +10,11 @@ import { InsertProductComponent } from './insertProduct/InsertProduct.component'
 import { InsertSaleComponent } from './insertSale/insertSale.component';
 import { LoginComponent } from './login/login.component';
 import { LoginEmployeeComponent } from './loginEmployee/loginEmployee.component';
+import { ModifyProductComponent } from './modifyProduct/modifyProduct.component';
 import { MyOrdersComponent } from './myOrders/myOrders.component';
 import { PageNotFoundComponent } from './PageNotFound/PageNotFound.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { PalladioComponent } from './palladio/palladio.component';
 import { ProductComponent } from './product/product.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ResultsComponent } from './results/results.component';
@@ -30,6 +35,11 @@ const routes: Routes = [
   { path:'loginEmployee',component:LoginEmployeeComponent},
   { path:'customerPage',component:CustomerPageComponent},
   { path:'changePassword',component:ChangePasswordComponent},
+  { path:'changeDataUser',component:ChangeDataUserComponent},
+  { path:'modifyProduct',component:ModifyProductComponent},
+  { path:'pagination',component:PaginationComponent},
+  { path:'palladio',component:PalladioComponent},
+  { path:'addReview',component:AddReviewComponent},
   {path: '404', component:PageNotFoundComponent},
   {path: '**', redirectTo: '/404'}
 

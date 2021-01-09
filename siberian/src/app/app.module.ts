@@ -25,9 +25,16 @@ import { PageNotFoundComponent } from './PageNotFound/PageNotFound.component';
 import { LoginEmployeeComponent } from './loginEmployee/loginEmployee.component';
 import { CustomerPageComponent } from './customerPage/customerPage.component';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
+import { ChangeDataUserComponent } from './changeDataUser/changeDataUser.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
+import { ModifyProductComponent } from './modifyProduct/modifyProduct.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { PalladioComponent } from './palladio/palladio.component';
+import { AddReviewComponent } from './addReview/addReview.component';
+import { SearchBarComponent } from 'src/searchBar/searchBar.component';
 
 @NgModule({
-  declarations: [																													
+  declarations: [																																				
     AppComponent,
       LoginComponent,
       TopHeaderComponent,
@@ -48,12 +55,19 @@ import { ChangePasswordComponent } from './changePassword/changePassword.compone
       PageNotFoundComponent,
       LoginEmployeeComponent,
       CustomerPageComponent,
-      ChangePasswordComponent
+      ChangePasswordComponent,
+      ChangeDataUserComponent,
+      ModifyProductComponent,
+      PaginationComponent,
+      PalladioComponent,
+      AddReviewComponent,
+      SearchBarComponent
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxCaptchaModule
   ],
   providers: [],
   bootstrap: [AppComponent]

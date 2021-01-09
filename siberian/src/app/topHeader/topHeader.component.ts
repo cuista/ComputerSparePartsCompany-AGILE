@@ -23,6 +23,7 @@ export class TopHeaderComponent implements OnInit {
     this.getUser();
     if(this.type == "customer")
     {
+      document.getElementById("sales")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
       document.getElementById("logName")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
       document.getElementById("login")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("logout")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
@@ -32,6 +33,8 @@ export class TopHeaderComponent implements OnInit {
     }
     else if(this.type == "employee")
     {
+      document.getElementById("orders")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
+      document.getElementById("cart")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("logName")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
       document.getElementById("login")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("sales")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
@@ -45,7 +48,6 @@ export class TopHeaderComponent implements OnInit {
       document.getElementById("login")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
       document.getElementById("logout")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("orders")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
-      document.getElementById("cart")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("sales")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("insert")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("registerSale")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden ");

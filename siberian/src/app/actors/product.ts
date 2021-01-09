@@ -1,12 +1,12 @@
 export interface IProduct{
-    id: number,
-    price: number,
-    brand: string,
-    model: string,
-    description: string,
-    imageUrl: string,
-    warehouse: number,
-    category: number,
-    order: number,
-    purchaseId: number
+    id: any,
+    price: any,
+    brand: any,
+    model: any,
+    description: any,
+    imageUrl: any,
+    warehouse: any,
+    category: any,
+    order: any,
+    purchaseId: any
 }

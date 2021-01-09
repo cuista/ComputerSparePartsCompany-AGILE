@@ -16,12 +16,16 @@ export class InsertProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem("type") == "customer")
+    {
+      this.route.navigate(["/404"]);
+    }
   }
 
   validateBrand(brand:string)
   {
     /* il brand deve essere valido ovvero deve presentare almeno 4 caratteri e massimo 100 caratteri */
-    let re = new RegExp("^[A-Za-z0-9]{4,100}$", "g");
+    let re = new RegExp("^[A-Za-z0-9 ]{4,100}$", "g");
     return(re.test(brand) == true);
   }
 
@@ -39,7 +43,7 @@ export class InsertProductComponent implements OnInit {
 
   validateModel(model: string)
   {
-    let re = new RegExp("^[A-Za-z0-9]{4,100}$", "g");
+    let re = new RegExp("^[A-Za-z0-9 ]{4,100}$", "g");
     return(re.test(model) == true);
   }
 
@@ -52,8 +56,8 @@ export class InsertProductComponent implements OnInit {
 
   validateCategory(category: string)
   {
-    /* 4 987 */
-    let re = new RegExp("^[0-9]+$", "g");
+    /*Input */
+    let re = new RegExp("^[A-Za-z0-9 ]{4,100}$", "g");
     return(re.test(category) == true);
   }
 
@@ -85,13 +89,22 @@ export class InsertProductComponent implements OnInit {
     return true;
   }
 
+  setOriginalDescription()
+  {
+    (document.getElementById("description") as HTMLTextAreaElement).setAttribute("class","form-input resize-y w-full mt-2 py-3 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50");
+    (document.getElementById("description") as HTMLTextAreaElement).setAttribute("rows","6");
+    (document.getElementById("hiddenDescription") as HTMLDivElement).setAttribute("class","text-sm text-gray-800");
+    (document.getElementById("hiddenDescription") as HTMLDivElement).innerHTML = 'Pubblicato sulla tua scheda'; 
+  }
+
   saveProduct()
   {
+    this.correctFormData = true;
     /* mi ottengo i campi */
     let brand = (document.getElementById("brand") as HTMLInputElement).value as string;
     let model = (document.getElementById("model") as HTMLInputElement).value as string;
     let image = (document.getElementById("image") as HTMLInputElement).value as string;
-    let category = (document.getElementById("category") as HTMLInputElement).value as string;
+    let category = (document.getElementById("categories") as HTMLSelectElement).value as string;
     let warehouse = (document.getElementById("warehouse") as HTMLInputElement).value as string;
     let price = (document.getElementById("price") as HTMLInputElement).value as string;
     let order = (document.getElementById("order") as HTMLInputElement).value as string;
@@ -113,14 +126,6 @@ export class InsertProductComponent implements OnInit {
      (document.getElementById("hiddenModel") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
      (document.getElementById("hiddenModel") as HTMLInputElement).innerHTML = "Model must consist of a minimum of 4 letters and a maximum of 100"; 
      (document.getElementById("labelModel") as HTMLInputElement).style.visibility = "hidden"; 
-    }
-    if(this.validateCategory(category) == false)
-    {
-      this.correctFormData = false;
-     (document.getElementById("category") as HTMLInputElement).setAttribute("class","form-input w-full h-14 mt-2 py-3 px-3 bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-700 text-gray-800 border-2 border-red-400 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50");
-     (document.getElementById("hiddenCategory") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
-     (document.getElementById("hiddenCategory") as HTMLInputElement).innerHTML = "Category must be a numeric id"; 
-     (document.getElementById("labelCategory") as HTMLInputElement).style.visibility = "hidden"; 
     }
     if(this.validateImage(image) == false)
     {
@@ -156,7 +161,6 @@ export class InsertProductComponent implements OnInit {
     }
     if(this.validateDescription(description) == false)
     {
-      alert("ciao");
       this.correctFormData = false;
      (document.getElementById("description") as HTMLInputElement).setAttribute("class","form-input w-full h-14 mt-2 py-3 px-3 bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-700 text-gray-800 border-2 border-red-400 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50");
      (document.getElementById("hiddenDescription") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
@@ -171,22 +175,25 @@ export class InsertProductComponent implements OnInit {
 
     if(this.correctFormData)
     {
-      /* mi deve apparire un messaggio di avvenuta registrazione */
+      /* se inserisco un prodotto che abbia praticamente lo stesso brand e modello 
+      di uno già presente allora questo dovrà avere gli stessi campi di quello che 
+      sto provando ad inserire*/
       
+      /* qua dovrei andare a controllare che non esistano già quei brand e quei modelli all'interno del mio inventario*/
 
       /* inserimento del prodotto usando il service che devo ancora implementare */
-      // this.productService.saveProduct(brand,model,image,category,warehouse,price,order,description).subscribe(
-      //   response => {
-      //     if(response == true)
-      //     {
-      //       alert("il prodotto è stato inserito")
-      //       this.route.navigate(['/insertProduct']);
-      //     }
-      //     else 
-      //     {
-
-      //     }
-      //   });
+      this.productService.saveProduct(brand,model,image,category,warehouse,price,order,description).subscribe(
+        response => {
+          if(response == true)
+          {
+            alert("il prodotto è stato inserito")
+            this.route.navigate(['/insert']);
+          }
+          else 
+          {
+            alert("c'è qualche problema");
+          }
+        });
     }
     
 
