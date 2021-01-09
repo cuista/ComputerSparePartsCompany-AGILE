@@ -1,27 +1,120 @@
-    
-    <button class="px-6 py-3 bg-red-600 text-gray-100 rounded shadow" id="delete-btn">
-        Open 
-    </button>
+<div>
 
-    <div class="bg-black bg-opacity-50 absolute inset-0 hidden justify-center items-center" id="overlay">
-        <div class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800">
-            <div class="flex justify-between items-center">
-                <h4 class="text-lg font-bold">Confirm?</h4>
-                <svg class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full" id="close-modal" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </div>
-            <div class="mt-2 text-sm">
-                <p>Are you sure? You are going to delete permanently your account</p>
-            </div>
-            <div class="mt-3 flex justify-end space-x-3">
-                <button class="px-3 py-1 rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">Cancel</button>
-                <button class="px-3 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded">Delete</button>
-            </div>
-        </div>
-    </div>
+  <div class="mySlides fade">
+    <div style="height:75vh;">
+      <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right" style="background-image: url('https://i.pinimg.com/originals/6e/90/73/6e90731fef6431f6e9f7d1f7a4f4eb15.jpg');">
+          <div class="container mx-auto">
+              <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                  <p class="text-white text-2xl my-4">Discover technology in all its shape</p>
+                  <button type = "button" class="h- bg-blue-600 w-1/3" style = "color:#FFF; background-color:#4900bc;">Go</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="text">Caption Text</div>
+  </div>
 
-    
-    
+  <div class="mySlides fade">
+    <div style="height:75vh;">
+      <div class="h-full w-full mx-auto flex pt-6 md:pt-0 md:items-end bg-cover bg-right pb-10" style="background-image: url('https://i0.wp.com/blog.nzxt.com/wp-content/uploads/2020/03/setupnew.jpg?fit=4032%2C3024&ssl=1');">
+
+          <div class="container mx-auto">
+              <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                  <p class="text-white text-2xl my-4">Choose best components for your build</p>
+                  <button type = "button" class="h- bg-blue-600 w-1/3" style = "color:#FFF; background-color:#4900bc;">Go</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="text">Caption Two</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div style="height:75vh;">
+      <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-bottom" style="background-image: url('https://images7.alphacoders.com/106/thumb-1920-1064204.jpg');">
+
+          <div class="container mx-auto">
+              <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                  <p class="text-white text-2xl my-4">Only the best brands</p>
+                  <button type = "button" class="h- bg-blue-600 w-1/3" style = "color:#FFF; background-color:#4900bc;">Go</button>
+              </div>
+          </div>
+
+      </div>
+  </div>
+  <div class="text">Caption Three</div>
+  </div>
+
+</div>
+<br>
+
+<style>
+  * {box-sizing: border-box;}
+  body {font-family: Verdana, sans-serif;}
+  .mySlides {display: none;}
+  img {vertical-align: middle;}
+  
+  /* Slideshow container */
+  .slideshow-container {
+    position: relative;
+    margin: auto;
+  }
+  
+  /* Caption text */
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  /* The dots/bullets/indicators */
+  .dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active {
+    background-color: #717171;
+  }
+  
+  /* Fading animation */
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 300px) {
+    .text {font-size: 11px}
+  }
+  </style>

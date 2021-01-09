@@ -1,24 +1,16 @@
 <!--Header-->
 <app-topHeader></app-topHeader>
 <!--Slider-->
-<div style="height: 500px; background-repeat: no-repeat;  background-image: url('https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-    <div class="text-center text-white relative text-4xl" style="top: 40%;">Best build solutions for everyone</div>  
-    <div class="text-center text-white relative text-2xl" style="top: 45%;">You'll make the choice, we have just made your dream </div>  
-    <div style="background-color: transparent; top: 50%;" class="relative flex justify-center">
-        <input id="bar" placeholder = " Search..."  class="bg-white opacity-75 border h-12 mb-1 outline-none w-full sm:w-1/2 text-xl shadow-2xl"/>
-        <button type = "button" class="bg-blue-600  w-1/2 mx-2 sm:w-28 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Go</button>
-    </div>  
-</div>
+<app-Slider></app-Slider>
 <!--SearchHome-->
+<app-searchPage></app-searchPage>
 <!-- <video autoplay loop style="height: 80%; width: 80%; margin: 0 auto;">
     <source src="assets/prova.mp4" type="video/mp4" >
     <source src="mov_bbb.ogg" type="video/ogg">
     Your browser does not support HTML video.
 </video> -->
 <!--Home-->
-<!--https://images.unsplash.com/photo-1540760029765-138c8f6d2eac?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80-->
-<div class="text-2xl text-center mt-4 text-black font-semibold">It has never been easier</div>
-<div class="bg-white flex justify-center w-full">
+<div class="bg-white flex justify-center">
     <div class="inline-block p-3">
         <div class="flex justify-center">
             <img src="https://www.flaticon.com/svg/static/icons/svg/3126/3126554.svg" style="width: 100px; height: 100px;">
@@ -43,78 +35,11 @@
         </div>
         <div class="text-center font-semibold">Come to pay</div>
     </div>
+
+
 </div>
-<!--Cards announce-->
-<div class="sm:flex justify-center">
-    <div class=" px-4 py-8 max-w-xs">
-        <div class="bg-white shadow-2xl" >
-            <div>
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80" style="width: 300px;  height: 200px;">
-            </div>
-            <div class="px-4 py-2 mt-2 bg-white">
-                <h2 class="font-bold text-2xl text-gray-800">What are you doing?</h2>
-                    <p class="sm:text-sm text-xs text-gray-700 px-2 mr-1 my-3">
-                        Are you looking for a job? We are looking for you
-                    </p>
-            </div>
-        </div>
-    </div>
-    <div class=" px-4 py-8 max-w-xs">
-        <div class="bg-white shadow-2xl" >
-            <div>
-                <img src="https://images.unsplash.com/photo-1594636797501-ef436e157819?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" style="width: 300px;  height: 200px;">
-            </div>
-            <div class="px-4 py-2 mt-2 bg-white">
-                <h2 class="font-bold text-2xl text-gray-800">Come here</h2>
-                    <p class="sm:text-sm text-xs text-gray-700 px-2 mr-1 my-3">
-                        Discover our warehouse. Soon there will be one closer to you
-                    </p>
-            </div>
-        </div>
-    </div>
-    <div class=" px-4 py-8 max-w-xs">
-        <div class="bg-white shadow-2xl" >
-            <div>
-                <img src="https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" style="width: 300px;  height: 200px;">
-            </div>
-            <div class="px-4 py-2 mt-2 bg-white">
-                <h2 class="font-bold text-2xl text-gray-800">Are you angry?</h2>
-                    <p class="sm:text-sm text-xs text-gray-700 px-2 mr-1 my-3">
-                        Let us understand why. Submit to our form your reasons and we will listen u
-                    </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Other div-->
-
-<div class="py-16">
-    <div class="container m-auto px-6">
-  
-     <div class="lg:flex justify-between items-center">
-         <div class="lg:w-6/12 lg:p-0 p-7">
-            <h1 class="text-4xl font-bold leading-tight mb-5"> The new showcase is arriving </h1>
-            <p class="text-xl">Don't miss our news and stay up to date on our arrivals. If you are not registered you just have to register            </p>
-  
-            <div class="py-5">
-                 <a routerLink="/registration" routerLinkActive = "active" class="text-white py-2 px-5 text-lg font-semibold inline-block border border-purple-600 mr-3" style="color: #4900bc;">Sign in</a>
-                 <a routerLink="/login" routerLinkActive = "active" class="text-black py-2 px-5 text-lg font-semibold bg-gray-400 inline-block border hover:bg-white hover:text-black">Sign up</a>
-            </div>
-  
-          </div>
-          <div class="lg:w-5/12 order-2">
-            <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
-            style="transform: scale(1) perspective(1040px) rotateY(-11deg) rotateX(2deg) rotate(2deg);" class="rounded">
-          </div>
-      </div>
-  
-    </div>
-  </div>
-
-<!--category-->
 <div class="mt-10 flex justify-center">
-    <div class="text-2xl font-bold leading-tight ">Each component is very important to make a good build</div>
+    <div class="text-2xl font-semibold flex justify-center text-gray-500">Choose for your build is never be easier</div>
 </div>
 
 <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">

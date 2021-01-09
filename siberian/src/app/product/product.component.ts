@@ -83,8 +83,8 @@ export class ProductComponent implements OnInit {
     this.userType = sessionStorage.getItem("type") as string;
     if(this.userType == "customer" || this.userType == null)
     {  
-      (document.getElementById("addToCart") as HTMLButtonElement).setAttribute("class","h-8 border border-purple-600  w-full");
-      (document.getElementById("addReview") as HTMLButtonElement).setAttribute("class","h-8 border border-purple-600  w-full");
+      (document.getElementById("addToCart") as HTMLButtonElement).setAttribute("class","h-12 bg-blue-600 w-full");
+      (document.getElementById("addReview") as HTMLButtonElement).setAttribute("class","h-12 bg-blue-600 w-full");
       (document.getElementById("quantity") as HTMLDivElement).remove();
     }
     else if(this.userType == "employee")
@@ -181,6 +181,7 @@ export class ProductComponent implements OnInit {
         else if(rate == "★★★★★") {rate = "5";}
         if(username == "All users") {username = null;}
         this.reviews = await this.reviewService.getFilteredReviews(username,rate,this.brand,this.model);
+        alert(JSON.stringify(this.reviews))
         this.calcolatePagerFinals(this.reviews);
         this.setPage(index);
         var cont = 0;
@@ -274,13 +275,6 @@ export class ProductComponent implements OnInit {
         }
       }
     );
-  }
-
-  openDeleteModal()
-  {
-    const overlay = document.getElementById('overlay') as HTMLElement;
-    overlay.classList.toggle('hidden');
-    overlay.classList.toggle('flex');
   }
 
 

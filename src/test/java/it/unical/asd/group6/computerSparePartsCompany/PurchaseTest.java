@@ -1,10 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,9 +15,6 @@ import java.util.Optional;
 @SpringBootTest
 public class PurchaseTest extends AbstractComputerSparePartsCompanyTest{
 
-    @Autowired
-    private PurchaseServiceImpl purchaseService;
-
     /*
     Test Service a seguire
     */
@@ -28,8 +23,7 @@ public class PurchaseTest extends AbstractComputerSparePartsCompanyTest{
         Purchase purchase = new Purchase();
         purchase.setDate(LocalDate.of(1997, Month.JULY,4));
         purchase.setTotalPrice(487.0);
-        Purchase temp = purchaseService.registerNewPurchase(purchase);
-        assert(temp != null);
+        assert(purchaseService.registerNewPurchase(purchase));
     }
 
     /*

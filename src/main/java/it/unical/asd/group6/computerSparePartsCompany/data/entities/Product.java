@@ -1,7 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -22,16 +23,21 @@ public class Product {
     @Column(name="MODEL")
     private String model;
 
-    @Lob
+    //@Lob
     @Column(name="DESCRIPTION")
     private String description;
 
+    @Column(name = "IMAGE_URL")
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "PURCHASE_ID", referencedColumnName = "ID" , nullable = true)
+    @JsonManagedReference
     private Purchase purchase;
 
     @ManyToOne
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID", nullable = true)
+    @JsonManagedReference
     private OrderRequest orderRequest;
 
     @ManyToOne
@@ -116,24 +122,49 @@ public class Product {
         this.category = category;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
+    }
+
+    public OrderRequest getOrderRequest() {
+        return orderRequest;
+    }
+
+    public void setOrderRequest(OrderRequest orderRequest) {
+        this.orderRequest = orderRequest;
+    }
+
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o) { //(MANUEL) HO ELIMINATO L'ID POICHE' CHIAVE PRIMARE SEMPRE DIVERSA---> L'EQUALS DAVA SEMPRE FALSO
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) &&
-                Objects.equals(price, product.price) &&
+        return Objects.equals(price, product.price) &&
                 Objects.equals(brand, product.brand) &&
                 Objects.equals(model, product.model) &&
                 Objects.equals(description, product.description) &&
                 Objects.equals(purchase, product.purchase) &&
                 Objects.equals(orderRequest, product.orderRequest) &&
                 Objects.equals(warehouse, product.warehouse) &&
-                Objects.equals(category, product.category);
+                Objects.equals(category, product.category) &&
+                Objects.equals(imageUrl, product.imageUrl);
     }
 
-    @Override
+
+    @Override //(MANUEL) HO FATTO LA STESSA COSA QUI NELL'HASHCODE POICHE' NON SI PUO' VIOLARE IL CONTRATTO TRA EQUALS E HASHCODE
     public int hashCode() {
-        return Objects.hash(id, price, brand, model, description, purchase, orderRequest, warehouse, category);
+        return Objects.hash(price, brand, model, description, purchase, orderRequest, warehouse, category, imageUrl);
     }
 }

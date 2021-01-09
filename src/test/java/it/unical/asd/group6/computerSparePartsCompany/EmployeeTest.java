@@ -1,10 +1,8 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
@@ -15,16 +13,13 @@ import java.util.Optional;
 @SpringBootTest
 public class EmployeeTest extends AbstractComputerSparePartsCompanyTest{
 
-    @Autowired
-    EmployeeServiceImpl employeeService;
-
     // SERVICE TESTs
 
     // FIXME loginServiceTest
     @Test
     public void loginServiceTest() {
         assert(employeeService.checkLogin("Rubie", "Mitzi"));
-        assert(employeeService.checkLogin("Raubie", "Maitzi"));
+        assert(!employeeService.checkLogin("Raubie", "Maitzi"));
     }
 
     // DAO TESTs

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../Services/data/products.service';
 
 @Component({
   selector: 'app-searchPage',
@@ -8,20 +7,38 @@ import { ProductsService } from '../Services/data/products.service';
 })
 export class SearchPageComponent implements OnInit {
 
-  constructor(
-    private productService: ProductsService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  array = [] as any;
-
-  async f()
+  f()
   {
-    var stringa = (document.getElementById("bar") as HTMLInputElement).value as string;
-    this.array = await this.productService.getSearchProducts(stringa);
-    alert(JSON.stringify(this.array))
-        
+    var countries = [
+      {name: 'USA'},
+      {name: 'India'},
+      {name: 'Argentina'},
+      {name: 'Armenia'}
+    ];
+
+    var searchInput = document.getElementById("bar") as HTMLInputElement;
+    var suggestionsPanel = document.getElementById("suggerimenti") as HTMLDivElement;
+    var input = searchInput.value;
+    input = input.toLowerCase() as string;
+    //il pannello del suggestion deve avere contenuto vuoto
+    suggestionsPanel.innerHTML = '';
+    /* filtro il mio array */
+    const suggestions = countries.filter(stato => stato.name.toLowerCase().includes(input));
+    // console.log(JSON.stringify(suggestions));
+    suggestions.forEach(function(suggested) {
+      const div = document.createElement('div');
+      div.innerHTML = suggested.name;
+      suggestionsPanel.appendChild(div);
+    });
+    if(input == "")
+    {
+      suggestionsPanel.innerHTML = "";
+    }
   }
+
 }

@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.services.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import org.apache.commons.csv.CSVFormat;
@@ -40,6 +41,15 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     @Value("classpath:data/purchasenotices.csv")
     private Resource purchaseNoticesRes;
 
+    @Value("classpath:data/categories.csv")
+    private Resource categoriesRes;
+
+    @Value("classpath:data/orderRequests.csv")
+    private Resource orderRequestsRes;
+
+    @Value("classpath:data/productionHouses.csv")
+    private Resource productionHousesRes;
+
     @Autowired
     protected EmployeeDao employeeDao;
 
@@ -57,6 +67,33 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Autowired
     protected PurchaseNoticeDao purchaseNoticeDao;
+
+    @Autowired
+    protected CategoryDao categoriesDao;
+
+    @Autowired
+    protected OrderRequestDao orderRequestDao;
+
+    @Autowired
+    protected ProductionHouseDao productionHouseDao;
+
+    @Autowired
+    protected PurchaseService purchaseService;
+
+    @Autowired
+    protected PurchaseNoticeService purchaseNoticeService;
+
+    @Autowired
+    protected ProductService productService;
+
+    @Autowired
+    protected EmployeeService employeeService;
+
+    @Autowired
+    protected CustomerService customerService;
+
+    @Autowired
+    protected ProductionHouseService productionHouseService;
 
     private static boolean isInitialized = false;
 
@@ -93,10 +130,10 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                         Long.parseLong(record.get(1)),Double.parseDouble(record.get(2)));
             }
 
-            CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+            CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',') //SPOSTATO PRODUCTRES SU PRODUCTS.CSV PER DATI REALI ---> BASTA RINOMINARE IL PATH SOPRA PER CAMBIARE
                     .parse(new InputStreamReader(productsRes.getInputStream()));
             for (CSVRecord record : productsCsv) {
-                insertProduct(Double.parseDouble(record.get(0)), record.get(1), record.get(2), record.get(3));
+                insertProduct(Double.parseDouble(record.get(0)), record.get(1), record.get(2), record.get(3),record.get(4));
             }
 
             CSVParser purchaseNoticesCsv= CSVFormat.DEFAULT.withDelimiter(',')
@@ -107,9 +144,34 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                                 Integer.parseInt(record.get(5)));
             }
 
+            CSVParser categoryCSV = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(categoriesRes.getInputStream()));
+            for (CSVRecord record: categoryCSV){
+                insertCategory(record.get(0));
+            }
+
+            CSVParser productionHousesCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(productionHousesRes.getInputStream()));
+            for (CSVRecord record: productionHousesCsv){
+                insertProductionHouse(record.get(0));
+            }
+
+            CSVParser orderRequestsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(orderRequestsRes.getInputStream()));
+            for (CSVRecord record: orderRequestsCsv){
+                insertOrderRequest(Long.parseLong(record.get(0)),Long.parseLong(record.get(1)),record.get(2),record.get(3),
+                        Integer.parseInt(record.get(4)));
+            }
 
             isInitialized=true;
         }
+    }
+
+    private void insertCategory(String category) {
+        Category category1 = new Category();
+        category1.setCategoryName(category);
+
+        categoriesDao.save(category1);
     }
 
     private void insertEmployee(String username, String password, String firstname, String lastname,
@@ -141,12 +203,13 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     }
 
-    private void insertProduct(Double price, String brand, String model, String description){
+    private void insertProduct(Double price, String brand, String model, String description, String url){
         Product prod=new Product();
         prod.setPrice(price);
         prod.setBrand(brand);
         prod.setModel(model);
         prod.setDescription(description);
+        prod.setImageUrl(url);
 
         productDao.save(prod);
 
@@ -192,6 +255,30 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
         purchaseNoticeDao.save(purchaseNotice);
 
+    }
+
+    private void insertOrderRequest(Long productionHouse_id, Long warehouse_id, String productBrand, String productModel, Integer productQuantity) {
+        OrderRequest orderRequest = new OrderRequest();
+
+        ProductionHouse productionHouse=productionHouseDao.findById(productionHouse_id).get();
+        orderRequest.setProductionHouse(productionHouse);
+
+        Warehouse warehouse=warehouseDao.findById(warehouse_id).get();
+        orderRequest.setWarehouse(warehouse);
+
+        orderRequest.setProductBrand(productBrand);
+        orderRequest.setProductModel(productModel);
+        orderRequest.setProductQuantity(productQuantity);
+
+        orderRequestDao.saveAndFlush(orderRequest);
+    }
+
+    private void insertProductionHouse(String name) {
+        ProductionHouse productionHouse=new ProductionHouse();
+
+        productionHouse.setName(name);
+
+        productionHouseDao.saveAndFlush(productionHouse);
     }
 
 
