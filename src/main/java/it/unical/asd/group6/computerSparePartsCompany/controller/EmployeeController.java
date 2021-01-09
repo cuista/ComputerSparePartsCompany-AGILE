@@ -26,13 +26,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/by-username")
-    public ResponseEntity<Optional<EmployeeDTO>> getEmployeeByUsername(String username)
-    {
+    public ResponseEntity<Optional<EmployeeDTO>> getEmployeeByUsername(String username) {
         return ResponseEntity.ok(employeeService.getEmployeeByUsername(username));
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody Employee newEmployee, @PathVariable String username){
+    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody Employee newEmployee, @PathVariable String username) {
 
         Optional<EmployeeDTO> optionalEmployee = employeeService.getEmployeeByUsername(username);
 
@@ -76,5 +75,6 @@ public class EmployeeController {
         if(oldPassword.equals(employeeService.getEmployeeByUsername(username).get().getPassword()))
             return ResponseEntity.ok(employeeService.updateEmployee(username,password));
         else
-            return ResponseEntity.ok(false);    }
+            return ResponseEntity.ok(false);
+    }
 }

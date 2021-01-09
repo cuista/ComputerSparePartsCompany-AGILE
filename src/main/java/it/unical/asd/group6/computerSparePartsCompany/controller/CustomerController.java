@@ -22,9 +22,6 @@ public class CustomerController {
     @Autowired
     CustomerServiceImpl customerService;
 
-    @Autowired
-    ModelMapper modelMapper;
-
     @GetMapping("/login")
     public ResponseEntity<Boolean> doLogin(
             @RequestParam("username") String username, @RequestParam("password") String password) {
@@ -67,11 +64,9 @@ public class CustomerController {
     @GetMapping("/all-customers")
     public ResponseEntity<List<CustomerDTO>> allCustomers() {
 
-        List<Customer> customers = customerService.getAllCustomer();
+        List<CustomerDTO> customers = customerService.getAllCustomer();
 
-        List<CustomerDTO> customerDTOS= customers.stream().map(cust -> modelMapper.map(cust, CustomerDTO.class)).collect(Collectors.toList());
-
-        return ResponseEntity.ok(customerDTOS);
+        return ResponseEntity.ok(customers);
     }
 
     @GetMapping("/stringtest")
@@ -82,11 +77,9 @@ public class CustomerController {
     @GetMapping("/by-username")
     public ResponseEntity<CustomerDTO> getCustomerByUsername(String username) {
 
-        Customer customer = customerService.getCustomerByUsername(username).orElseThrow(() -> new CustomerByUsernameNotFoundException(username));
+        CustomerDTO customer = customerService.getCustomerByUsername(username).orElseThrow(() -> new CustomerByUsernameNotFoundException(username));
 
-        CustomerDTO customerDTO = modelMapper.map(customer,CustomerDTO.class);
-
-        return ResponseEntity.ok(customerDTO);
+        return ResponseEntity.ok(customer);
     }
 
     @DeleteMapping("/del-customer")
@@ -110,8 +103,7 @@ public class CustomerController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password,@RequestParam String oldPassword)
-    {
+    public ResponseEntity<Boolean> changePassword(@RequestParam String username,@RequestParam String password,@RequestParam String oldPassword) {
         if(oldPassword.equals(customerService.getCustomerByUsername(username).get().getPassword()))
             return ResponseEntity.ok(customerService.updateCustomer(username,password));
         else
@@ -119,8 +111,7 @@ public class CustomerController {
     }
 
     @PostMapping("/update-data")
-    public ResponseEntity<Boolean> changeCustomerData(@RequestParam String username,@RequestParam String name,@RequestParam String surname, @RequestParam String phoneNumber,@RequestParam String iva)
-    {
+    public ResponseEntity<Boolean> changeCustomerData(@RequestParam String username,@RequestParam String name,@RequestParam String surname, @RequestParam String phoneNumber,@RequestParam String iva) {
         return ResponseEntity.ok(customerService.updateDataCustomer(username,name,surname,phoneNumber,Long.parseLong(iva)));
     }
 
@@ -133,7 +124,7 @@ public class CustomerController {
     @PutMapping("/{username}")
     public ResponseEntity<Customer> updateCustomerWithPut(@RequestBody Customer newCustomer, @PathVariable String username){
 
-        Optional<Customer> optionalCustomer = customerService.getCustomerByUsername(username);
+        Optional<Customer> optionalCustomer = customerService.getCustomerEntityByUsername(username);
 
         if (!optionalCustomer.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

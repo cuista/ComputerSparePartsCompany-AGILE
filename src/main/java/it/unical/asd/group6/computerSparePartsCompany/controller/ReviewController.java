@@ -42,7 +42,7 @@ public class ReviewController {
 
     @GetMapping("/all-by-customer")
     public ResponseEntity<List<ReviewDTO>>getAllByCustomer(@RequestParam String username) {
-        return ResponseEntity.ok(reviewService.getAllByCustomer(customerService.getCustomerByUsername(username).get()));
+        return ResponseEntity.ok(reviewService.getAllByCustomer(customerService.getCustomerEntityByUsername(username).get()));
     }
 
     @GetMapping("/all-by-brand-and-model")
@@ -54,7 +54,7 @@ public class ReviewController {
     public ResponseEntity<Boolean>delete(@RequestParam String username,@RequestParam String title,@RequestParam String text,@RequestParam String brand,@RequestParam String model) {
         /*questo perchè non possono esistere due recensioni dello stesso utente che abbiamo stesso titolo e testo per uno stesso prodotto*/
         /*questo deve essere completato*/
-        Customer c = customerService.getCustomerByUsername(username).get();
+        Customer c = customerService.getCustomerEntityByUsername(username).get();
         Optional<Review> r = reviewService.getAllByCustomerAndTitleAndTextAndBrandAndModel(c,title,text,brand,model);
         if(r.isPresent()) {
             reviewService.delete(r.get());
@@ -72,7 +72,7 @@ public class ReviewController {
     public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String brand,@RequestParam String model, @RequestParam String title, @RequestParam String text,@RequestParam String rate) {
         /*un utente u non può aggiungere due recensioni allo stesso prodotto*/
         /*il concetto di recensione si estende alla descrizione totale di tutti gli acquisti e non di un singolo*/
-        Customer c = customerService.getCustomerByUsername(username).get(); /*esiste sicuramente*/
+        Customer c = customerService.getCustomerEntityByUsername(username).get(); /*esiste sicuramente*/
         /*se non esiste gia una recensione per quel prodotto allora */
         Optional<Review> r = reviewService.getByCustomerAndBrandAndModel(c,brand,model);
         if(r.isPresent())

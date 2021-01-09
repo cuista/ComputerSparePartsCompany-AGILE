@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseNoticeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,7 @@ public class PurchaseNoticeTest extends AbstractComputerSparePartsCompanyTest {
      */
     @Test
     public void testGetView() {
-        for(PurchaseNotice purchaseNotice : purchaseNoticeService.getView()) {
+        for(PurchaseNoticeDTO purchaseNotice : purchaseNoticeService.getView()) {
             System.out.println(purchaseNotice.toString());
         }
         assert(!purchaseNoticeService.getView().isEmpty());

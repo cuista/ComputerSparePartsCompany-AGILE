@@ -19,16 +19,16 @@ import java.util.List;
 public class OrderRequestController {
 
     @Autowired
-    private WarehouseService warehouseService;
+    WarehouseService warehouseService;
 
     @Autowired
-    private ProductionHouseService productionHouseService;
+    ProductionHouseService productionHouseService;
 
     @Autowired
-    private OrderRequestService orderRequestService;
+    OrderRequestService orderRequestService;
 
     @Autowired
-    private ProductService productService;
+    ProductService productService;
 
     @GetMapping("/get-all-orderRequests")
     public ResponseEntity<List<OrderRequestDTO>> getAllOrderRequests(){
@@ -51,7 +51,7 @@ public class OrderRequestController {
         OrderRequest orderRequest = new OrderRequest();
 
         orderRequest.setWarehouse(warehouseService.getWarehouseById(Long.parseLong(warehouse)));
-        orderRequest.setProductionHouse(productionHouseService.searchByName(prodHouse));
+        orderRequest.setProductionHouse(productionHouseService.searchEntityByName(prodHouse).get());
 
         orderRequest.setProductBrand(productBrand);
         orderRequest.setProductModel(productModel);

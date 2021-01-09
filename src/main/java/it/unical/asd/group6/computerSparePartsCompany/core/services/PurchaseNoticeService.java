@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseNoticeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
 
@@ -7,10 +8,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PurchaseNoticeService {
-    List<PurchaseNotice> getView();
+    List<PurchaseNoticeDTO> getView();
     Boolean add(PurchaseNotice p);
-    List<PurchaseNotice> getAll();
-    List<PurchaseNotice> getAllByCustomer(Customer c);
-    List<PurchaseNotice>getAllPurchaseNoticeByFilters(String username, LocalDate l);
+    List<PurchaseNoticeDTO> getAll();
+    List<PurchaseNoticeDTO> getAllByCustomer(Customer c);
+    List<PurchaseNoticeDTO>getAllPurchaseNoticeByFilters(String username, LocalDate l);
 
 }

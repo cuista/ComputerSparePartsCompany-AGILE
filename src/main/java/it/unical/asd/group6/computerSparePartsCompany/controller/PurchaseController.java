@@ -48,7 +48,7 @@ public class PurchaseController {
     @PostMapping("/add")
     public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price, @RequestParam String date, @RequestParam String id) {
         Purchase p = new Purchase();
-        Optional<Customer> c = customerService.getCustomerByUsername(username);
+        Optional<Customer> c = customerService.getCustomerEntityByUsername(username);
         if(c.isPresent())
             p.setCustomer(c.get());
         p.setDate(LocalDate.parse(date));
@@ -72,7 +72,7 @@ public class PurchaseController {
 
     @GetMapping("/all-by-customer")
     public ResponseEntity<List<PurchaseDTO>>getAllByCustomer(@RequestParam String username) {
-        return ResponseEntity.ok(purchaseService.getAllByCustomer(customerService.getCustomerByUsername(username).get()));
+        return ResponseEntity.ok(purchaseService.getAllByCustomer(customerService.getCustomerEntityByUsername(username).get()));
     }
 
     @GetMapping("/all-by-filters")
@@ -90,7 +90,7 @@ public class PurchaseController {
                                                 @RequestParam Long warehouse){
 
         Purchase purchase = new Purchase();
-        purchase.setCustomer(customerService.getCustomerById(customerId).get());
+        purchase.setCustomer(customerService.getCustomerEntityById(customerId).get());
         purchase.setDate(LocalDate.parse(date));
         for (Long id: productsId){
             Product p=productService.getProductById(id);
