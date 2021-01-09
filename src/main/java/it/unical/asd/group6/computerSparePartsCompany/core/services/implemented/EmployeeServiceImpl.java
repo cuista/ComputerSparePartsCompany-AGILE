@@ -49,8 +49,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Optional<EmployeeDTO> getEmployeeByUsername(String username) {
-        EmployeeDTO employeeDTO = modelMapper.map(employeeDao.findEmployeeByUsername(username), EmployeeDTO.class);
-        return Optional.of(employeeDTO);
+        Optional<Employee> employee = employeeDao.findEmployeeByUsername(username);
+        if(employee.isPresent()) {
+            return Optional.of(modelMapper.map(employee.get(), EmployeeDTO.class));
+        }
+        return null;
     }
 
     @Override

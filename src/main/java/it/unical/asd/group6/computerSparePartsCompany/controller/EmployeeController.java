@@ -27,6 +27,7 @@ public class EmployeeController {
 
     @GetMapping("/by-username")
     public ResponseEntity<Optional<EmployeeDTO>> getEmployeeByUsername(String username) {
+        System.out.println(employeeService.getEmployeeByUsername(username).toString());
         return ResponseEntity.ok(employeeService.getEmployeeByUsername(username));
     }
 
