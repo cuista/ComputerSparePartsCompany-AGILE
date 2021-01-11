@@ -10,6 +10,7 @@ import { HomeServiceService } from '../Services/data/homeService.service';
 export class HomeComponent implements OnInit {
 
   proof = "ciao";
+  user = "";
   
   constructor(
     private route: Router,
@@ -17,6 +18,10 @@ export class HomeComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem('user') != null)
+    {
+      this.user = sessionStorage.getItem('user') as string;
+    }
   }
 
   getQualcosa(): void
@@ -26,6 +31,18 @@ export class HomeComponent implements OnInit {
         this.proof = response.toString();
       }
     );
+  }
+
+  goToResult()
+  {
+    var value = (document.getElementById("bar") as HTMLInputElement).value;
+    sessionStorage.setItem('search',value);
+    this.route.navigate(['/results']);
+  }
+
+  getCategory(category:string)
+  {
+    sessionStorage.setItem('category',category);
   }
 
 }

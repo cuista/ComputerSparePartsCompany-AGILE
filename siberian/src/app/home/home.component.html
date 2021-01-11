@@ -6,7 +6,7 @@
     <div class="text-center text-white relative text-2xl" style="top: 45%;">You'll make the choice, we have just made your dream </div>  
     <div style="background-color: transparent; top: 50%;" class="relative flex justify-center">
         <input id="bar" placeholder = " Search..."  class="bg-white opacity-75 border h-12 mb-1 outline-none w-full sm:w-1/2 text-xl shadow-2xl"/>
-        <button type = "button" class="bg-blue-600  w-1/2 mx-2 sm:w-28 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Go</button>
+        <button (click) ="goToResult()" type = "button" class="bg-blue-600  w-1/2 mx-2 sm:w-28 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Go</button>
     </div>  
 </div>
 <!--SearchHome-->
@@ -45,7 +45,7 @@
     </div>
 </div>
 <!--Cards announce-->
-<div class="sm:flex justify-center">
+<!-- <div class="sm:flex justify-center">
     <div class=" px-4 py-8 max-w-xs">
         <div class="bg-white shadow-2xl" >
             <div>
@@ -85,11 +85,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!--Other div-->
 
-<div class="py-16">
+<div class="py-16" *ngIf="user == ''">
     <div class="container m-auto px-6">
   
      <div class="lg:flex justify-between items-center">
@@ -119,7 +119,7 @@
 
 <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a routerLink="/results" routerLinkActive="active">
+        <a (click)="getCategory('Case')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://www.wiredzone.it/9873-large_default/corsair-carbide-spec-omega-rgb-mid-tower-case-tempered-glass-black.jpg">
             <div class="pt-3 flex justify-center font-semibold">
                 <p>Case</p>
@@ -127,7 +127,7 @@
         </a>
     </div>
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="#">
+        <a (click)="getCategory('Motherboard')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://cdn.alzashop.com/ImgW.ashx?fd=f3&cd=AC390a10">
             <div class="pt-3 flex justify-center font-semibold">
                 <p>MotherBoard</p>
@@ -135,23 +135,23 @@
         </a>
     </div>
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="#">
+        <a (click)="getCategory('Graphic Card')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://www.smartworld.it/wp-content/uploads/2018/10/gtx-1650.jpg">
             <div class="pt-3 flex justify-center font-semibold">
-                <p>Vga</p>
+                <p>Graphic Card</p>
             </div>
         </a>
     </div>
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="#">
+        <a (click)="getCategory('CPU')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://images-na.ssl-images-amazon.com/images/I/51iVSqLIBWL._AC_SX466_.jpg">
             <div class="pt-3 flex justify-center font-semibold">
-                <p>Processor</p>
+                <p>CPU</p>
             </div>
         </a>
     </div>
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="#">
+        <a (click)="getCategory('RAM memory')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://www.tomshw.it/images/images/2020/03/g-skill-tridentz-rgb-f4-3600c19q-32gtzrb-immagine-prodotto-81816.768x432.jpg">
             <div class="pt-3 flex justify-center font-semibold">
                 <p>Ram</p>
@@ -159,15 +159,15 @@
         </a>
     </div>
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="#">
+        <a (click)="getCategory('HDD-SDD')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://images.eprice.it/nobrand/0/hres/574/205122574/4FE102F8-8112-4271-97DA-0E414DC5E261.jpg">
             <div class="pt-3 flex justify-center font-semibold">
-                <p>Rom</p>
+                <p>HDD-SDD</p>
             </div>
         </a>
     </div>
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="#">
+        <a (click)="getCategory('Power Supply')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://www.tomshw.it/images/images/2019/09/asus-rog-thor-1200w-50646.768x432.jpg">
             <div class="pt-3 flex justify-center font-semibold">
                 <p>Power Supply</p>
@@ -175,18 +175,18 @@
         </a>
     </div>
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="#">
+        <a (click)="getCategory('Optical Drives')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://imagenes.coolmod.com/antec-a400-rgb-disipador-cpu-001.jpg">
             <div class="pt-3 flex justify-center font-semibold">
-                <p>Heatsink</p>
+                <p>Optical Drives</p>
             </div>
         </a>
     </div>
     <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="#">
+        <a (click)="getCategory('Input and Output Devices')" routerLink="/results" routerLinkActive="active">
             <img class="hover:grow hover:shadow-lg" src="https://m.media-amazon.com/images/I/71UDaMu81lL.jpg">
             <div class="pt-3 flex justify-center font-semibold">
-                <p>Peripherals</p>
+                <p>Input and Output Devices</p>
             </div>
         </a>
     </div>

@@ -114,6 +114,11 @@ export class ResultsComponent implements OnInit {
   
   async getProducts(index:number)
   {
+    if(sessionStorage.getItem('category')!=null)
+    {
+      (document.getElementById("categories") as HTMLSelectElement).value = sessionStorage.getItem('category') as string;
+    }
+    sessionStorage.removeItem('category');
     var category = (document.getElementById("categories") as HTMLSelectElement).value as any;
     var brand = (document.getElementById("brands") as HTMLSelectElement).value as any; 
     var price = (document.getElementById("prices") as HTMLSelectElement).value as any;
@@ -158,8 +163,14 @@ export class ResultsComponent implements OnInit {
       max = "1000000";
     }
     // alert(category + " " + brand + " " + min + " " + max);
-    this.products = await this.productService.getProductByFilters(category,brand,min,max);
+    // alert(category);
+    // this.products = await this.productService.getProductByFilters(category,brand,min,max);
     // alert(JSON.stringify(this.products));
+    if(sessionStorage.getItem('search')!=null)
+      this.products = await this.productService.getSearchProducts(sessionStorage.getItem('search') as string);
+    else
+      this.products = await this.productService.getProductByFilters(category,brand,min,max);
+    sessionStorage.removeItem('search');
     this.calcolatePagerFinals(this.products);
     this.setPage(index);
   }

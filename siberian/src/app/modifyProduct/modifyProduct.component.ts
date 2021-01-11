@@ -73,8 +73,9 @@ export class ModifyProductComponent implements OnInit {
   validateImage(image:string) /* incompleta */
   {
     /* link */
-    let re = new RegExp("[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}\$", "g");
-    return(re.test(image) == true);
+    // let re = new RegExp("[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}\$", "g");
+    // return(re.test(image) == true);
+    return true;
   }
 
   validatePrice(price: string)

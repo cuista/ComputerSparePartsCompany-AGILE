@@ -88,6 +88,7 @@ export class ProductsService {
 
   async getProductByFilters(category:string,brand:string,min:string, max:string)
   {
+    // alert(category);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     if(category == null && brand != null)
     {
@@ -122,8 +123,6 @@ export class ProductsService {
 
   async getSearchProducts(parameter:string)
   {
-    const params = new HttpHeaders()
-        .set('s',parameter);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return await this.httpClient.get(`http://localhost:8080//products/get-product-by-regex?s=${parameter}`,{headers,responseType:'json'}).toPromise();
   }
