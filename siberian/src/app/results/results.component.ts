@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductsService } from '../Services/data/products.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class ResultsComponent implements OnInit {
   brands = [] as any;
 
   constructor(
+    private route: Router,
     private productService: ProductsService
   ) { }
 
@@ -225,6 +227,13 @@ export class ResultsComponent implements OnInit {
       {
         this.pager.pages.push(i);
       }  
+    }
+
+    goToResult()
+    {
+      var value = (document.getElementById("bar") as HTMLInputElement).value;
+      sessionStorage.setItem('search',value);
+      this.getProducts(1);
     }
 
 }

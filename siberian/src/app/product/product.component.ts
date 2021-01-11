@@ -131,7 +131,7 @@ export class ProductComponent implements OnInit {
       {
         if(JSON.stringify(p) == stringToMatch)
         {
-          alert("prodotto gia presente nel carrello");
+          this.cartPopupWarning();
           exists = true;
         }
       }
@@ -139,14 +139,14 @@ export class ProductComponent implements OnInit {
       {
         if(exists == false)
         {
-          alert("prodotto inserito nel carrello");
+          this.cartPopup();
           array.push({"brand":returnObject[0].brand,"model":returnObject[0].model,"imageUrl":returnObject[0].imageUrl,"price":returnObject[0].price});
           sessionStorage.setItem('cartProducts',JSON.stringify(array));
         }
       }
       else
       {
-        alert("Non puoi aggiungere più di 5 prodotti al carrello");
+        this.cartPopup5Products();
       }
     }
     }, (error: HttpErrorResponse) => {})
@@ -283,6 +283,34 @@ export class ProductComponent implements OnInit {
     overlay.classList.toggle('flex');
   }
 
+  cartPopup(){
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("showAlert");
 
+    setTimeout(function(){
+      (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
+  }
+
+  cartPopupWarning(){
+    (document.getElementById("alertDivWarn") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivWarn") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivWarn") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivWarn") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivWarn") as HTMLElement).classList.add("hide");},1000)
+  }
+
+  cartPopup5Products(){
+    (document.getElementById("alertDivMax5") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivMax5") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivMax5") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivMax5") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivMax5") as HTMLElement).classList.add("hide");},1000)
+  }
 
 }

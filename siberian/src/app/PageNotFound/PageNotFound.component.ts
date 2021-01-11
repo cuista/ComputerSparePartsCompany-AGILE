@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-PageNotFound',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route:Router) { }
 
   ngOnInit() {
+  }
+
+  goToResult()
+  {
+    var value = (document.getElementById("bar") as HTMLInputElement).value;
+    sessionStorage.setItem('search',value);
+    this.route.navigate(['/results']);
   }
 
 }

@@ -168,11 +168,21 @@ export class AddReviewComponent implements OnInit {
           }
           else
           {
-            alert("hai già inserito una recensione");
+            this.reviewAlreadyPresentPopup();
           }
         }
       );
     }
+  }
+
+  reviewAlreadyPresentPopup(){
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
   }
 
 }

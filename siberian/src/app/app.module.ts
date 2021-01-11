@@ -32,9 +32,10 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { PalladioComponent } from './palladio/palladio.component';
 import { AddReviewComponent } from './addReview/addReview.component';
 import { SearchBarComponent } from 'src/searchBar/searchBar.component';
+import { AddOrderComponent } from './addOrder/addOrder.component';
 
 @NgModule({
-  declarations: [																																				
+  declarations: [																																					
     AppComponent,
       LoginComponent,
       TopHeaderComponent,
@@ -61,7 +62,8 @@ import { SearchBarComponent } from 'src/searchBar/searchBar.component';
       PaginationComponent,
       PalladioComponent,
       AddReviewComponent,
-      SearchBarComponent
+      SearchBarComponent,
+      AddOrderComponent
    ],
   imports: [
     BrowserModule,

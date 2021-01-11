@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddOrderComponent } from './addOrder/addOrder.component';
 import { AddReviewComponent } from './addReview/addReview.component';
 import { CartComponent } from './cart/cart.component';
 import { ChangeDataUserComponent } from './changeDataUser/changeDataUser.component';
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path:'pagination',component:PaginationComponent},
   { path:'palladio',component:PalladioComponent},
   { path:'addReview',component:AddReviewComponent},
+  { path:'addOrder',component:AddOrderComponent},
   {path: '404', component:PageNotFoundComponent},
   {path: '**', redirectTo: '/404'}
 

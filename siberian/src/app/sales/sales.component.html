@@ -36,21 +36,19 @@
   
   
   <div class="flex mx-3 my-1" *ngFor="let n of pagedItems;">
-    <div class="sm:w-1/5 w-full">
-      <img src = "https://www.flaticon.com/svg/static/icons/svg/1374/1374128.svg" style="height: 100px; width: 100px;">
-    </div>
-    <div class="sm:w-4/5 w-full">
-      <div class="font-semibold text-xl">
-        {{n.date}}
-      </div>
-      <div class="font-semibold text-sm text-gray-500">
-        Buyer: {{n.customer.username}} ({{n.customer.name}} {{n.customer.surname}})
-      </div>
-      <div class="font-semibold text-sm text-gray-500">
-        Number of products sold: 
-      </div>
-      <div class="font-semibold text-sm text-gray-500">
-        Total collection: $ {{n.totalPrice}}
+    <div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-1 max-w-md md:max-w-2xl w-full">
+      <div class="flex items-start px-4 py-6">
+        <img class="w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://www.flaticon.com/svg/static/icons/svg/1374/1374128.svg">
+        <div class="">
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-semibold text-gray-900 -mt-1">{{n.date}}</h2>
+            </div>
+            <p class="text-gray-700">Total collection: $ {{n.totalPrice}}</p>
+            <p class="text-gray-700">Buyer: {{n.customer.username}} ({{n.customer.name}} {{n.customer.surname}})</p>
+            <p class="text-gray-700 text-sm">
+              The sale is correctly carried out and inserted in the filing system.
+            </p>
+        </div>
       </div>
     </div>
   </div>

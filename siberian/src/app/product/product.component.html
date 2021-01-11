@@ -144,3 +144,113 @@
   cursor: pointer;
 }
 </style>
+
+<div id="alertDivOk" class="alert hide flex">
+  <div class="flex justify-center">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+  </div> <span class="msg">Product added to cart</span>
+</div>
+
+<div id="alertDivWarn" class="alert hide flex">
+  <div class="flex justify-center">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+  </div>
+  <span class="msg">This product is already present in the cart</span>
+</div>
+
+<div id="alertDivMax5" class="alert hide flex">
+  <div class="flex justify-center">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+      </path>
+    </svg>
+  </div>
+  <span class="msg">You can insert al most 5 products</span>
+</div>
+
+
+
+<style>
+  .alert {
+    background: #4900bc;
+    padding: 20px 20px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    border-radius: 4px;
+    border-left: 15px solid #340285;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .alert.showAlert {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .alert.show {
+    animation: show_slide 1s ease forwards;
+  }
+
+  @keyframes show_slide {
+    0% {
+      transform: translateX(100%);
+    }
+
+    40% {
+      transform: translateX(-10%);
+    }
+
+    80% {
+      transform: translateX(0%);
+    }
+
+    100% {
+      transform: translateX(-10px);
+    }
+  }
+
+  .alert.hide {
+    animation: hide_slide 1s ease forwards;
+  }
+
+  @keyframes hide_slide {
+    0% {
+      transform: translateX(-10px);
+    }
+
+    40% {
+      transform: translateX(0%);
+    }
+
+    80% {
+      transform: translateX(-10%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .alert .fa-exclamation-circle {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ce8500;
+    font-size: 30px;
+  }
+
+  .alert .msg {
+    padding: 0 20px;
+    font-size: 18px;
+    color: #fff;
+  }
+</style>

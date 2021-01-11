@@ -101,8 +101,8 @@ export class CartComponent implements OnInit {
       }
       else
       {
-        alert("stai per inviare la tua notice");
-          /* qua dentro per prova vado a stamparmi  le quantita*/
+        this.noticeSentPopup();
+        /* qua dentro per prova vado a stamparmi  le quantita*/
         var array = document.getElementsByClassName("form-input sm:w-1/2 w-full h-10 mt-2 py-3 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50");
         for(var i = 0; i<this.products.length; i++)
         {
@@ -111,11 +111,11 @@ export class CartComponent implements OnInit {
             response =>{
               if(response == true)
               {
-                alert("è stata inserita");
+                
               }
               else
               {
-                alert("c'è stato un errore");
+                
               }
             }
           );
@@ -128,6 +128,16 @@ export class CartComponent implements OnInit {
         (document.getElementById("send") as HTMLDivElement).setAttribute("class","py-2 hidden");
       }
     }
+  }
+
+  noticeSentPopup(){
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
   }
 
 }

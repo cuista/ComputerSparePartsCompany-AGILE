@@ -2,9 +2,13 @@
 <div class="w-full">
   <p style="display: inline-block; border-bottom: 4px solid #4900bc;" class = "mx-10 text-2xl my-3">Results</p>
 </div>
-
+ 
 <!--SearchDiv-->
 <div class="w-full  py-1">
+  <div style="background-color: transparent; top: 50%;" class="flex justify-center mx-10">
+    <input id="bar" placeholder = " Search..."  class="bg-white opacity-75 border border-gray-500 h-12 mb-1 outline-none w-full text-xl focus:ring-2 focus:ring-blue-600"/>
+    <button (click) ="goToResult()" type = "button" class="bg-blue-600  w-1/2 mx-2 sm:w-28 justify-center h-12" style = "color:#FFF; background-color:#4900bc;">Go</button>
+  </div> 
   <div class="sm:mx-10 shadow-2xl p-5 bg-white sm:flex">
     <div class ="pt-2 mx-3 p-floating-container sm:w-1/4 w-full">
       <div class="text-black font-semibold">Which category?</div>
@@ -41,7 +45,7 @@
       </select>
     </div>
     <div class="pt-8 p-floating-container sm:w-1/6 w-full flex justify-center">
-      <button (click)="submitFilter()" style="color: white; background-color:  #4900bc;" class=" w-full sm:w-1/2 h-12 ">Go</button>
+      <button (click)="submitFilter()" style="color: white; background-color:  #4900bc;" class=" w-full sm:w-1/2 h-12 ">Filter</button>
     </div>
   </div>
   

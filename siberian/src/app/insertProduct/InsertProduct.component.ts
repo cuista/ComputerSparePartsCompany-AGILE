@@ -187,7 +187,7 @@ export class InsertProductComponent implements OnInit {
         response => {
           if(response == true)
           {
-            alert("il prodotto è stato inserito")
+            this.insertProductPopup();
             /* tutti i campi qui dovrebbero essere di nuovo vuoti */
             this.route.navigate(['/insert']);
            (document.getElementById("brand") as HTMLInputElement).value = "";
@@ -209,6 +209,16 @@ export class InsertProductComponent implements OnInit {
 
 
 
+  }
+
+  insertProductPopup(){
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
   }
 
 }
