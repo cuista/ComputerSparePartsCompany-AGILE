@@ -99,6 +99,7 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Before
     public void createDbTest() throws IOException{
+        System.out.println("creating db");
 
         if (!isInitialized) {
 
