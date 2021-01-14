@@ -2,6 +2,8 @@ package it.unical.asd.group6.computerSparePartsCompany.data.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeDTO implements Serializable {
 

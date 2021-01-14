@@ -6,13 +6,11 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.EmployeeServ
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.EmployeeDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.EmployeeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +42,15 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public boolean checkLogin(String username, String password) {
         Optional<Employee> opt = employeeDao.findEmployeeByUsernameAndPassword(username, password);
+        System.out.println(opt.get().getRoles());
         return opt.isPresent();
+    }
+
+    @Override
+    public List<EmployeeDTO> getAll() {
+        List<Employee> employees = employeeDao.findAll();
+        List<EmployeeDTO> employeeDTOS = employees.stream().map(p -> modelMapper.map(p, EmployeeDTO.class)).collect(Collectors.toList());
+        return employeeDTOS;
     }
 
     @Override

@@ -2,6 +2,9 @@ package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +30,8 @@ public class Employee {
     private String email;
     @Column(name="TELEPHONE_NUMBER")
     private String telephoneNumber;
+
+    private String roles = "ADMIN";
 
     //TODO private Warehouse warehouse; and add its get, set, equeals, hash & toString
 
@@ -94,6 +99,21 @@ public class Employee {
 
     public void setTelephoneNumber(String telephone_number) {
         this.telephoneNumber = telephone_number;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public List<String> getRoleList(){
+        if(this.roles.length() > 0){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
     }
 
     @Override

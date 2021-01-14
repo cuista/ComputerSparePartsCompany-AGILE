@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,6 +24,11 @@ public class EmployeeController {
     public ResponseEntity<Boolean> doLogin(
             @RequestParam("username") String username, @RequestParam("password") String password) {
         return ResponseEntity.ok(employeeService.checkLogin(username,password));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<EmployeeDTO>> employeeList() {
+        return ResponseEntity.ok(employeeService.getAll());
     }
 
     @GetMapping("/by-username")
