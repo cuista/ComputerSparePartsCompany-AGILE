@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/products/all-products/distinct").hasRole("ADMIN").and()
-                .formLogin();
+                .formLogin().loginPage("http://localhost:4200/login");
                 //.denyAll();
                    // .antMatchers().denyAll();
                 //.anyRequest().denyAll();

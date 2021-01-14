@@ -130,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "siberian"
+  "defaultProject": "siberian",
+  "cli": {
+    "analytics": "30aa0be9-ca66-4133-b2d8-0ca8433d09be"
+  }
 }
