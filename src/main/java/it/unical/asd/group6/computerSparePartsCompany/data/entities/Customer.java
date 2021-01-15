@@ -38,6 +38,8 @@ public class Customer {
     @Column(name = "VAT_ID") //FIXARE EVENTUALMENTE LA LENGTH
     private Long VATIdentificationNumber;
 
+    private String roles = "USER";
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Purchase> purchases=new ArrayList<>();
