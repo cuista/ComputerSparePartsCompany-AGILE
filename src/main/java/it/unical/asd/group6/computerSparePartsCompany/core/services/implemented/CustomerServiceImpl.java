@@ -82,8 +82,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Optional<CustomerDTO> getCustomerByUsername(String username) {
         Optional<Customer> customer = customerDao.findCustomerByUsername(username);
-        Optional<CustomerDTO> customerDTO = Optional.of(modelMapper.map(customer.get(), CustomerDTO.class));
-        return customerDTO;
+        if(customer.isPresent())
+            return Optional.of(modelMapper.map(customer.get(), CustomerDTO.class));
+        return null;
     }
 
     @Override

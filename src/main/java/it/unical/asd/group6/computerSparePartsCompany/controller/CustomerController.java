@@ -22,11 +22,24 @@ public class CustomerController {
     @Autowired
     CustomerServiceImpl customerService;
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
+    public HttpStatus doLogin(@RequestParam String username) {
+        if(customerService.getCustomerByUsername(username) == null)
+            return HttpStatus.FORBIDDEN;
+        System.out.println("loggato customer");
+        return HttpStatus.OK;
+    }
+
+    /*public ResponseEntity<Boolean> doLogin() {
+        System.out.println("loggando un customer");
+        return ResponseEntity.ok(true);
+    }*/
+
+    /*@GetMapping("/login")
     public ResponseEntity<Boolean> doLogin(
             @RequestParam("username") String username, @RequestParam("password") String password) {
         return ResponseEntity.ok(customerService.checkLogin(username,password));
-    }
+    }*/
 
     @PostMapping("/register")
     public ResponseEntity<Boolean> doSignUp (@RequestBody Customer customer) {

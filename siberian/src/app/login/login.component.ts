@@ -12,6 +12,9 @@ export class LoginComponent implements OnInit {
   wrongData = false;
   errorLoginMessage = "No correct data";
 
+  username = "";
+  password = "";
+
   constructor(
     private loginService: LoginService,
     private route: Router
@@ -22,6 +25,19 @@ export class LoginComponent implements OnInit {
     {
       this.route.navigate(['/404']);
     }
+  }
+
+  doLogin() {
+    let resp = this.loginService.getLogin(this.username, this.password);
+    resp.subscribe(data => {
+      alert(data.toString());
+      console.log(data.toString());
+      if(data.toString() == '"OK"')
+        this.route.navigate(['/results']);
+      else
+        this.route.navigate(['/404']);
+    });
+    console.log(this.username + " " + this.password);
   }
 
   hideMessage()

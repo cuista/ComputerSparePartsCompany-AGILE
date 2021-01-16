@@ -2,8 +2,8 @@ package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.EmployeeDTO;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
+import it.unical.asd.group6.computerSparePartsCompany.security.EmployeeUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +14,33 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/employee")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class EmployeeController {
 
     @Autowired
     private EmployeeServiceImpl employeeService;
 
-    @GetMapping("/login")
+    @Autowired
+    private EmployeeUserServiceImpl employeeUserService;
+
+    //@Autowired
+    //private AuthenticationManager authenticationManager;
+
+    @RequestMapping("/login")
+    public HttpStatus doLogin(@RequestParam String username) {
+        if(employeeService.getEmployeeByUsername(username) == null) {
+            return HttpStatus.FORBIDDEN;
+        }
+        System.out.println("loggato");
+        return HttpStatus.OK;
+    }
+
+    /*@GetMapping("/login")
     public ResponseEntity<Boolean> doLogin(
             @RequestParam("username") String username, @RequestParam("password") String password) {
         return ResponseEntity.ok(employeeService.checkLogin(username,password));
-    }
+    }*/
 
     @GetMapping("/all")
     public ResponseEntity<List<EmployeeDTO>> employeeList() {

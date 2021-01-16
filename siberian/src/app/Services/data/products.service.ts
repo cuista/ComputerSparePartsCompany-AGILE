@@ -19,7 +19,7 @@ export class ProductsService {
   async getProducts()
   {
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return await this.httpClient.get("http://localhost:8080//products/all-products/distinct",{headers,responseType:'json'}).toPromise();
+    return await this.httpClient.get("http://localhost:8080/products/all-products/distinct",{headers,responseType:'json'}).toPromise();
   }
 
   getProductsByBrandAndModel(brand:string,model:string): Observable<IProduct[]>
@@ -28,7 +28,7 @@ export class ProductsService {
               .set('brand',brand)
               .set('model',model);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return this.httpClient.get<IProduct[]>(`http://localhost:8080//products/all-products/brand=${brand}/model=${model}`);
+    return this.httpClient.get<IProduct[]>(`http://localhost:8080/products/all-products/brand=${brand}/model=${model}`);
   }
 
   saveProduct(brand: string, model:string,image: string, category:string,warehouse:string,price: string,order: string, description: string)
@@ -73,7 +73,7 @@ export class ProductsService {
   getBrands(): Observable<IBrand[]>
   {
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return this.httpClient.get<IBrand[]>("http://localhost:8080//products/get-brands",{headers});
+    return this.httpClient.get<IBrand[]>("http://localhost:8080/products/get-brands",{headers});
 
   }
 
@@ -82,7 +82,7 @@ export class ProductsService {
     const params = new HttpParams()
     .set('category',category)
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return this.httpClient.get<IBrand[]>("http://localhost:8080//products/get-brands-by-category",{headers,params});
+    return this.httpClient.get<IBrand[]>("http://localhost:8080/products/get-brands-by-category",{headers,params});
 
   }
 
@@ -96,7 +96,7 @@ export class ProductsService {
           .set('brand',brand)
           .set('min',min)
           .set('max',max);
-      return await this.httpClient.get("http://localhost:8080//products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
+      return await this.httpClient.get("http://localhost:8080/products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
     }
     else if(category != null && brand == null)
     {
@@ -104,7 +104,7 @@ export class ProductsService {
           .set('category',category)
           .set('min',min)
           .set('max',max);
-      return await this.httpClient.get("http://localhost:8080//products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
+      return await this.httpClient.get("http://localhost:8080/products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
     }
     else if(category != null && brand != null)
     {
@@ -113,18 +113,18 @@ export class ProductsService {
           .set('brand',brand)
           .set('min',min)
           .set('max',max);
-      return await this.httpClient.get("http://localhost:8080//products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
+      return await this.httpClient.get("http://localhost:8080/products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
     }
     var params = new HttpParams()
     .set('min',min)
     .set('max',max);
-    return await this.httpClient.get("http://localhost:8080//products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
+    return await this.httpClient.get("http://localhost:8080/products/get-products-by-filters?"+params,{headers,responseType:'json'}).toPromise(); 
   }
 
   async getSearchProducts(parameter:string)
   {
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return await this.httpClient.get(`http://localhost:8080//products/get-product-by-regex?s=${parameter}`,{headers,responseType:'json'}).toPromise();
+    return await this.httpClient.get(`http://localhost:8080/products/get-product-by-regex?s=${parameter}`,{headers,responseType:'json'}).toPromise();
   }
 
 

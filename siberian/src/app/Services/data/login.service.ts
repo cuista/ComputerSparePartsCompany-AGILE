@@ -10,14 +10,20 @@ constructor(
   private httpClient: HttpClient
 ) {}
 
-  getLogin(username: string, password:string)
-  {
-    let params = new HttpParams()
-              .set('username',username)
-              .set('password',password);
-    const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return this.httpClient.get<Boolean>("http://localhost:8080/customer/login",{params});
-  }
+getLogin(username: string, password:string)
+{​​
+
+  let params = new HttpParams()
+
+            .set('username',username);
+
+            //.set('password',password);
+
+  const headers = new HttpHeaders({​​ Authorization: 'Bearer ' + username}​​);
+  console.log(headers)
+  return this.httpClient.get("http://localhost:8080/employee/login",{​​headers,params,responseType: 'text' as 'json'}​​);
+
+}​​
 
 }
 

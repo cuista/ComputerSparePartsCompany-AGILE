@@ -17,7 +17,7 @@ public class EmployeeUserServiceImpl implements UserDetailsService {
     EmployeeDao employeeDao;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) {
         System.out.println("Load user by username " + s);
         Optional<Employee> employee = this.employeeDao.findEmployeeByUsername(s);
         EmployeeUser employeeUser = new EmployeeUser(employee.get());

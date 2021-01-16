@@ -33,6 +33,7 @@ import { PalladioComponent } from './palladio/palladio.component';
 import { AddReviewComponent } from './addReview/addReview.component';
 import { SearchBarComponent } from 'src/searchBar/searchBar.component';
 import { AddOrderComponent } from './addOrder/addOrder.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [																																					
@@ -69,7 +70,8 @@ import { AddOrderComponent } from './addOrder/addOrder.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
