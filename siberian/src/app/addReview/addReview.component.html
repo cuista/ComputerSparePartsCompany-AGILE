@@ -1,0 +1,163 @@
+<app-topHeader></app-topHeader>
+<div class="h-full py-6 flex">
+  <div class="bg-white w-full">
+    <div class="flex justify-center">
+      <div class="md:w-1/3 w-full mx-1 my-3 shadow-2xl bg-white rounded">
+        <p style="display: inline-block;   border-bottom: 4px solid #4900bc;" class = "text-2xl mx-3 my-3">Add review</p>
+        <div class="grid grid-rows justify-center">
+          <div class="flex mx-3 justify-center">
+            <div (click) = "setRate('star1')"  id="star1" class="scalzoRating text-2xl" style="color: gray;">★</div>
+            <div (click) = "setRate('star2')" id="star2" class="scalzoRating text-2xl" style="color: gray;">★</div>
+            <div (click) = "setRate('star3')" id="star3" class="scalzoRating text-2xl" style="color: gray;">★</div>
+            <div (click) = "setRate('star4')" id="star4" class="scalzoRating text-2xl" style="color: gray;">★</div>
+            <div (click) = "setRate('star5')" id="star5" class="scalzoRating text-2xl" style="color: gray;">★</div>
+          </div>
+        </div>
+        <div class ="py-1 mx-3 p-floating-container">
+          <input (focus) = "setBorder('title','hiddenTitle','labelTitle')" placeholder="Title" id = "title" class = "form-input
+              w-full h-14 mt-2 py-1 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50"/>
+          <label id="labelTitle">Title</label>
+          <div id="hiddenTitle" class="text-sm text-gray-500">Visible on product page</div>
+        </div>
+        <div class ="py-1 mx-3 p-floating-container">
+          <textarea (focus) = "setOriginalDescription()" rows="6" id = "description" name = "description" class="form-input resize-y w-full mt-2 py-1 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50" placeholder="Description"></textarea>          
+          <label id="labelDescription">Description</label>
+          <div id="hiddenDescription" class="text-sm text-gray-500">Visible on product page</div>
+        </div>
+        <div *ngIf = "errorRate == true" id="message" class="flex justify-center text-red-500">
+            Set rating
+        </div>
+        <div class ="py-1 mx-3 p-floating-container flex justify-center">
+          <button (click)="addReview()" type = "button" class="h-12 bg-blue-600 w-1/3" style = "color:#FFF; background-color:#4900bc;">Insert</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<style>
+  .p-floating-container {
+      position: relative;
+  }
+  
+  .p-floating-container label {
+      /* Position the label */
+      left: 8px;
+      position: absolute;
+      top: 0;
+  
+      /* Hide it by default */
+      opacity: 0;
+      transition: 'all 0.2s ease-in-out';
+  }
+  
+  /* Show the label at desired position when the placeholder of input isn't shown */
+  .p-floating-container input:not(:placeholder-shown) + label {
+      background: #FFF;
+      transform: translate(0, -10%);
+      opacity: 1;
+      color: #3380FF;
+  }
+  
+  .p-floating-container textarea:not(:placeholder-shown) + label {
+      background: #FFF;
+      transform: translate(0, -10%);
+      opacity: 1;
+      color: #3380FF;
+  }
+
+  #scalzoRating{
+    cursor: pointer;
+  }
+  </style>
+
+<div id="alertDivOk" class="alert hide flex">
+  <div class="flex justify-center">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+  </div> <span class="msg">There is already a review</span>
+</div>
+
+<style>
+  .alert {
+    background: #4900bc;
+    padding: 20px 20px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    border-radius: 4px;
+    border-left: 15px solid #340285;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .alert.showAlert {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .alert.show {
+    animation: show_slide 1s ease forwards;
+  }
+
+  @keyframes show_slide {
+    0% {
+      transform: translateX(100%);
+    }
+
+    40% {
+      transform: translateX(-10%);
+    }
+
+    80% {
+      transform: translateX(0%);
+    }
+
+    100% {
+      transform: translateX(-10px);
+    }
+  }
+
+  .alert.hide {
+    animation: hide_slide 1s ease forwards;
+  }
+
+  @keyframes hide_slide {
+    0% {
+      transform: translateX(-10px);
+    }
+
+    40% {
+      transform: translateX(0%);
+    }
+
+    80% {
+      transform: translateX(-10%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .alert .fa-exclamation-circle {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ce8500;
+    font-size: 30px;
+  }
+
+  .alert .msg {
+    padding: 0 20px;
+    font-size: 18px;
+    color: #fff;
+  }
+</style>
+

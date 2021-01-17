@@ -1,0 +1,24 @@
+<a routerLink="/product" routerLinkActive="active"> 
+  <div class="mx-3 shadow-2xl my-2 rounded-sm">
+
+    <!-- Immagine -->
+    <div class="flex justify-center">
+      <img src="{{url}}" id = "productImage">
+    </div>
+    <!-- Categoria -->
+    <div class="w-full text-center text-2xl font-medium">{{name}}</div>
+    <!-- Prezzo -->
+    <div class="w-full text-center">{{price}}</div>
+    <div class="flex justify-center">
+      <button type = "button" class="h-12 mx-3 my-2 bg-blue-600 w-full" style = "color:#FFF; background-color:#4900bc;">Add to cartù</button>
+    </div>
+  </div>
+</a>
+
+<style>
+  #productImage{
+    /*l'obiettivo è di avere immagini tutte quadrate e di risoluzione maggiore di 200 per 200*/
+    max-width: 200px;
+    max-height: 200px;
+  }
+</style>
