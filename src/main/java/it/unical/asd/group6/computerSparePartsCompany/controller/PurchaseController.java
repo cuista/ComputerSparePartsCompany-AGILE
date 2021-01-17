@@ -40,12 +40,12 @@ public class PurchaseController {
     @Autowired
     ProductServiceImpl productService;
 
-    @PostMapping("/savePurchase")
+    @PostMapping("/savePurchase") //** e
     public ResponseEntity<Boolean> addPurchase(@RequestBody Purchase purchase) {
         return ResponseEntity.ok(purchaseService.registerNewPurchase(purchase));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add") //** e
     public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price, @RequestParam String date, @RequestParam String id) {
         Purchase p = new Purchase();
         Optional<Customer> c = customerService.getCustomerEntityByUsername(username);
@@ -64,7 +64,7 @@ public class PurchaseController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all") //** e
     public ResponseEntity<List<PurchaseDTO>> getAll()
     {
         return ResponseEntity.ok(purchaseService.getAll());
@@ -84,7 +84,7 @@ public class PurchaseController {
     }
 
 
-    @PostMapping("/savePurchase-by-parameters")
+    @PostMapping("/savePurchase-by-parameters") //** c
     public ResponseEntity<Boolean> addPurchase(@RequestParam Long customerId, @RequestParam String date,
                                                 @RequestBody List<Long> productsId,@RequestParam Double price,
                                                 @RequestParam Long warehouse){
@@ -107,7 +107,7 @@ public class PurchaseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/get-all-purchases")
+    @GetMapping("/get-all-purchases") //** e
     public ResponseEntity<List<PurchaseDTO>> getAllPurchases(){
 
         return ResponseEntity.ok(purchaseService.getAllPurchases());

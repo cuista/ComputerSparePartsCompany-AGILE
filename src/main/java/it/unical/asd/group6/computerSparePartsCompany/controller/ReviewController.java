@@ -68,7 +68,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getAllByBrandAndModel(brand,model));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add") //** c
     public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String brand,@RequestParam String model, @RequestParam String title, @RequestParam String text,@RequestParam String rate) {
         /*un utente u non può aggiungere due recensioni allo stesso prodotto*/
         /*il concetto di recensione si estende alla descrizione totale di tutti gli acquisti e non di un singolo*/

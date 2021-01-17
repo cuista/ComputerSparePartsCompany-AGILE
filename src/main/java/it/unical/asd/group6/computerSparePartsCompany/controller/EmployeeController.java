@@ -25,7 +25,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.checkLogin(username,password));
     }
 
-    @GetMapping("/by-username")
+    @GetMapping("/by-username") //** e
     public ResponseEntity<Optional<EmployeeDTO>> getEmployeeByUsername(String username) {
         System.out.println(employeeService.getEmployeeByUsername(username).toString());
         return ResponseEntity.ok(employeeService.getEmployeeByUsername(username));
@@ -55,17 +55,17 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("/report-totalpurchases")
+    @GetMapping("/report-totalpurchases") //** e
     public ResponseEntity<Integer> getTotalPurchases(){
         return ResponseEntity.ok(employeeService.getReportTotalPurchases());
     }
 
-    @GetMapping("/report-totalamount")
+    @GetMapping("/report-totalamount") //** e
     public ResponseEntity<Double> getTotalAmount(){
         return ResponseEntity.ok(employeeService.getReportTotalAmountSpent());
     }
 
-    @GetMapping("/report-favoritecategory")
+    @GetMapping("/report-favoritecategory") //** e
     public ResponseEntity<String> getFavoriteCategory(){
         return ResponseEntity.ok(employeeService.getReportFavoriteCategory());
     }

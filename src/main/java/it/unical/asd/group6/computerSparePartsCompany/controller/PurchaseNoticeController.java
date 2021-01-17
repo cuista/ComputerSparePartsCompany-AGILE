@@ -31,12 +31,12 @@ public class PurchaseNoticeController {
     @Autowired
     WarehouseServiceImpl warehouseService;
 
-    @GetMapping("/all-noticeViews")
+    @GetMapping("/all-noticeViews") //** e
     public ResponseEntity<List<PurchaseNoticeDTO>> getView() {
         return ResponseEntity.ok(purchaseNoticeService.getView());
     }
 
-    @PostMapping("/add-notice")
+    @PostMapping("/add-notice") //** c
     public ResponseEntity<Boolean>addNotice(@RequestParam String date, @RequestParam String username,@RequestParam String idWarehouse,@RequestParam String brand, @RequestParam String model,@RequestParam String quantity) {
         /*devo capire come funziona praticamente la conversione da string a date*/
         PurchaseNotice p = new PurchaseNotice();
@@ -53,7 +53,7 @@ public class PurchaseNoticeController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping("all-by-customer")
+    @GetMapping("all-by-customer") //** c
     public ResponseEntity<List<PurchaseNoticeDTO>> getAllByCustomer(@RequestParam String username) {
 
         List<PurchaseNoticeDTO> purchaseNoticesByCustomer = purchaseNoticeService.getAllByCustomer(customerService.getCustomerEntityByUsername(username).get());

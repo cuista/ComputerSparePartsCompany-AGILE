@@ -81,7 +81,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
 
-    @PostMapping("/add-product")
+    @PostMapping("/add-product") //** e
     public ResponseEntity<Boolean> add(
             @RequestParam String price, @RequestParam String brand,
             @RequestParam String model, @RequestParam String description, @RequestParam String url,
@@ -105,12 +105,12 @@ public class ProductController {
         return ResponseEntity.ok(productService.addProduct(p));
     }
 
-    @PostMapping("/del-product")
+    @PostMapping("/del-product") //** e
     public ResponseEntity<Boolean> del(@RequestParam String brand, @RequestParam String model) {
         return ResponseEntity.ok(productService.deleteProduct(brand, model));
     }
 
-    @PostMapping("/update-product-by-all")
+    @PostMapping("/update-product-by-all") //** e
     public ResponseEntity<Boolean> updateAll(
             @RequestParam String brand, @RequestParam String model, @RequestParam String price,
             @RequestParam String description, @RequestParam String url, @RequestParam String categoryName) {
@@ -128,7 +128,7 @@ public class ProductController {
     }
 
     @PostMapping("/update-product-by-price")
-    public ResponseEntity<Boolean> updatePrice(
+    public ResponseEntity<Boolean> updatePrice( //** e
             @RequestParam String brand, @RequestParam String model, @RequestParam Double price) {
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         if(temp == null) {
@@ -142,7 +142,7 @@ public class ProductController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/update-product-by-description")
+    @PostMapping("/update-product-by-description") //** e
     public ResponseEntity<Boolean> updateDescription(
             @RequestParam String brand, @RequestParam String model, @RequestParam String description) {
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
@@ -158,7 +158,7 @@ public class ProductController {
     }
 
     @PostMapping("/update-product-by-url")
-    public ResponseEntity<Boolean> updateUrl(
+    public ResponseEntity<Boolean> updateUrl( //** e
             @RequestParam String brand, @RequestParam String model, @RequestParam String url) {
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         if(temp == null) {
@@ -173,7 +173,7 @@ public class ProductController {
     }
 
     @PostMapping("/update-product-by-category")
-    public ResponseEntity<Boolean> updateCategory(
+    public ResponseEntity<Boolean> updateCategory( //** e
             @RequestParam String brand, @RequestParam String model, @RequestParam String category) {
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         Category cat = categoryService.getCategoryByName(category);

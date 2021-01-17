@@ -30,7 +30,7 @@ public class OrderRequestController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/get-all-orderRequests")
+    @GetMapping("/get-all-orderRequests") //** e
     public ResponseEntity<List<OrderRequestDTO>> getAllOrderRequests(){
         return ResponseEntity.ok(orderRequestService.getAllOrderRequests());
     }
@@ -43,7 +43,7 @@ public class OrderRequestController {
         return ResponseEntity.ok(orderRequest);
     }
 
-    @PostMapping("/save-orderRequest")
+    @PostMapping("/save-orderRequest") //** e
     public ResponseEntity<OrderRequestDTO> addOrderRequest(@RequestParam String warehouse, @RequestParam String prodHouse,
                                                         @RequestParam String productBrand, @RequestParam String productModel,
                                                         @RequestParam Integer productQuantity){
@@ -63,7 +63,7 @@ public class OrderRequestController {
 
     }
 
-    @GetMapping("/{warehouse}/get-all-requested-products")
+    @GetMapping("/{warehouse}/get-all-requested-products") //** e
     public ResponseEntity<List<OrderRequestDTO>> getAllOrderedProductsFromAWarehouse(@PathVariable String warehouse){
         List<OrderRequestDTO> orderRequestsSent = orderRequestService.getAllOrderRequestsForWarehouse(Long.parseLong(warehouse));
 
