@@ -1,13 +1,10 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerService;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.ProductServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.WarehouseServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.ProductDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.PurchaseServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.CustomerService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.PurchaseService;
@@ -18,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -40,13 +38,25 @@ public class PurchaseController {
     @Autowired
     ProductServiceImpl productService;
 
-    @PostMapping("/savePurchase")
-    public ResponseEntity<Boolean> addPurchase(@RequestBody Purchase purchase) {
+    @Autowired
+    private EmployeeServiceImpl employeeService;
+
+    @PostMapping("/savePurchase") //** e
+    public ResponseEntity<Boolean> addPurchase(@RequestBody Purchase purchase,
+                                               @RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(purchaseService.registerNewPurchase(purchase));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price, @RequestParam String date, @RequestParam String id) {
+    @PostMapping("/add") //** e
+    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String price,
+                                       @RequestParam String date, @RequestParam String id,
+                                       @RequestParam String usernameEmployee, @RequestParam String passwordEmployee) {
+        if (!employeeService.checkLogin(usernameEmployee, passwordEmployee)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         Purchase p = new Purchase();
         Optional<Customer> c = customerService.getCustomerEntityByUsername(username);
         if(c.isPresent())
@@ -64,9 +74,11 @@ public class PurchaseController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<PurchaseDTO>> getAll()
-    {
+    @GetMapping("/all") //** e
+    public ResponseEntity<List<PurchaseDTO>> getAll(@RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(purchaseService.getAll());
     }
 
@@ -84,10 +96,15 @@ public class PurchaseController {
     }
 
 
-    @PostMapping("/savePurchase-by-parameters")
+    @PostMapping("/savePurchase-by-parameters") //** c
     public ResponseEntity<Boolean> addPurchase(@RequestParam Long customerId, @RequestParam String date,
                                                 @RequestBody List<Long> productsId,@RequestParam Double price,
-                                                @RequestParam Long warehouse){
+                                                @RequestParam Long warehouse,@RequestParam String username,
+                                               @RequestParam String password){
+
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 
         Purchase purchase = new Purchase();
         purchase.setCustomer(customerService.getCustomerEntityById(customerId).get());
@@ -107,9 +124,11 @@ public class PurchaseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/get-all-purchases")
-    public ResponseEntity<List<PurchaseDTO>> getAllPurchases(){
-
+    @GetMapping("/get-all-purchases") //** e
+    public ResponseEntity<List<PurchaseDTO>> getAllPurchases(@RequestParam String username, @RequestParam String password){
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(purchaseService.getAllPurchases());
 
     }
