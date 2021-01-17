@@ -82,7 +82,11 @@ public class JobRequestServiceImpl implements JobRequestService {
 
     @Override
     public JobRequestDTO getByUsername(String username) {
-        JobRequest j = jobRequestDAO.getByUsername(username).get();
+        JobRequest j = null;
+        if(jobRequestDAO.getByUsername(username).isPresent())
+        {
+            j = jobRequestDAO.getByUsername(username).get();
+        }
         return modelMapper.map(j, JobRequestDTO.class);
     }
 }

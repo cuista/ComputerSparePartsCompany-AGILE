@@ -34,7 +34,9 @@ public class JobRequestController {
     @GetMapping("/get-by-username")
     public ResponseEntity<JobRequestDTO>getByUsername(@RequestParam String username)
     {
-        return ResponseEntity.ok(jobRequestService.getByUsername(username));
+        if(jobRequestService.getByUsername(username) != null)
+            return ResponseEntity.ok(jobRequestService.getByUsername(username));
+        return null;
     }
 
     @GetMapping("/get-all-by-title")
