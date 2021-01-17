@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -26,8 +27,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/by-username") //** e
-    public ResponseEntity<Optional<EmployeeDTO>> getEmployeeByUsername(String username) {
-        System.out.println(employeeService.getEmployeeByUsername(username).toString());
+    public ResponseEntity<Optional<EmployeeDTO>> getEmployeeByUsername(@RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(employeeService.getEmployeeByUsername(username));
     }
 
@@ -56,17 +59,26 @@ public class EmployeeController {
 
 
     @GetMapping("/report-totalpurchases") //** e
-    public ResponseEntity<Integer> getTotalPurchases(){
+    public ResponseEntity<Integer> getTotalPurchases(@RequestParam String username, @RequestParam String password){
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(employeeService.getReportTotalPurchases());
     }
 
     @GetMapping("/report-totalamount") //** e
-    public ResponseEntity<Double> getTotalAmount(){
+    public ResponseEntity<Double> getTotalAmount(@RequestParam String username, @RequestParam String password){
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(employeeService.getReportTotalAmountSpent());
     }
 
     @GetMapping("/report-favoritecategory") //** e
-    public ResponseEntity<String> getFavoriteCategory(){
+    public ResponseEntity<String> getFavoriteCategory(@RequestParam String username, @RequestParam String password){
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(employeeService.getReportFavoriteCategory());
     }
 

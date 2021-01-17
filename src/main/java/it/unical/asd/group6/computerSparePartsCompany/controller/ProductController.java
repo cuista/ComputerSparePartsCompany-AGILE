@@ -4,6 +4,7 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.CategoryServ
 import it.unical.asd.group6.computerSparePartsCompany.core.services.OrderRequestService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.ProductDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,9 @@ public class ProductController {
 
     @Autowired
     OrderRequestService orderRequestService;
+
+    @Autowired
+    private EmployeeServiceImpl employeeService;
 
     @GetMapping("/all-products")
     public ResponseEntity<List<ProductDTO>> showAll(){
@@ -85,7 +90,12 @@ public class ProductController {
     public ResponseEntity<Boolean> add(
             @RequestParam String price, @RequestParam String brand,
             @RequestParam String model, @RequestParam String description, @RequestParam String url,
-            @RequestParam String idWarehouse, @RequestParam String categoryName, @RequestParam String idOrder) {
+            @RequestParam String idWarehouse, @RequestParam String categoryName, @RequestParam String idOrder,
+            @RequestParam String username, @RequestParam String password) {
+
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 
         Optional<OrderRequest> orderRequest = orderRequestService.getOrderRequestEntityById(Long.valueOf(idOrder));
         if(!orderRequest.isPresent()) {
@@ -106,14 +116,22 @@ public class ProductController {
     }
 
     @PostMapping("/del-product") //** e
-    public ResponseEntity<Boolean> del(@RequestParam String brand, @RequestParam String model) {
+    public ResponseEntity<Boolean> del(@RequestParam String brand, @RequestParam String model,
+                                       @RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(productService.deleteProduct(brand, model));
     }
 
     @PostMapping("/update-product-by-all") //** e
     public ResponseEntity<Boolean> updateAll(
             @RequestParam String brand, @RequestParam String model, @RequestParam String price,
-            @RequestParam String description, @RequestParam String url, @RequestParam String categoryName) {
+            @RequestParam String description, @RequestParam String url, @RequestParam String categoryName,
+            @RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         Category cat = categoryService.getCategoryByName(categoryName);
         if(temp == null) {
@@ -129,7 +147,11 @@ public class ProductController {
 
     @PostMapping("/update-product-by-price")
     public ResponseEntity<Boolean> updatePrice( //** e
-            @RequestParam String brand, @RequestParam String model, @RequestParam Double price) {
+            @RequestParam String brand, @RequestParam String model, @RequestParam Double price,
+                                                @RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         if(temp == null) {
             return  ResponseEntity.ok(false);
@@ -144,7 +166,11 @@ public class ProductController {
 
     @PostMapping("/update-product-by-description") //** e
     public ResponseEntity<Boolean> updateDescription(
-            @RequestParam String brand, @RequestParam String model, @RequestParam String description) {
+            @RequestParam String brand, @RequestParam String model, @RequestParam String description,
+            @RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         if(temp == null) {
             return  ResponseEntity.ok(false);
@@ -159,7 +185,11 @@ public class ProductController {
 
     @PostMapping("/update-product-by-url")
     public ResponseEntity<Boolean> updateUrl( //** e
-            @RequestParam String brand, @RequestParam String model, @RequestParam String url) {
+            @RequestParam String brand, @RequestParam String model, @RequestParam String url,
+                                              @RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         if(temp == null) {
             return  ResponseEntity.ok(false);
@@ -174,7 +204,11 @@ public class ProductController {
 
     @PostMapping("/update-product-by-category")
     public ResponseEntity<Boolean> updateCategory( //** e
-            @RequestParam String brand, @RequestParam String model, @RequestParam String category) {
+            @RequestParam String brand, @RequestParam String model, @RequestParam String category,
+                                                   @RequestParam String username, @RequestParam String password) {
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         List<Product> temp = productService.getAllEntityProductByBrandAndModel(brand, model);
         Category cat = categoryService.getCategoryByName(category);
         if(temp == null) {

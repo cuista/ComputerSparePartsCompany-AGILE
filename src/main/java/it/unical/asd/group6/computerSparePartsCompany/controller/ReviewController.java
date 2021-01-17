@@ -1,13 +1,16 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.ReviewServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.ReviewDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Review;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +25,9 @@ public class ReviewController {
 
     @Autowired
     CustomerServiceImpl customerService;
+
+    @Autowired
+    private EmployeeServiceImpl employeeService;
 
     @GetMapping("/prova")
     public ResponseEntity<Boolean>stampa()
@@ -69,7 +75,14 @@ public class ReviewController {
     }
 
     @PostMapping("/add") //** c
-    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String brand,@RequestParam String model, @RequestParam String title, @RequestParam String text,@RequestParam String rate) {
+    public ResponseEntity<Boolean> add(@RequestParam String username, @RequestParam String password, @RequestParam String brand,
+                                       @RequestParam String model, @RequestParam String title,
+                                       @RequestParam String text,@RequestParam String rate) {
+
+        if(!customerService.checkLogin(username,password)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         /*un utente u non può aggiungere due recensioni allo stesso prodotto*/
         /*il concetto di recensione si estende alla descrizione totale di tutti gli acquisti e non di un singolo*/
         Customer c = customerService.getCustomerEntityByUsername(username).get(); /*esiste sicuramente*/
