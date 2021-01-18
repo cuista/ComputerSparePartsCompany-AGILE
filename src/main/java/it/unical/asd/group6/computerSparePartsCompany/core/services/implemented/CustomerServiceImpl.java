@@ -2,6 +2,10 @@ package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CategoryDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
+<<<<<<< HEAD
+=======
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.CategoryDTO;
+>>>>>>> 9f8aaaa27c6ce0974dbf17a8841236d3b640bbb7
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
@@ -29,7 +33,11 @@ public class CustomerServiceImpl implements CustomerService {
     CategoryDao categoryDao;
 
     @Autowired
+<<<<<<< HEAD
     ModelMapper mapper;
+=======
+    ModelMapper modelMapper;
+>>>>>>> 9f8aaaa27c6ce0974dbf17a8841236d3b640bbb7
 
     @Override
     public Boolean registerNewCustomer(Customer customer) {
@@ -58,9 +66,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDTO> getAllCustomer() {
+<<<<<<< HEAD
         List<Customer> customers = customerDao.findAll();
 
         return customers.stream().map(cust -> mapper.map(cust,CustomerDTO.class)).collect(Collectors.toList());
+=======
+        return customerDao.findAll().stream().map(c -> modelMapper.map(c, CustomerDTO.class)).collect(Collectors.toList());
+>>>>>>> 9f8aaaa27c6ce0974dbf17a8841236d3b640bbb7
     }
 
     @Override
@@ -83,8 +95,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<CustomerDTO> getCustomerByUsername(String username) {
+<<<<<<< HEAD
         CustomerDTO customerDTO = mapper.map(customerDao.findCustomerByUsername(username),CustomerDTO.class);
         return Optional.of(customerDTO);
+=======
+        Optional<Customer> customer = customerDao.findCustomerByUsername(username);
+        Optional<CustomerDTO> customerDTO = Optional.of(modelMapper.map(customer.get(), CustomerDTO.class));
+        return customerDTO;
+>>>>>>> 9f8aaaa27c6ce0974dbf17a8841236d3b640bbb7
     }
 
     @Override
@@ -173,9 +191,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> getCustomerById(Long id)
-    {
-        return customerDao.findCustomerById(id);
+    public Optional<CustomerDTO> getCustomerById(Long id) {
+        Optional<Customer> customer = customerDao.findCustomerById(id);
+        Optional<CustomerDTO> customerDTO = Optional.of(modelMapper.map(customer.get(), CustomerDTO.class));
+        return customerDTO;
     }
 
     @Override
@@ -186,6 +205,16 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void updateCustomerInfos(Customer customer) {
        customerDao.save(customer);
+    }
+
+    @Override
+    public Optional<Customer> getCustomerEntityByUsername(String username) {
+        return customerDao.findCustomerByUsername(username);
+    }
+
+    @Override
+    public Optional<Customer> getCustomerEntityById(Long customerId) {
+        return customerDao.findCustomerById(customerId);
     }
 
 }

@@ -50,8 +50,9 @@ export class InsertProductComponent implements OnInit {
   validateImage(image:string) /* incompleta */
   {
     /* link */
-    let re = new RegExp("[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}\$", "g");
-    return(re.test(image) == true);
+    // let re = new RegExp("[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}\$", "g");
+    // return(re.test(image) == true);
+    return true;
   }
 
   validateCategory(category: string)
@@ -186,8 +187,17 @@ export class InsertProductComponent implements OnInit {
         response => {
           if(response == true)
           {
-            alert("il prodotto è stato inserito")
+            this.insertProductPopup();
+            /* tutti i campi qui dovrebbero essere di nuovo vuoti */
             this.route.navigate(['/insert']);
+           (document.getElementById("brand") as HTMLInputElement).value = "";
+           (document.getElementById("model") as HTMLInputElement).value = "";
+           (document.getElementById("image") as HTMLInputElement).value = "";
+           (document.getElementById("warehouse") as HTMLInputElement).value = "";
+           (document.getElementById("price") as HTMLInputElement).value = "";
+           (document.getElementById("order") as HTMLInputElement).value = "";
+           (document.getElementById("description") as HTMLInputElement).value = "";
+    
           }
           else 
           {
@@ -199,6 +209,16 @@ export class InsertProductComponent implements OnInit {
 
 
 
+  }
+
+  insertProductPopup(){
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
   }
 
 }

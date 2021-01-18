@@ -32,7 +32,7 @@ export class PurchaseService {
               .set('id',id)
               .set('price',price);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return this.httpClient.post<Boolean>("http://localhost:8080/pruchase/add?"+params,{headers:headers});
+    return this.httpClient.post<Boolean>("http://localhost:8080/purchase/add?"+params,{headers:headers});
   }
 
   async getFilteredPurchase(username:string,date:string)

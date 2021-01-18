@@ -35,9 +35,10 @@ public class Warehouse {
     private String openingHours;
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE) //INSERITO A CAUSA DEL FETCHING DI TIPO EAGER (NON SE NE POSSONO AVERE DUE IN CONTEMPORANEA)
+    //@LazyCollection(LazyCollectionOption.FALSE) //INSERITO A CAUSA DEL FETCHING DI TIPO EAGER (NON SE NE POSSONO AVERE DUE IN CONTEMPORANEA)
     //FORSE PERO' SI PUO' RIMUOVERE SE CI RENDIAMO CONTO CHE FUNZIONA COMUNQUE ---> DA VEDERE AL MOMENTO DEL RETRIEVE DI INFO DAL SITO
-    private List<Product> products=new ArrayList<>();
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -48,7 +49,7 @@ public class Warehouse {
     private List<Purchase> purchases= new ArrayList<>();
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     private List<OrderRequest> orderRequestsSent = new ArrayList<>();
 
     public Warehouse(){}

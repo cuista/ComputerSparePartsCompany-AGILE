@@ -11,7 +11,7 @@ public interface PurchaseNoticeService {
     List<PurchaseNoticeDTO> getView();
     Boolean add(PurchaseNotice p);
     List<PurchaseNoticeDTO> getAll();
-    List<PurchaseNoticeDTO> getAllByCustomer(String username);
+    List<PurchaseNoticeDTO> getAllByCustomer(Customer c);
     List<PurchaseNoticeDTO>getAllPurchaseNoticeByFilters(String username, LocalDate l);
 
 }

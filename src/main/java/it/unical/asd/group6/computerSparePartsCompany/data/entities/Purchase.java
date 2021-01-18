@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class Purchase {
     private Customer customer;
 
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
     @Column(name = "TOTAL_PRICE")

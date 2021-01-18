@@ -41,6 +41,7 @@ export class TopHeaderComponent implements OnInit {
       document.getElementById("insert")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
       document.getElementById("registerSale")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
       document.getElementById("logout")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
+      document.getElementById("navigator")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
     }
     else if(this.type == "")
     {
@@ -51,6 +52,7 @@ export class TopHeaderComponent implements OnInit {
       document.getElementById("sales")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("insert")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
       document.getElementById("registerSale")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden ");
+      document.getElementById("navigator")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden ");
     }
   }
 

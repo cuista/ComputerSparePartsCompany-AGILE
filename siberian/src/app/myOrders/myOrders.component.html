@@ -35,25 +35,28 @@
 
   <div *ngIf="notice.length > 0">
     <div class="sm:flex" *ngFor="let n of pagedItems;">
-      <div class="mx-3 my-1 sm:w-1/5">
-        <img src="https://www.flaticon.com/svg/static/icons/svg/2983/2983788.svg" style="width: 100px; height: 100px;"/>
-      </div>
-      <div class="mx-3 my-1 sm:4/5">
-        <div class="font-semibold text-xl">
-          {{n.collectionDate}}
-        </div>
-        <div class="font-semibold text-sm text-gray-500">
-        Product name: {{n.productBrand}} {{n.productModel}}
-        </div>
-        <div class="font-semibold text-sm text-gray-500">
-          Quantity: {{n.quantity}}
-        </div>
-        <div class="font-semibold text-sm text-gray-500">
-          Customer: {{n.customer.username}} ({{n.customer.name}} {{n.customer.surname}})
+      <!-- post card -->
+      <div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-1 max-w-md md:max-w-2xl "><!--horizantil margin is just for display-->
+        <div class="flex items-start px-4 py-6">
+          <img class="w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://www.flaticon.com/svg/vstatic/svg/4014/4014407.svg?token=exp=1610365087~hmac=2f371d5a70ca75146da52efade66ee94">
+          <div class="">
+              <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-gray-900 -mt-1">{{n.localDate}}</h2>
+              </div>
+              <p class="text-gray-700">Prodotto: {{n.productBrand}} {{n.productModel}}</p>
+              <p class="text-gray-700">Quantità: {{n.quantity}}</p>
+              <p class="text-gray-700">{{n.customer.username}}: {{n.customer.name}} {{n.customer.surname}}</p>
+
+              <p class="mt-3 text-gray-700 text-sm">
+                You have correctly chosen this product. You can come and pick it up on the date you set
+              </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  
   <div *ngIf="notice.length == 0">
     <div class="flex justify-center">
       <img src="https://www.flaticon.com/svg/static/icons/svg/1178/1178479.svg" style="width: 30%; height: 30%;">

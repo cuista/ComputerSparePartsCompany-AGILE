@@ -57,6 +57,15 @@ export class CustomerPageComponent implements OnInit {
     }
   }
 
+  openDeleteModal()
+  {
+    const overlay = document.getElementById('overlay') as HTMLElement;
+    overlay.classList.toggle('hidden');
+    overlay.classList.toggle('flex');
+  }
+
+
+
   logout()
   {
     sessionStorage.removeItem("user");

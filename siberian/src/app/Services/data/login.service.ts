@@ -16,7 +16,7 @@ constructor(
               .set('username',username)
               .set('password',password);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return this.httpClient.get<Boolean>("http://localhost:8080/customer/login",{params});
+    return this.httpClient.get<Boolean>("http://localhost:8080//customer//login",{params});
   }
 
 }

@@ -83,8 +83,8 @@ export class ProductComponent implements OnInit {
     this.userType = sessionStorage.getItem("type") as string;
     if(this.userType == "customer" || this.userType == null)
     {  
-      (document.getElementById("addToCart") as HTMLButtonElement).setAttribute("class","h-12 bg-blue-600 w-full");
-      (document.getElementById("addReview") as HTMLButtonElement).setAttribute("class","h-12 bg-blue-600 w-full");
+      (document.getElementById("addToCart") as HTMLButtonElement).setAttribute("class","h-8 border border-purple-600  w-full");
+      (document.getElementById("addReview") as HTMLButtonElement).setAttribute("class","h-8 border border-purple-600  w-full");
       (document.getElementById("quantity") as HTMLDivElement).remove();
     }
     else if(this.userType == "employee")
@@ -131,7 +131,7 @@ export class ProductComponent implements OnInit {
       {
         if(JSON.stringify(p) == stringToMatch)
         {
-          alert("prodotto gia presente nel carrello");
+          this.cartPopupWarning();
           exists = true;
         }
       }
@@ -139,14 +139,14 @@ export class ProductComponent implements OnInit {
       {
         if(exists == false)
         {
-          alert("prodotto inserito nel carrello");
+          this.cartPopup();
           array.push({"brand":returnObject[0].brand,"model":returnObject[0].model,"imageUrl":returnObject[0].imageUrl,"price":returnObject[0].price});
           sessionStorage.setItem('cartProducts',JSON.stringify(array));
         }
       }
       else
       {
-        alert("Non puoi aggiungere più di 5 prodotti al carrello");
+        this.cartPopup5Products();
       }
     }
     }, (error: HttpErrorResponse) => {})
@@ -181,7 +181,6 @@ export class ProductComponent implements OnInit {
         else if(rate == "★★★★★") {rate = "5";}
         if(username == "All users") {username = null;}
         this.reviews = await this.reviewService.getFilteredReviews(username,rate,this.brand,this.model);
-        alert(JSON.stringify(this.reviews))
         this.calcolatePagerFinals(this.reviews);
         this.setPage(index);
         var cont = 0;
@@ -277,6 +276,41 @@ export class ProductComponent implements OnInit {
     );
   }
 
+  openDeleteModal()
+  {
+    const overlay = document.getElementById('overlay') as HTMLElement;
+    overlay.classList.toggle('hidden');
+    overlay.classList.toggle('flex');
+  }
 
+  cartPopup(){
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
+  }
+
+  cartPopupWarning(){
+    (document.getElementById("alertDivWarn") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivWarn") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivWarn") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivWarn") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivWarn") as HTMLElement).classList.add("hide");},1000)
+  }
+
+  cartPopup5Products(){
+    (document.getElementById("alertDivMax5") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivMax5") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivMax5") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivMax5") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivMax5") as HTMLElement).classList.add("hide");},1000)
+  }
 
 }

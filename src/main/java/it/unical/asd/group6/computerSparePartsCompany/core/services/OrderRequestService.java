@@ -1,16 +1,20 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.OrderRequestDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderRequestService {
 
-    public List<OrderRequest> getAllOrderRequests();
+    public List<OrderRequestDTO> getAllOrderRequests();
 
-    public OrderRequest getOrderRequestById(Long id);
+    public OrderRequestDTO getOrderRequestById(Long id);
 
-    public OrderRequest saveOrderRequest(OrderRequest orderRequest);
+    Optional<OrderRequest> getOrderRequestEntityById(Long id);
 
-    List<OrderRequest> getAllOrderRequestsForWarehouse(Long parseLong);
+    public OrderRequestDTO saveOrderRequest(OrderRequest orderRequest);
+
+    List<OrderRequestDTO> getAllOrderRequestsForWarehouse(Long parseLong);
 }

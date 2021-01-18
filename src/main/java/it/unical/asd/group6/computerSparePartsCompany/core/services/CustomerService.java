@@ -27,11 +27,15 @@ public interface CustomerService {
 
     String getReportFavoriteCategory(String username);
 
-    Optional<Customer> getCustomerById(Long id);
+    Optional<CustomerDTO> getCustomerById(Long id);
 
     List<String>getAllUsernames();
 
     void updateCustomerInfos(Customer c);
+
+    Optional<Customer> getCustomerEntityByUsername(String username);
+
+    Optional<Customer> getCustomerEntityById(Long customerId);
 
     //boolean addCustomer(Customer c);
 }

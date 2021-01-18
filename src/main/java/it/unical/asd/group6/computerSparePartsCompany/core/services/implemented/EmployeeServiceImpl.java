@@ -48,10 +48,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Optional<EmployeeDTO> getEmployeeByUsername(String username)
-    {
-        EmployeeDTO employeeDTO = modelMapper.map(employeeDao.findEmployeeByUsername(username), EmployeeDTO.class);
-        return Optional.of(employeeDTO);
+    public Optional<EmployeeDTO> getEmployeeByUsername(String username) {
+        Optional<Employee> employee = employeeDao.findEmployeeByUsername(username);
+        if(employee.isPresent()) {
+            return Optional.of(modelMapper.map(employee.get(), EmployeeDTO.class));
+        }
+        return null;
     }
 
     @Override
@@ -111,8 +113,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Transactional
-    public Boolean updateEmployee(String username,String password)
-    {
+    public Boolean updateEmployee(String username,String password) {
         employeeDao.updateEmployeePassword(username,password);
         return true;
     }

@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -32,9 +30,14 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { PalladioComponent } from './palladio/palladio.component';
 import { AddReviewComponent } from './addReview/addReview.component';
 import { SearchBarComponent } from 'src/searchBar/searchBar.component';
+import { AddOrderComponent } from './addOrder/addOrder.component';
+import { SendMessageComponent } from './sendMessage/sendMessage.component';
+import { WorkWithUsComponent } from './workWithUs/workWithUs.component';
+import { NavigatorComponent } from './navigator/navigator.component';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
-  declarations: [																																				
+  declarations: [																																											
     AppComponent,
       LoginComponent,
       TopHeaderComponent,
@@ -61,7 +64,12 @@ import { SearchBarComponent } from 'src/searchBar/searchBar.component';
       PaginationComponent,
       PalladioComponent,
       AddReviewComponent,
-      SearchBarComponent
+      SearchBarComponent,
+      AddOrderComponent,
+      SendMessageComponent,
+      WorkWithUsComponent,
+      NavigatorComponent,
+      FaqComponent
    ],
   imports: [
     BrowserModule,

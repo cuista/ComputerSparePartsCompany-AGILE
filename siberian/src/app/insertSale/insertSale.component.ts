@@ -172,12 +172,35 @@ export class InsertSaleComponent implements OnInit {
       let id = "";
       for(var i = 0; i<this.products.length; i++)
       {
-        id += "-"+this.products[i];
+        if(i > 0)
+          id+="-";
+        id += this.products[i];
       }
       /* poi mi passo sta stringa id e vado a controllare se ogni id è CORRETTO */
       /* qua dentro vado ad effettuare il salvataggio per il caricamento della vendita */
-      this.purchaseService.savePurchase(date,username,price,id);
+      this.purchaseService.savePurchase(date,username,price,id).subscribe(
+        response =>{
+          if(response)
+          {
+            this.insertSalePopup();
+          }
+          else
+          {
+            alert("qualcosa è andata male")
+          }
+        }
+      );
     }
+  }
+
+  insertSalePopup(){
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivOk") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
   }
 
 }

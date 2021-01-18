@@ -4,11 +4,14 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.OrderRequest
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.ProductionHouseService;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.WarehouseService;
+import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.OrderRequestDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,43 +21,51 @@ import java.util.List;
 public class OrderRequestController {
 
     @Autowired
-    private WarehouseService warehouseService;
+    WarehouseService warehouseService;
 
     @Autowired
-    private ProductionHouseService productionHouseService;
+    ProductionHouseService productionHouseService;
 
     @Autowired
-    private OrderRequestService orderRequestService;
+    OrderRequestService orderRequestService;
 
     @Autowired
-    private ProductService productService;
+    ProductService productService;
 
-    @GetMapping("/get-all-orderRequests")
-    public ResponseEntity<List<OrderRequest>> getAllOrderRequests(){
+    @Autowired
+    private EmployeeServiceImpl employeeService;
+
+    @GetMapping("/get-all-orderRequests") //** e
+    public ResponseEntity<List<OrderRequestDTO>> getAllOrderRequests(@RequestParam String username,
+                                                                     @RequestParam String password){
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         return ResponseEntity.ok(orderRequestService.getAllOrderRequests());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderRequest> getOrderRequestById(@PathVariable String id){
+    public ResponseEntity<OrderRequestDTO> getOrderRequestById(@PathVariable String id){
 
-        OrderRequest orderRequest=orderRequestService.getOrderRequestById(Long.parseLong(id));
+        OrderRequestDTO orderRequest=orderRequestService.getOrderRequestById(Long.parseLong(id));
 
         return ResponseEntity.ok(orderRequest);
     }
 
-    @PostMapping("/save-orderRequest")
-    public ResponseEntity<OrderRequest> addOrderRequest(@RequestParam String warehouse, @RequestParam String prodHouse,
+    @PostMapping("/save-orderRequest") //** e
+    public ResponseEntity<OrderRequestDTO> addOrderRequest(@RequestParam String warehouse, @RequestParam String prodHouse,
                                                         @RequestParam String productBrand, @RequestParam String productModel,
-                                                        @RequestParam Integer productQuantity){
+                                                        @RequestParam Integer productQuantity, @RequestParam String username,
+                                                           @RequestParam String password){
+
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 
         OrderRequest orderRequest = new OrderRequest();
 
         orderRequest.setWarehouse(warehouseService.getWarehouseById(Long.parseLong(warehouse)));
-
-        //FIXME IL TIPO TORNATO E' PRODUCTIONHOUSEDTO MA IL TIPO VOLUTO DAL SET E' PRODUCTIONHOUSE ---> COSA SI DEVE FARE?
-
-        orderRequest.setProductionHouse(productionHouseService.searchByName(prodHouse));
-
+        orderRequest.setProductionHouse(productionHouseService.searchEntityByName(prodHouse).get());
         orderRequest.setProductBrand(productBrand);
         orderRequest.setProductModel(productModel);
         orderRequest.setProductQuantity(productQuantity);
@@ -65,9 +76,16 @@ public class OrderRequestController {
 
     }
 
-    @GetMapping("/{warehouse}/get-all-requested-products")
-    public ResponseEntity<List<OrderRequest>> getAllOrderedProductsFromAWarehouse(@PathVariable String warehouse){
-        List<OrderRequest> orderRequestsSent = orderRequestService.getAllOrderRequestsForWarehouse(Long.parseLong(warehouse));
+    @GetMapping("/{warehouse}/get-all-requested-products") //** e
+    public ResponseEntity<List<OrderRequestDTO>> getAllOrderedProductsFromAWarehouse(@PathVariable String warehouse,
+                                                                                     @RequestParam String username,
+                                                                                     @RequestParam String password){
+
+        if (!employeeService.checkLogin(username, password)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+        List<OrderRequestDTO> orderRequestsSent = orderRequestService.getAllOrderRequestsForWarehouse(Long.parseLong(warehouse));
 
         return ResponseEntity.ok(orderRequestsSent);
 

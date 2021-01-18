@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ProductionHouse {
     private String name;
 
     @OneToMany(mappedBy = "productionHouse", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     private List<OrderRequest> orderRequestsReceived=new ArrayList<>();
 
     public ProductionHouse() {}
