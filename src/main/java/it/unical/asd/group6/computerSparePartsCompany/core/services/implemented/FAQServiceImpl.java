@@ -23,8 +23,11 @@ public class FAQServiceImpl implements FAQService {
     ModelMapper modelMapper;
 
     @Override
-    public Boolean insert(FAQ f) {
-        faqDao.save(f);
+    public Boolean insert(String title, String text) {
+        FAQ faq = new FAQ();
+        faq.setTitle(title);
+        faq.setDescription(text);
+        faqDao.save(faq);
         return true;
     }
 
@@ -60,6 +63,17 @@ public class FAQServiceImpl implements FAQService {
     @Override
     public Boolean delete(FAQ f) {
         faqDao.delete(f);
+        return true;
+    }
+
+    @Override
+    public Boolean deleteAll() {
+        List<FAQDTO>faqs = getAll();
+        for(int i = 0; i < faqs.size(); i++)
+        {
+            FAQ faq = modelMapper.map(faqs.get(i),FAQ.class);
+            delete(faq);
+        }
         return true;
     }
 }

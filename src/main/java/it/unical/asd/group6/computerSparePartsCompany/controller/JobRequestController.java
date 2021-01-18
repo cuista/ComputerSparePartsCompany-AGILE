@@ -20,10 +20,7 @@ import java.util.List;
 public class JobRequestController {
 
     @Autowired
-    JobRequestServiceImpl jobRequestService;
-
-    @Autowired
-    ModelMapper mapper;
+    private JobRequestServiceImpl jobRequestService;
 
     @GetMapping("/get-all")
     public ResponseEntity<List<JobRequestDTO>>getAll()
@@ -60,22 +57,15 @@ public class JobRequestController {
     @PostMapping("/insert")
     public ResponseEntity<Boolean>insert(@RequestParam String title,@RequestParam String position,@RequestParam String date,@RequestParam String description,@RequestParam String email,@RequestParam String username)
     {
-        JobRequest jobRequest = new JobRequest();
-        jobRequest.setDate(LocalDate.parse(date));
-        jobRequest.setDescription(description);
-        jobRequest.setEmail(email);
-        jobRequest.setTitle(title);
-        jobRequest.setUsername(username);
-        jobRequest.setPosition(position);
-        jobRequestService.insert(jobRequest);
+        jobRequestService.insert(title, position, date, description, email, username);
         return ResponseEntity.ok(true);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<Boolean>delete(@RequestParam String username)
     {
-        JobRequest jobRequest = mapper.map(jobRequestService.getByUsername(username),JobRequest.class);
-        jobRequestService.delete(jobRequest);
+        JobRequestDTO jobRequestDTO = jobRequestService.getByUsername(username);
+        jobRequestService.delete(jobRequestDTO);
         return ResponseEntity.ok(true);
     }
 

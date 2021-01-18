@@ -42,6 +42,23 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+    @Override
+    public Boolean createNewCustomer(String name, String surname, String phoneNumber, String email, String username, String password, Long vatID) {
+        Customer customer = new Customer();
+        customer.setName(name);
+        customer.setSurname(surname);
+        customer.setPhoneNumber(phoneNumber);
+        customer.setEmail(email);
+        customer.setUsername(username);
+        customer.setPassword(password);
+        customer.setVATIdentificationNumber(vatID);
+        if (true) {
+            customerDao.save(customer);
+            return true;
+        } else
+            return false;
+    }
+
     /*private boolean checkPresenceInDatabase(Customer customer) {
         List<Customer> customers = customerDao.findAll();
         for (Customer c : customers) {
@@ -185,8 +202,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomerInfos(Customer customer) {
-       customerDao.save(customer);
+    public void updateCustomerInfos(CustomerDTO customerDTO, CustomerDTO newCustomerDTO) {
+        customerDTO.setPassword(newCustomerDTO.getPassword());
+        customerDTO.setVATIdentificationNumber(newCustomerDTO.getVATIdentificationNumber());
+        customerDTO.setPhoneNumber(newCustomerDTO.getPhoneNumber());
+        customerDTO.setName(newCustomerDTO.getName());
+        customerDTO.setSurname(newCustomerDTO.getSurname());
+        customerDTO.setEmail(newCustomerDTO.getEmail());
+        customerDao.save(modelMapper.map(customerDTO, Customer.class));
     }
 
     @Override

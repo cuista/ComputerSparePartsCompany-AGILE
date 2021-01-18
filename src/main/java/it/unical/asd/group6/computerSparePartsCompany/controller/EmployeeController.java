@@ -35,7 +35,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody Employee newEmployee, @PathVariable String username) {
+    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody EmployeeDTO newEmployee, @PathVariable String username) {
 
         Optional<EmployeeDTO> optionalEmployee = employeeService.getEmployeeByUsername(username);
 
@@ -43,16 +43,7 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        EmployeeDTO employee = optionalEmployee.get();
-
-        employee.setPassword(newEmployee.getPassword());
-        employee.setUsername(newEmployee.getUsername());
-        employee.setFirstname(newEmployee.getFirstname());
-        employee.setLastname(newEmployee.getLastname());
-        employee.setTelephoneNumber(newEmployee.getTelephoneNumber());
-        employee.setHiringDate(newEmployee.getHiringDate());
-        employee.setEmail(newEmployee.getEmail());
-        employeeService.updateEmployeeInfos(employee);
+        employeeService.updateEmployeeInfos(optionalEmployee.get(), newEmployee);
         return new ResponseEntity<>(HttpStatus.OK);
 
     }

@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 public class CustomerController {
 
     @Autowired
-    CustomerServiceImpl customerService;
+    private CustomerServiceImpl customerService;
 
     @Autowired
-    EmployeeServiceImpl employeeService;
+    private EmployeeServiceImpl employeeService;
 
     @GetMapping("/login")
     public ResponseEntity<Boolean> doLogin(
@@ -44,16 +44,7 @@ public class CustomerController {
             @RequestParam("phoneNumber") String phoneNumber, @RequestParam("email") String email,
             @RequestParam("username") String username, @RequestParam("password") String password,
             @RequestParam("vatID") Long vatID) {
-        Customer customer = new Customer();
-        customer.setName(name);
-        customer.setSurname(surname);
-        customer.setPhoneNumber(phoneNumber);
-        customer.setEmail(email);
-        customer.setUsername(username);
-        customer.setPassword(password);
-        customer.setVATIdentificationNumber(vatID);
-        System.out.println(customer);
-        return ResponseEntity.ok(customerService.registerNewCustomer(customer));
+        return ResponseEntity.ok(customerService.createNewCustomer(name,surname,phoneNumber,email,username,password,vatID));
     }
 
     @GetMapping("/user-check")
@@ -149,23 +140,15 @@ public class CustomerController {
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<Customer> updateCustomerWithPut(@RequestBody Customer newCustomer, @PathVariable String username){
+    public ResponseEntity<Customer> updateCustomerWithPut(@RequestBody CustomerDTO newCustomerDTO, @PathVariable String username){
 
-        Optional<Customer> optionalCustomer = customerService.getCustomerEntityByUsername(username);
+        Optional<CustomerDTO> optionalCustomer = customerService.getCustomerByUsername(username);
 
         if (!optionalCustomer.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Customer customer = optionalCustomer.get();
-
-        customer.setPassword(newCustomer.getPassword());
-        customer.setVATIdentificationNumber(newCustomer.getVATIdentificationNumber());
-        customer.setPhoneNumber(newCustomer.getPhoneNumber());
-        customer.setName(newCustomer.getName());
-        customer.setSurname(newCustomer.getSurname());
-        customer.setEmail(newCustomer.getEmail());
-        customerService.updateCustomerInfos(customer);
+        customerService.updateCustomerInfos(optionalCustomer.get(), newCustomerDTO);
         return new ResponseEntity<>(HttpStatus.OK);
 
     }

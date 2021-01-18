@@ -119,7 +119,14 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void updateEmployeeInfos(EmployeeDTO employeeDTO) {
+    public void updateEmployeeInfos(EmployeeDTO employeeDTO, EmployeeDTO newEmployeeDTO) {
+        employeeDTO.setPassword(newEmployeeDTO.getPassword());
+        employeeDTO.setUsername(newEmployeeDTO.getUsername());
+        employeeDTO.setFirstname(newEmployeeDTO.getFirstname());
+        employeeDTO.setLastname(newEmployeeDTO.getLastname());
+        employeeDTO.setTelephoneNumber(newEmployeeDTO.getTelephoneNumber());
+        employeeDTO.setHiringDate(newEmployeeDTO.getHiringDate());
+        employeeDTO.setEmail(newEmployeeDTO.getEmail());
         employeeDao.save(modelMapper.map(employeeDTO,Employee.class));
     }
 }

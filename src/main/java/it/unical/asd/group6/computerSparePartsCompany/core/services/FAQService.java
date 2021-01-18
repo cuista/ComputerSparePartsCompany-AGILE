@@ -9,10 +9,11 @@ import java.util.Optional;
 
 public interface FAQService {
 
-    public Boolean insert(FAQ f);
+    public Boolean insert(String title, String text);
     public List<FAQDTO>getAll();
     public FAQ getByTitle(String title);
     public FAQDTO getByDescription(String description);
     public Boolean remove(FAQ f);
     Boolean delete(FAQ r);
+    Boolean deleteAll();
 }

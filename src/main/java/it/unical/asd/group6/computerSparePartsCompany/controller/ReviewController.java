@@ -1,7 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.ReviewServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.ReviewDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
@@ -21,13 +20,10 @@ import java.util.Optional;
 public class ReviewController {
 
     @Autowired
-    ReviewServiceImpl reviewService;
+    private ReviewServiceImpl reviewService;
 
     @Autowired
-    CustomerServiceImpl customerService;
-
-    @Autowired
-    private EmployeeServiceImpl employeeService;
+    private CustomerServiceImpl customerService;
 
     @GetMapping("/prova")
     public ResponseEntity<Boolean>stampa()

@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.JoinTable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,14 +71,21 @@ public class JobRequestServiceImpl implements JobRequestService {
     }
 
     @Override
-    public Boolean insert(JobRequest jobRequest) {
+    public Boolean insert(String title, String position, String date, String description, String email, String username) {
+        JobRequest jobRequest = new JobRequest();
+        jobRequest.setDate(LocalDate.parse(date));
+        jobRequest.setDescription(description);
+        jobRequest.setEmail(email);
+        jobRequest.setTitle(title);
+        jobRequest.setUsername(username);
+        jobRequest.setPosition(position);
         jobRequestDAO.save(jobRequest);
         return true;
     }
 
     @Override
-    public Boolean delete(JobRequest jobRequest) {
-        jobRequestDAO.delete(jobRequest);
+    public Boolean delete(JobRequestDTO jobRequestDTO) {
+        jobRequestDAO.delete(modelMapper.map(jobRequestDTO, JobRequest.class));
         return true;
     }
 

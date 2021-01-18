@@ -27,10 +27,10 @@ import java.util.stream.Collectors;
 public class PurchaseNoticeController {
 
     @Autowired
-    PurchaseNoticeServiceImpl purchaseNoticeService;
+    private PurchaseNoticeServiceImpl purchaseNoticeService;
 
     @Autowired
-    CustomerServiceImpl customerService;
+    private CustomerServiceImpl customerService;
 
     @Autowired
     private EmployeeServiceImpl employeeService;
