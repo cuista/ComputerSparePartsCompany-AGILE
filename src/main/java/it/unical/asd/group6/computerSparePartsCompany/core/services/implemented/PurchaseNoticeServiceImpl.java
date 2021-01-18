@@ -3,11 +3,6 @@ package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented
 import it.unical.asd.group6.computerSparePartsCompany.core.exception.CustomerByUsernameNotFoundException;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.PurchaseNoticeDao;
-<<<<<<< HEAD
-import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
-=======
-import it.unical.asd.group6.computerSparePartsCompany.data.dto.CategoryDTO;
->>>>>>> 9f8aaaa27c6ce0974dbf17a8841236d3b640bbb7
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseNoticeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.PurchaseNotice;
@@ -27,21 +22,6 @@ public class PurchaseNoticeServiceImpl implements PurchaseNoticeService {
     PurchaseNoticeDao purchaseNoticeDao;
 
     @Autowired
-<<<<<<< HEAD
-    CustomerDao customerDao;
-
-    @Autowired
-    ModelMapper mapper;
-
-    @Override
-    public List<PurchaseNoticeDTO> getView() {
-
-        List<PurchaseNotice> purchaseNotices = purchaseNoticeDao.findAll();
-
-
-
-        return purchaseNotices.stream().map(purchaseNotice -> mapper.map(purchaseNotice, PurchaseNoticeDTO.class)).collect(Collectors.toList());
-=======
     ModelMapper modelMapper;
 
     @Override
@@ -49,7 +29,7 @@ public class PurchaseNoticeServiceImpl implements PurchaseNoticeService {
         List<PurchaseNoticeDTO> purchaseNoticeDTOS = purchaseNoticeDao.findAll()
                 .stream().map(pn -> modelMapper.map(pn, PurchaseNoticeDTO.class)).collect(Collectors.toList());
         return purchaseNoticeDTOS;
->>>>>>> 9f8aaaa27c6ce0974dbf17a8841236d3b640bbb7
+
     }
 
     @Override
@@ -60,22 +40,6 @@ public class PurchaseNoticeServiceImpl implements PurchaseNoticeService {
 
     @Override
     public List<PurchaseNoticeDTO> getAll() {
-<<<<<<< HEAD
-
-        List<PurchaseNotice> purchaseNotices = purchaseNoticeDao.findAll();
-
-        return purchaseNotices.stream().map(purchaseNotice -> mapper.map(purchaseNotice,PurchaseNoticeDTO.class)).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<PurchaseNoticeDTO> getAllByCustomer(String customerUsername) {
-
-        Customer c = customerDao.findCustomerByUsername(customerUsername).orElseThrow(() -> new CustomerByUsernameNotFoundException(customerUsername));
-
-        List<PurchaseNotice> purchaseNotices = purchaseNoticeDao.findAllByCustomer(c);
-
-        return purchaseNotices.stream().map(purchaseNotice -> mapper.map(purchaseNotice,PurchaseNoticeDTO.class)).collect(Collectors.toList());
-=======
         List<PurchaseNoticeDTO> purchaseNoticeDTOS = purchaseNoticeDao.findAll()
                 .stream().map(pn -> modelMapper.map(pn, PurchaseNoticeDTO.class)).collect(Collectors.toList());
         return purchaseNoticeDTOS;
@@ -86,21 +50,13 @@ public class PurchaseNoticeServiceImpl implements PurchaseNoticeService {
         List<PurchaseNoticeDTO> noticeDTOS = purchaseNoticeDao.findAllByCustomer(c)
                 .stream().map(pn -> modelMapper.map(pn, PurchaseNoticeDTO.class)).collect(Collectors.toList());
         return noticeDTOS;
->>>>>>> 9f8aaaa27c6ce0974dbf17a8841236d3b640bbb7
     }
 
     @Override
     public List<PurchaseNoticeDTO> getAllPurchaseNoticeByFilters(String username, LocalDate l) {
-<<<<<<< HEAD
-
-        List<PurchaseNotice> purchaseNotices = purchaseNoticeDao.getByFilters(username,l);
-
-        return purchaseNotices.stream().map(purchNot -> mapper.map(purchNot, PurchaseNoticeDTO.class)).collect(Collectors.toList());
-=======
         List<PurchaseNoticeDTO> purchaseNoticeDTOS = purchaseNoticeDao.getByFilters(username,l)
                 .stream().map(pn -> modelMapper.map(pn, PurchaseNoticeDTO.class)).collect(Collectors.toList());
         return purchaseNoticeDTOS;
->>>>>>> 9f8aaaa27c6ce0974dbf17a8841236d3b640bbb7
     }
 
 

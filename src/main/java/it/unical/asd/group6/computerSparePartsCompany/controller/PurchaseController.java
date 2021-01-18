@@ -60,7 +60,9 @@ public class PurchaseController {
         Purchase p = new Purchase();
         Optional<Customer> c = customerService.getCustomerEntityByUsername(username);
 
-        if(c.isPresent())
+
+
+        /*if(c.isPresent())
             p.setCustomer(c.get());
         p.setDate(LocalDate.parse(date));
         p.setTotalPrice(Double.parseDouble(price));
@@ -71,7 +73,7 @@ public class PurchaseController {
             if(m.isPresent())
                 p.addProducts(m.get());
         }
-        purchaseService.add(p);
+        purchaseService.add(p);*/
         return ResponseEntity.ok(true);
     }
 
