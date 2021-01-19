@@ -16,5 +16,5 @@ public interface CategoryDao extends JpaRepository<Category,Long> {
     List<Category> findCategoryByCategoryNameIn(List<String> category);
 
     @Query("select distinct categoryName from Category")
-    List<String>getAllName();
+    List<String> getAllName();
 }
