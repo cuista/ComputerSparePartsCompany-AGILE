@@ -60,15 +60,6 @@ public class CustomerServiceImpl implements CustomerService {
             return false;
     }
 
-    /*private boolean checkPresenceInDatabase(Customer customer) {
-        List<Customer> customers = customerDao.findAll();
-        for (Customer c : customers) {
-            if (c.getEmail().equals(customer.getEmail()) || c.getUsername().equals(customer.getUsername()))
-                return true;
-        }
-        return false;
-    }*/
-
     @Override
     public Boolean checkLogin(String username, String password) {
         Customer customer = customerDao.findCustomerByUsernameAndPassword(username, password).orElseThrow(() -> new CustomerByUsernameNotFoundOnRetrieveException(username));

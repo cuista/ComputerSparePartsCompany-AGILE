@@ -1,8 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.EmployeeDTO;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
-import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
 
 import java.util.Optional;
 

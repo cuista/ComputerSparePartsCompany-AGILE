@@ -79,7 +79,7 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
-    @DeleteMapping("/del-customer") //DUBBIO SULLE EXCEPTIONS: COME LE GESTIAMO?
+    @DeleteMapping("/del-customer")
     public ResponseEntity<Boolean> deleteCustomer(@RequestParam String username, @RequestParam String password) {
         if(!customerService.checkLogin(username,password)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
@@ -119,7 +119,7 @@ public class CustomerController {
             return ResponseEntity.ok(false);
     }
 
-    @PostMapping("/update-data") //DUBBIO SUL RIMUOVERE L'IF
+    @PostMapping("/update-data")
     public ResponseEntity<Boolean> changeCustomerData(@RequestParam String username, @RequestParam String password,
                                                       @RequestParam String name, @RequestParam String surname,
                                                       @RequestParam String phoneNumber, @RequestParam String iva) {
@@ -150,9 +150,4 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
-
-    /*@PostMapping("/update-customer-infos")
-    public ResponseEntity<Boolean> updateCustomerWithPost(@RequestParam){
-
-    }*/
 }
