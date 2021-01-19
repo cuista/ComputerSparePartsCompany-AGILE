@@ -6,6 +6,7 @@ import it.unical.asd.group6.computerSparePartsCompany.data.dao.CategoryDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.EmployeeDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.EmployeeDTO;
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseNoticeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -126,5 +128,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDTO.setHiringDate(newEmployeeDTO.getHiringDate());
         employeeDTO.setEmail(newEmployeeDTO.getEmail());
         employeeDao.save(modelMapper.map(employeeDTO,Employee.class));
+    }
+
+    @Override
+    public List<EmployeeDTO> getAllEmployees() {
+        return employeeDao.findAll().stream().map(emp -> modelMapper.map(emp, EmployeeDTO.class)).collect(Collectors.toList());
     }
 }

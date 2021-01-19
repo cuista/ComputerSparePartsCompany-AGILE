@@ -4,6 +4,7 @@ import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.EmployeeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,11 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeServiceImpl employeeService;
+
+    @GetMapping("/all-employees")
+    public ResponseEntity<List<EmployeeDTO>> getAll(){
+        return ResponseEntity.ok(employeeService.getAllEmployees());
+    }
 
     @GetMapping("/login")
     public ResponseEntity<Boolean> doLogin(
