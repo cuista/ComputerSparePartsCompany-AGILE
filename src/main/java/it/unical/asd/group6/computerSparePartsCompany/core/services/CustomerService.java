@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface CustomerService {
     Boolean registerNewCustomer(Customer customer);
 
+    Boolean createNewCustomer(String name, String surname, String phoneNumber, String email, String username, String password, Long vatID);
+
     Boolean checkLogin(String username, String password);
 
     List<CustomerDTO> getAllCustomer();
@@ -31,7 +33,7 @@ public interface CustomerService {
 
     List<String>getAllUsernames();
 
-    void updateCustomerInfos(Customer c);
+    void updateCustomerInfos(CustomerDTO c, CustomerDTO newCustomer);
 
     Optional<Customer> getCustomerEntityByUsername(String username);
 

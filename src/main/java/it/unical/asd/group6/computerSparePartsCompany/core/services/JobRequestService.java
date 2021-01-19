@@ -11,8 +11,8 @@ public interface JobRequestService {
     public List<JobRequestDTO>getAllByTitle(String title);
     public List<JobRequestDTO>getAllByPosition(String position);
     public List<JobRequestDTO>getAllByEmail(String email);
-    public Boolean insert(JobRequest jobRequest);
-    public Boolean delete(JobRequest jobRequest);
+    public Boolean insert(String title, String position, String date, String description, String email, String username);
+    public Boolean delete(JobRequestDTO jobRequestDTO);
     public JobRequestDTO getByUsername(String username);
 
 }

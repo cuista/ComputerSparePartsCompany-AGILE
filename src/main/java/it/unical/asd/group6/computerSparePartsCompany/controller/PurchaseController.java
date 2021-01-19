@@ -30,13 +30,13 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     @Autowired
-    CustomerServiceImpl customerService;
+    private CustomerServiceImpl customerService;
 
     @Autowired
-    WarehouseServiceImpl warehouseService;
+    private WarehouseServiceImpl warehouseService;
 
     @Autowired
-    ProductServiceImpl productService;
+    private ProductServiceImpl productService;
 
     @Autowired
     private EmployeeServiceImpl employeeService;
@@ -61,7 +61,7 @@ public class PurchaseController {
         Optional<Customer> c = customerService.getCustomerEntityByUsername(username);
 
 
-
+        //TODO IN THE SERVICE
         /*if(c.isPresent())
             p.setCustomer(c.get());
         p.setDate(LocalDate.parse(date));

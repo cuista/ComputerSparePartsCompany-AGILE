@@ -18,5 +18,5 @@ public interface EmployeeService {
 
     String getReportFavoriteCategory();
 
-    void updateEmployeeInfos(EmployeeDTO employeeDTO);
+    void updateEmployeeInfos(EmployeeDTO employeeDTO, EmployeeDTO newEmployeeDTO);
 }

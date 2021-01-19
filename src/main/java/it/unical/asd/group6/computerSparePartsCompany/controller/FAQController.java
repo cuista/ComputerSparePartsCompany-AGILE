@@ -16,19 +16,13 @@ import java.util.List;
 public class FAQController {
 
     @Autowired
-    FAQServiceImpl faqService;
-
-    @Autowired
-    ModelMapper mapper;
+    private FAQServiceImpl faqService;
 
 
     @PostMapping("/insert")
     public ResponseEntity<Boolean>insert(@RequestParam String title, @RequestParam String text)
     {
-        FAQ faq = new FAQ();
-        faq.setTitle(title);
-        faq.setDescription(text);
-        return ResponseEntity.ok(faqService.insert(faq));
+        return ResponseEntity.ok(faqService.insert(title, text));
     }
 
     @GetMapping("/get-all")
@@ -59,12 +53,7 @@ public class FAQController {
     @DeleteMapping("/delete-all")
     public ResponseEntity<Boolean>deleteAll()
     {
-        List<FAQDTO>faqs = faqService.getAll();
-        for(int i = 0; i < faqs.size(); i++)
-        {
-            FAQ faq = mapper.map(faqs.get(i),FAQ.class);
-            faqService.delete(faq);
-        }
+        faqService.deleteAll();
         return ResponseEntity.ok(true);
     }
 

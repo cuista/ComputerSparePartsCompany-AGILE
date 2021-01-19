@@ -35,7 +35,7 @@ public class ProductController {
     private CategoryService categoryService;
 
     @Autowired
-    OrderRequestService orderRequestService;
+    private OrderRequestService orderRequestService;
 
     @Autowired
     private EmployeeServiceImpl employeeService;

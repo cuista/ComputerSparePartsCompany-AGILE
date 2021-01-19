@@ -21,16 +21,16 @@ import java.util.List;
 public class OrderRequestController {
 
     @Autowired
-    WarehouseService warehouseService;
+    private WarehouseService warehouseService;
 
     @Autowired
-    ProductionHouseService productionHouseService;
+    private ProductionHouseService productionHouseService;
 
     @Autowired
-    OrderRequestService orderRequestService;
+    private OrderRequestService orderRequestService;
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @Autowired
     private EmployeeServiceImpl employeeService;

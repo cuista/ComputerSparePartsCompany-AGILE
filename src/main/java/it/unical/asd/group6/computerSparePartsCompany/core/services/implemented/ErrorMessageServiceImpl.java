@@ -28,14 +28,20 @@ public class ErrorMessageServiceImpl implements ErrorMessageService {
     ModelMapper modelMapper;
 
     @Override
-    public Boolean insert(ErrorMessage errorMessage) {
+    public Boolean insert(String title, String description, String email, String username) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setDescription(description);
+        errorMessage.setEmail(email);
+        errorMessage.setTitle(title);
+        errorMessage.setUsername(username);
         errorMessageDao.save(errorMessage);
         return true;
     }
 
     @Override
-    public Boolean remove(ErrorMessage errorMessage) {
-        errorMessageDao.delete(errorMessage);
+    public Boolean remove(String username) {
+        ErrorMessageDTO errorMessageDTO = getByUsername(username);
+        errorMessageDao.delete(modelMapper.map(errorMessageDTO, ErrorMessage.class));
         return true;
     }
 

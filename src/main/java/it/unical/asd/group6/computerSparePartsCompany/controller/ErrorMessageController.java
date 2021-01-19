@@ -14,10 +14,7 @@ import java.util.List;
 public class ErrorMessageController {
 
     @Autowired
-    ErrorMessageServiceImpl errorMessageService;
-
-    @Autowired
-    ModelMapper mapper;
+    private ErrorMessageServiceImpl errorMessageService;
 
     @GetMapping("/get-all")
     public ResponseEntity<List<ErrorMessageDTO>> getAll()
@@ -34,20 +31,14 @@ public class ErrorMessageController {
     @PostMapping("/insert")
     public ResponseEntity<Boolean>insert(@RequestParam String title,@RequestParam String description,@RequestParam String email,@RequestParam String username)
     {
-        ErrorMessage errorMessage = new ErrorMessage();
-        errorMessage.setDescription(description);
-        errorMessage.setEmail(email);
-        errorMessage.setTitle(title);
-        errorMessage.setUsername(username);
-        errorMessageService.insert(errorMessage);
+        errorMessageService.insert(title, description, email, username);
         return ResponseEntity.ok(true);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<Boolean>delete(@RequestParam String username)
     {
-        ErrorMessage errorMessage = mapper.map(errorMessageService.getByUsername(username),ErrorMessage.class);
-        errorMessageService.remove(errorMessage);
+        errorMessageService.remove(username);
         return ResponseEntity.ok(true);
     }
 
