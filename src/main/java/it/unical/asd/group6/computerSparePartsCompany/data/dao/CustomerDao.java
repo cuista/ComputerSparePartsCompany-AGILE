@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,12 +32,15 @@ public interface CustomerDao extends JpaRepository<Customer,Long> {
 
     Optional<Customer> findCustomerById(Long id);
 
+    @Transactional
     void deleteByUsername(String username);
 
+    @Transactional
     @Modifying
     @Query("UPDATE Customer c SET c.password =:password where c.username=:username")
     void updateCustomerPassword(@Param("username")String username,@Param("password")String password);
 
+    @Transactional
     @Modifying
     @Query("UPDATE Customer c SET c.name =:name, c.surname=:surname,c.phoneNumber=:phoneNumber,c.VATIdentificationNumber=:iva where c.username=:username")
     void updateCustomerData(@Param("username")String username,@Param("name") String name,@Param("surname")String surname,@Param("phoneNumber") String phoneNumber,@Param("iva")Long iva);

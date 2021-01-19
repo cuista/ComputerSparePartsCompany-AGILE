@@ -3,8 +3,13 @@ package it.unical.asd.group6.computerSparePartsCompany;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.modelmapper.internal.util.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +19,7 @@ import java.util.Optional;
 public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
 
     /*
-    Service test a seguire
+    Service Tests
      */
     @Test
     public void checkUser() {
@@ -38,9 +43,6 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
         c.setName("bbb");
         customerDao.save(c);
         assert(customerService.checkLogin("username","password"));
-        for(Customer customer: customerDao.findAll()) {
-            System.out.println(customer.toString());
-        }
     }
 
     @Test
@@ -48,32 +50,18 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
         assert(customerService.checkLogin("Marti","Brunell"));
     }
 
-    /*@Test
-    public void testSignUpWithService() {
-        //controllo che non faccia registrare un utente già presente sul db
-        Customer c = new Customer();
-        c.setName("Ciccio");
-        c.setSurname("Brunell");
-        c.setPhoneNumber("2103761416");
-        c.setEmail("Marti.Brunell@mail.com");
-        c.setUsername("Marti");
-        c.setPassword("Brunell");
-        c.setVATIdentificationNumber(28765246203L);
-        assert(customerService.registerNewCustomer(c));
-    }*/
-
     /*
-    Test dao a seguire
+    DAO Tests
      */
-    /*@Test
+    @Test
+    public void testGetAllUsernames(){
+        assert(customerDao.getAllUsernames().size()==10);
+    }
+
+    @Test
     public void testFindAllByUsernameIsNotNull_OK(){
-
-        Optional<List<Customer>> customers= customerDao.findAllByUsernameIsNotNull();
-
-        assert(customers.get()!=null);
-        assert(customers.get().size()==10);
-
-    }*/
+        assert(customerDao.findAllByUsernameIsNotNull().get().size()==10);
+    }
 
     @Test
     public void testFindCustomerByNameAndSurname_OK(){
@@ -116,12 +104,42 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
     }
 
     @Test
-    public void testFindAllCustomers_OK(){
-        List<Customer> customers=customerDao.findAll();
+    public void testFindCustomerByEmailAndUsername(){
+        Assert.notNull(customerDao.findCustomerByEmailAndUsername("Marti.Brunell@mail.com", "Marti"));
+    }
 
-        for (Customer c: customers) {
-            System.out.println(c.getId());
-        }
+    @Test
+    public void testFindCustomerByUsername(){
+        Assert.notNull(customerDao.findCustomerByUsername("Marti"));
+    }
+
+    @Test
+    public void testFindCustomerByEmail(){
+        Assert.notNull(customerDao.findCustomerByEmail("Marti.Brunell@mail.com"));
+    }
+
+    @Test
+    public void testFindCustomerById(){
+        Assert.notNull(customerDao.findCustomerById(11L));
+    }
+
+    @Test
+    public void testDeleteByUsername(){
+        Assert.notNull(customerDao.findCustomerByUsername("Arlina"));
+        customerDao.deleteByUsername("Arlina");
+        assert (!customerDao.findCustomerByUsername("Arlina").isPresent());
+    }
+
+    @Test
+    public void testUpdateCustomerPassword(){
+        customerDao.updateCustomerPassword("Tilly","TettoDegliIlluminati");
+        assert(customerDao.findCustomerByUsername("Tilly").get().getPassword().equals("TettoDegliIlluminati"));
+    }
+
+    @Test
+    public void testUpdateCustomerData(){
+        customerDao.updateCustomerData("Tomasina","Tomasina","Charmine","6666666666",28938763185L);
+        assert(customerDao.findCustomerByUsername("Tomasina").get().getPhoneNumber()=="6666666666");
     }
 
 }
