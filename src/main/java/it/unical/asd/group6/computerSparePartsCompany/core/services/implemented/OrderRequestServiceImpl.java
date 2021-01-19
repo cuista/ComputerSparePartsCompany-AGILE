@@ -1,10 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.NoOrderRequestsSentForWarehouseException;
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.OrderRequestNotFoundException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.orderrequest.NoOrderRequestsSentForWarehouseException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.orderrequest.OrderRequestNotFoundException;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.OrderRequestService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.OrderRequestDao;
-import it.unical.asd.group6.computerSparePartsCompany.data.dto.CategoryDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.OrderRequestDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.OrderRequest;
 import org.modelmapper.ModelMapper;

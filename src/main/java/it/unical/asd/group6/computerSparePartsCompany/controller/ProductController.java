@@ -50,7 +50,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProductByBrand(brand));
     }
 
-    @GetMapping("/all-products/brand={brand}/model={model}")
+    @GetMapping("/all-products/brand={brand}/model={model}")//FIXME
     public ResponseEntity<List<ProductDTO>> showAllByBrandAndModel(@PathVariable("brand") String brand, @PathVariable("model") String model){
         return ResponseEntity.ok(productService.getAllProductByBrandAndModel(brand, model));
     }
@@ -76,7 +76,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductsInPriceRange(Double.valueOf(min),Double.valueOf(max)));
     }
 
-    @GetMapping("/all-products/distinct")
+    @GetMapping("/all-products/distinct") //TODO PROBABILE REFACTOR
     public ResponseEntity<List<ProductDTO>> getDistinctProducts() {
         return ResponseEntity.ok(productService.getProductDistinct());
     }
@@ -86,7 +86,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
 
-    @PostMapping("/add-product") //** e
+    @PostMapping("/add-product") //TODO PROBABILE REFACTOR
     public ResponseEntity<Boolean> add(
             @RequestParam String price, @RequestParam String brand,
             @RequestParam String model, @RequestParam String description, @RequestParam String url,
@@ -115,7 +115,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.addProduct(p));
     }
 
-    @PostMapping("/del-product") //** e
+    @PostMapping("/del-product") //TODO PROBABILE REFACTOR
     public ResponseEntity<Boolean> del(@RequestParam String brand, @RequestParam String model,
                                        @RequestParam String username, @RequestParam String password) {
         if (!employeeService.checkLogin(username, password)){
@@ -124,7 +124,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.deleteProduct(brand, model));
     }
 
-    @PostMapping("/update-product-by-all") //** e
+    @PostMapping("/update-product-by-all") //TODO PROBABILE REFACTOR
     public ResponseEntity<Boolean> updateAll(
             @RequestParam String brand, @RequestParam String model, @RequestParam String price,
             @RequestParam String description, @RequestParam String url, @RequestParam String categoryName,
@@ -243,18 +243,18 @@ public class ProductController {
         */
     }
 
-    @GetMapping("/get-brands")
+    @GetMapping("/get-brands") //TODO PROBABILE REFACTOR
     public ResponseEntity<List<String>> getBrands() {
         return ResponseEntity.ok(productService.getAllBrands());
     }
 
-    @GetMapping("/get-brands-by-category")
+    @GetMapping("/get-brands-by-category") //TODO PROBABILE REFACTOR
     public ResponseEntity<List<String>> getBrandsByCategory(@RequestParam String category) {
         Category c = categoryService.getCategoryByName(category);
         return ResponseEntity.ok(productService.getAllBrandsForCategory(c));
     }
 
-    @GetMapping("/get-products-by-filters")
+    @GetMapping("/get-products-by-filters") //TODO PROBABILE REFACTOR
     public ResponseEntity<List<ProductDTO>> getByFilters(@RequestParam(required = false) String category,@RequestParam(required = false) String brand, @RequestParam(required = false) String min, @RequestParam(required = false) String max) {
         Category c = null;
         if(categoryService.getCategoryByName(category) != null)
@@ -268,7 +268,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductsByFilters(c,brand,minP,maxP));
     }
 
-    @GetMapping("/get-product-by-regex")
+    @GetMapping("/get-product-by-regex") //TODO PROBABILE REFACTOR
     public ResponseEntity<List<ProductDTO>> productsByRegex (@RequestParam String s) {
         String regex = "%" + s.toLowerCase() + "%";
         return ResponseEntity.ok(productService.getProductByRegex(regex));

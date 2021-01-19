@@ -1,9 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller.handler;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.NoOrderRequestsSentForWarehouseException;
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.OrderRequestException;
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.ProductionHouseException;
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.ProductionHouseNotFoundException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.orderrequest.NoOrderRequestsSentForWarehouseException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.orderrequest.OrderRequestException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.productionhouse.classgeneric.ProductionHouseException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.productionhouse.ProductionHouseNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

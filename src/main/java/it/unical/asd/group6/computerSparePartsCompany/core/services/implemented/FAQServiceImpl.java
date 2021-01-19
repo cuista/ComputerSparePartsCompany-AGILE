@@ -1,8 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.faq.FAQByDescriptionNotFoundException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.faq.FAQByTitleNotFoundException;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.FAQService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.FAQDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.FAQDTO;
-import it.unical.asd.group6.computerSparePartsCompany.data.dto.OrderRequestDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.FAQ;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,13 @@ public class FAQServiceImpl implements FAQService {
 
     @Override
     public FAQ getByTitle(String title) {
-        FAQ faq = faqDao.getByTitle(title).get();
+        FAQ faq = faqDao.getByTitle(title).orElseThrow(() -> new FAQByTitleNotFoundException(title));
         return faq;
     }
 
     @Override
     public FAQDTO getByDescription(String description) {
-        FAQ faq = faqDao.getByDescription(description).get();
+        FAQ faq = faqDao.getByDescription(description).orElseThrow(() -> new FAQByDescriptionNotFoundException(description));
         return modelMapper.map(faq, FAQDTO.class);
     }
 

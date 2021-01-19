@@ -1,4 +1,4 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.exception;
+package it.unical.asd.group6.computerSparePartsCompany.core.exception.customer.classgeneric;
 
 public class CustomerException extends RuntimeException{
 

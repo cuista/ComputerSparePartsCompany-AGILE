@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.CustomerByUsernameNotFoundException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.customer.CustomerByUsernameNotFoundOnRetrieveException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.customer.CustomerSearchByEmailNotFoundException;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CategoryDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
@@ -13,7 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,19 +42,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    /*private boolean checkPresenceInDatabase(Customer customer) {
-        List<Customer> customers = customerDao.findAll();
-        for (Customer c : customers) {
-            if (c.getEmail().equals(customer.getEmail()) || c.getUsername().equals(customer.getUsername()))
-                return true;
-        }
-        return false;
-    }*/
-
     @Override
     public Boolean checkLogin(String username, String password) {
-        Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
-        return opt.isPresent();
+        Customer customer = customerDao.findCustomerByUsernameAndPassword(username, password).orElseThrow(() -> new CustomerByUsernameNotFoundOnRetrieveException(username));
+        return true;
     }
 
     @Override
@@ -70,14 +61,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Boolean searchByUsername(String username) {
-        Customer customer = customerDao.findCustomerByUsername(username).orElseThrow(() -> new CustomerByUsernameNotFoundException(username));
-        return customer!=null;
+        Customer customer = customerDao.findCustomerByUsername(username).orElseThrow(() -> new CustomerByUsernameNotFoundOnRetrieveException(username));
+        return true;
     }
 
     @Override
     public Boolean searchByEmail(String email) {
-        Optional<Customer> customer = customerDao.findCustomerByEmail(email);
-        return customer.isPresent();
+        Customer customer = customerDao.findCustomerByEmail(email).orElseThrow(() -> new CustomerSearchByEmailNotFoundException(email));
+        return true;
     }
 
     @Override
@@ -160,8 +151,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Transactional
-    public Boolean updateCustomer(String username,String password)
-    {
+    public Boolean updateCustomer(String username,String password) {
         customerDao.updateCustomerPassword(username,password);
         return true;
     }

@@ -14,7 +14,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Autowired
     WarehouseDao warehouseDao;
 
-    @Override
+    @Override //TODO PROBABILE REFACTOR
     public Warehouse getWarehouseById(Long id){
         Optional<Warehouse> wh = warehouseDao.findWarehouseById(id);
         if (wh.isPresent())

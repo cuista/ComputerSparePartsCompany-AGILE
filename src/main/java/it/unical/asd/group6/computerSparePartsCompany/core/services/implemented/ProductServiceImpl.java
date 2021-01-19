@@ -1,5 +1,9 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.product.ProductByBrandAndModelNotFoundException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.product.ProductByBrandNotFoundException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.product.ProductByModelNotFoundException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.product.ProductLessThanACertainPriceNotFoundException;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.ProductDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.OrderRequestDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.ProductDTO;
@@ -34,34 +38,34 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getAllProductByBrand(String brand){
-        Optional<List<Product>> productOptional = productDao.findAllByBrand(brand);
-        if(!productOptional.isPresent())
-            return null;
-        return productOptional.get().stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
+        List<Product> productOptional = productDao.findAllByBrand(brand).orElseThrow(() -> new ProductByBrandNotFoundException(brand));
+        /*if(!productOptional.isPresent())
+            return null;*/
+        return productOptional.stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductDTO> getAllProductByBrandAndModel(String brand, String model){
-        Optional<List<Product>> productOptional = productDao.findAllByBrandAndModel(brand, model);
-        if(!productOptional.isPresent())
-            return null;
-        return productOptional.get().stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
+        List<Product> productOptional = productDao.findAllByBrandAndModel(brand, model).orElseThrow(() -> new ProductByBrandAndModelNotFoundException(brand, model));
+        /*if(!productOptional.isPresent())
+            return null;*/
+        return productOptional.stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductDTO> getAllProductByPriceIsLessThan(Double price){
-        Optional<List<Product>> productOptional = productDao.findAllByPriceIsLessThan(price);
-        if (!productOptional.isPresent())
-            return null;
-        return productOptional.get().stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
+        List<Product> productOptional = productDao.findAllByPriceIsLessThan(price).orElseThrow(() -> new ProductLessThanACertainPriceNotFoundException(price));
+        /*if (!productOptional.isPresent())
+            return null;*/
+        return productOptional.stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductDTO> getProductsByModel(String model){
-        Optional<List<Product>> productOptional = productDao.findAllByModel(model);
-        if(!productOptional.isPresent())
-            return null;
-        return productOptional.get().stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
+        List<Product> productOptional = productDao.findAllByModel(model).orElseThrow(() -> new ProductByModelNotFoundException(model));
+        /*if(!productOptional.isPresent())
+            return null;*/
+        return productOptional.stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
     }
 
     @Override

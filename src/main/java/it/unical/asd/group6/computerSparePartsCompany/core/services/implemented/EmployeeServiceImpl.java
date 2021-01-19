@@ -1,23 +1,21 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.employee.EmployeeByUsernameNotFoundException;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CategoryDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.EmployeeService;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.EmployeeDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.EmployeeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.*;
-import it.unical.asd.group6.computerSparePartsCompany.core.services.*;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Employee;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -43,8 +41,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public boolean checkLogin(String username, String password) {
-        Optional<Employee> opt = employeeDao.findEmployeeByUsernameAndPassword(username, password);
-        return opt.isPresent();
+        Employee employee = employeeDao.findEmployeeByUsernameAndPassword(username, password).orElseThrow(() -> new EmployeeByUsernameNotFoundException(username));
+        return true;
     }
 
     @Override

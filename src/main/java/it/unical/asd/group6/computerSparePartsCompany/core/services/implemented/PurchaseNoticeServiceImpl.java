@@ -1,7 +1,5 @@
 package it.unical.asd.group6.computerSparePartsCompany.core.services.implemented;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.CustomerByUsernameNotFoundException;
-import it.unical.asd.group6.computerSparePartsCompany.data.dao.CustomerDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dao.PurchaseNoticeDao;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.PurchaseNoticeDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;

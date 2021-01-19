@@ -1,11 +1,10 @@
 package it.unical.asd.group6.computerSparePartsCompany.controller;
 
-import it.unical.asd.group6.computerSparePartsCompany.core.exception.CustomerByUsernameNotFoundException;
+import it.unical.asd.group6.computerSparePartsCompany.core.exception.customer.CustomerByUsernameNotFoundOnRetrieveException;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.CustomerServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.core.services.implemented.EmployeeServiceImpl;
 import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -85,12 +83,12 @@ public class CustomerController {
         if(!customerService.checkLogin(username,password)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
-        CustomerDTO customer = customerService.getCustomerByUsername(username).orElseThrow(() -> new CustomerByUsernameNotFoundException(username));
+        CustomerDTO customer = customerService.getCustomerByUsername(username).get();
 
         return ResponseEntity.ok(customer);
     }
 
-    @DeleteMapping("/del-customer") //*** c
+    @DeleteMapping("/del-customer") //DUBBIO SULLE EXCEPTIONS: COME LE GESTIAMO?
     public ResponseEntity<Boolean> deleteCustomer(@RequestParam String username, @RequestParam String password) {
         if(!customerService.checkLogin(username,password)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
@@ -130,7 +128,7 @@ public class CustomerController {
             return ResponseEntity.ok(false);
     }
 
-    @PostMapping("/update-data") //** c
+    @PostMapping("/update-data") //DUBBIO SUL RIMUOVERE L'IF
     public ResponseEntity<Boolean> changeCustomerData(@RequestParam String username, @RequestParam String password,
                                                       @RequestParam String name, @RequestParam String surname,
                                                       @RequestParam String phoneNumber, @RequestParam String iva) {

@@ -64,8 +64,8 @@ public class OrderRequestController {
 
         OrderRequest orderRequest = new OrderRequest();
 
-        orderRequest.setWarehouse(warehouseService.getWarehouseById(Long.parseLong(warehouse)));
-        orderRequest.setProductionHouse(productionHouseService.searchEntityByName(prodHouse).get());
+        orderRequest.setWarehouse(warehouseService.getWarehouseById(Long.parseLong(warehouse))); //FIXME VEDERE PER DOPO
+        orderRequest.setProductionHouse(productionHouseService.searchEntityByName(prodHouse).get()); //FIXME VEDERE PER DOPO
         orderRequest.setProductBrand(productBrand);
         orderRequest.setProductModel(productModel);
         orderRequest.setProductQuantity(productQuantity);

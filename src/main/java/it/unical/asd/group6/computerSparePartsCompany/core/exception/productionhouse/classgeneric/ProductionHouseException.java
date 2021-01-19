@@ -1,4 +1,4 @@
-package it.unical.asd.group6.computerSparePartsCompany.core.exception;
+package it.unical.asd.group6.computerSparePartsCompany.core.exception.productionhouse.classgeneric;
 
 public class ProductionHouseException extends RuntimeException{
 
