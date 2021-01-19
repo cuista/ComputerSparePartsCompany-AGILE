@@ -37,4 +37,9 @@ public class OrderRequestTest extends AbstractComputerSparePartsCompanyTest{
 
         assert(orderRequests.get().size()==1);
     }
+
+    @Test
+    public void testFindAllByWarehouse_Id(){
+        assert(orderRequestDao.findAllByWarehouse_Id(21L).get().size()==2);
+    }
 }

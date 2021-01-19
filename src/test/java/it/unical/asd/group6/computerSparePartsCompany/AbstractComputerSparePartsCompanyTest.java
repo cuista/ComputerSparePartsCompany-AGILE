@@ -50,6 +50,15 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     @Value("classpath:data/productionHouses.csv")
     private Resource productionHousesRes;
 
+    @Value("classpath:data/errorMessages.csv")
+    private Resource errorMessagesRes;
+
+    @Value("classpath:data/faqs.csv")
+    private Resource faqsRes;
+
+    @Value("classpath:data/jobRequests.csv")
+    private Resource jobRequestsRes;
+
     @Autowired
     protected EmployeeDao employeeDao;
 
@@ -70,6 +79,15 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Autowired
     protected CategoryDao categoriesDao;
+
+    @Autowired
+    protected ErrorMessageDAO errorMessageDAO;
+
+    @Autowired
+    protected FAQDao faqDao;
+
+    @Autowired
+    protected JobRequestDAO jobRequestDAO;
 
     @Autowired
     protected OrderRequestDao orderRequestDao;
@@ -161,6 +179,24 @@ public abstract class AbstractComputerSparePartsCompanyTest {
             for (CSVRecord record: orderRequestsCsv){
                 insertOrderRequest(Long.parseLong(record.get(0)),Long.parseLong(record.get(1)),record.get(2),record.get(3),
                         Integer.parseInt(record.get(4)));
+            }
+
+            CSVParser errorMessagesCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(errorMessagesRes.getInputStream()));
+            for (CSVRecord record: errorMessagesCsv){
+                insertErrorMessageRequest(record.get(0),record.get(1),record.get(2),record.get(3));
+            }
+
+            CSVParser faqsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(faqsRes.getInputStream()));
+            for (CSVRecord record: faqsCsv){
+                insertFAQRequest(record.get(0),record.get(1));
+            }
+
+            CSVParser jobRequestsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(jobRequestsRes.getInputStream()));
+            for (CSVRecord record: jobRequestsCsv){
+                insertJobRequestRequest(record.get(0),record.get(1),record.get(2),record.get(3),record.get(4),LocalDate.parse(record.get(5), DateTimeFormatter.ISO_LOCAL_DATE));
             }
 
             isInitialized=true;
@@ -279,6 +315,39 @@ public abstract class AbstractComputerSparePartsCompanyTest {
         productionHouse.setName(name);
 
         productionHouseDao.saveAndFlush(productionHouse);
+    }
+
+    private void insertErrorMessageRequest(String title,String description,String username,String email) {
+        ErrorMessage errorMessage=new ErrorMessage();
+
+        errorMessage.setTitle(title);
+        errorMessage.setDescription(description);
+        errorMessage.setUsername(username);
+        errorMessage.setEmail(email);
+
+        errorMessageDAO.saveAndFlush(errorMessage);
+    }
+
+    private void insertFAQRequest(String title,String description) {
+        FAQ faq=new FAQ();
+
+        faq.setTitle(title);
+        faq.setDescription(description);
+
+        faqDao.saveAndFlush(faq);
+    }
+
+    private void insertJobRequestRequest(String title,String position,String email,String username,String description,LocalDate date) {
+        JobRequest jobRequest=new JobRequest();
+
+        jobRequest.setTitle(title);
+        jobRequest.setPosition(position);
+        jobRequest.setEmail(email);
+        jobRequest.setUsername(username);
+        jobRequest.setDescription(description);
+        jobRequest.setDate(date);
+
+        jobRequestDAO.saveAndFlush(jobRequest);
     }
 
 
