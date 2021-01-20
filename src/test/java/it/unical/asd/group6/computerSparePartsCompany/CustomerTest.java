@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.CustomerDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -50,6 +51,36 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
     @Test
     public void testLoginWithService() {
         assert(customerService.checkLogin("Marti","Brunell"));
+    }
+
+    @Test
+    public void testGetAllCustomer(){
+        assert(customerService.getAllCustomer().size()==10);
+    }
+
+    @Test
+    public void testGetCustomerByUsername(){
+        assert(customerService.getCustomerByUsername("Marti").get().getSurname().equals("Brunell"));
+    }
+
+    @Test
+    public void testGetCustomerById(){
+        System.out.println(customerService.getCustomerById(11L).get().getName().equals("Marti"));
+    }
+
+    @Test
+    public void testGetAllUsernamesService(){
+        assert(customerService.getAllUsernames().size()==10);
+    }
+
+    @Test
+    public void testGetCustomerEntityByUsername(){
+        customerService.getCustomerEntityByUsername("Marti").get().getSurname().equals("Brunell");
+    }
+
+    @Test
+    public void testGetCustomerEntityById(){
+        customerService.getCustomerEntityById(11L).get().getName().equals("Marti");
     }
 
     /*
