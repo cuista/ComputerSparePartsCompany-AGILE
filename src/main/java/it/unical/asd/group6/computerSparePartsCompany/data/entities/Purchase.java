@@ -22,7 +22,7 @@ public class Purchase {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "CUSTOMER", referencedColumnName="ID")
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName="ID")
     private Customer customer;
 
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
@@ -33,7 +33,7 @@ public class Purchase {
     private Double totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "WAREHOUSE", referencedColumnName = "ID")
+    @JoinColumn(name = "WAREHOUSE_ID", referencedColumnName = "ID")
     private Warehouse warehouse;
 
     public Purchase() {}
