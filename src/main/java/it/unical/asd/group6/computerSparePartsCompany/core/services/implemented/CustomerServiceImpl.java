@@ -62,8 +62,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Boolean checkLogin(String username, String password) {
-        Customer customer = customerDao.findCustomerByUsernameAndPassword(username, password).orElseThrow(() -> new CustomerByUsernameNotFoundOnRetrieveException(username));
-        return true;
+        Optional<Customer> opt = customerDao.findCustomerByUsernameAndPassword(username, password);
+        return opt.isPresent();
     }
 
     @Override
