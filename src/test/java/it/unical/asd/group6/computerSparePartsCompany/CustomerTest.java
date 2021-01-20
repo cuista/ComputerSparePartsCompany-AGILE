@@ -1,6 +1,7 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Customer;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.modelmapper.internal.util.Assert;
@@ -43,6 +44,7 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
         c.setName("bbb");
         customerDao.save(c);
         assert(customerService.checkLogin("username","password"));
+        customerDao.delete(c);
     }
 
     @Test
@@ -60,6 +62,13 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
 
     @Test
     public void testFindAllByUsernameIsNotNull_OK(){
+
+        List<Customer> customers=customerDao.findAllByUsernameIsNotNull().get();
+
+        for (Customer c: customers){
+            System.out.println(c.getUsername());
+        }
+
         assert(customerDao.findAllByUsernameIsNotNull().get().size()==10);
     }
 
@@ -125,9 +134,14 @@ public class CustomerTest extends AbstractComputerSparePartsCompanyTest{
 
     @Test
     public void testDeleteByUsername(){
-        Assert.notNull(customerDao.findCustomerByUsername("Arlina"));
-        customerDao.deleteByUsername("Arlina");
-        assert (!customerDao.findCustomerByUsername("Arlina").isPresent());
+
+        Customer customerTmp=new Customer();
+        customerTmp.setUsername("apphobisogno");
+        customerDao.save(customerTmp);
+
+        Assert.notNull(customerDao.findCustomerByUsername("apphobisogno"));
+        customerDao.deleteByUsername("apphobisogno");
+        assert (!customerDao.findCustomerByUsername("apphobisogno").isPresent());
     }
 
     @Test

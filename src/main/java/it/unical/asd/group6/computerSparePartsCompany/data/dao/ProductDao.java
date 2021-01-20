@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,8 +31,6 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
 
     Optional<List<Product>> findAllByModel(String model);
 
-    //Optional<List<Product>> findAllByCategory(String category);
-
     Optional<List<Product>> findAllByPriceBetween(Double p1, Double p2);
 
     Optional<Product> findProductByBrandAndModel(String brand, String model);
@@ -41,25 +40,31 @@ public interface ProductDao extends JpaRepository<Product,Long>, JpaSpecificatio
 
     Optional<List<Product>> findAllByPurchase_IdIsNotNull();
 
+    @Transactional
     void deleteAllByBrandAndModel(String brand, String model);
 
     @Modifying
+    @Transactional
     @Query("UPDATE Product p SET p.price =:price where p.id=:id")
     void updateProductPrice(@Param("id")Long id, @Param("price") Double price);
 
     @Modifying
+    @Transactional
     @Query("UPDATE Product p SET p.description =:description where p.id=:id")
     void updateProductDescription(@Param("id")Long id, @Param("description") String description);
 
     @Modifying
+    @Transactional
     @Query("UPDATE Product p SET p.imageUrl =:url where p.id=:id")
     void updateProductURL(@Param("id")Long id, @Param("url") String url);
 
     @Modifying
+    @Transactional
     @Query("UPDATE Product p SET p.category =:category where p.id=:id")
     void updateProductCategory(@Param("id")Long id, @Param("category") Category category);
 
     @Modifying
+    @Transactional
     @Query("UPDATE Product p SET p.description =:description, p.price =:price, p.imageUrl =:url, p.category =:category where p.id=:id")
     void updateProductAll(@Param("id")Long id, @Param("description") String description, @Param("price") Double price, @Param("url") String url, @Param("category") Category category);
 

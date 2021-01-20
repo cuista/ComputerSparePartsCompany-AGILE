@@ -40,7 +40,7 @@ public class CategoryTest extends AbstractComputerSparePartsCompanyTest {
 
     @Test
     public void testFindCategoryById(){
-        assert(categoriesDao.findCategoryById(103L).getCategoryName().equals("CPU"));
+        assert(categoriesDao.findCategoryById(48L).getCategoryName().equals("CPU"));
     }
 
     @Test

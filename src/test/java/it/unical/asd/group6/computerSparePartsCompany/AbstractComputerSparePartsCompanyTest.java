@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -59,6 +60,9 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     @Value("classpath:data/jobRequests.csv")
     private Resource jobRequestsRes;
 
+    @Value("classpath:data/reviews.csv")
+    private Resource reviewsRes;
+
     @Autowired
     protected EmployeeDao employeeDao;
 
@@ -94,6 +98,9 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     @Autowired
     protected ProductionHouseDao productionHouseDao;
+
+    @Autowired
+    protected ReviewDao reviewDao;
 
     @Autowired
     protected PurchaseService purchaseService;
@@ -148,10 +155,17 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                         Long.parseLong(record.get(1)),Double.parseDouble(record.get(2)));
             }
 
-            CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',') //SPOSTATO PRODUCTRES SU PRODUCTS.CSV PER DATI REALI ---> BASTA RINOMINARE IL PATH SOPRA PER CAMBIARE
+
+            CSVParser categoryCSV = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(categoriesRes.getInputStream()));
+            for (CSVRecord record: categoryCSV){
+                insertCategory(record.get(0));
+            }
+
+            CSVParser productsCsv = CSVFormat.DEFAULT.withDelimiter(',')
                     .parse(new InputStreamReader(productsRes.getInputStream()));
             for (CSVRecord record : productsCsv) {
-                insertProduct(Double.parseDouble(record.get(0)), record.get(1), record.get(2), record.get(3),record.get(4));
+                insertProduct(Double.parseDouble(record.get(0)), record.get(1), record.get(2), record.get(3),record.get(4),(record.get(5)));
             }
 
             CSVParser purchaseNoticesCsv= CSVFormat.DEFAULT.withDelimiter(',')
@@ -160,12 +174,6 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                 insertPurchaseNotice(LocalDate.parse(record.get(0), DateTimeFormatter.ISO_LOCAL_DATE),
                         Long.parseLong(record.get(1)),Long.parseLong(record.get(2)),record.get(3),record.get(4),
                                 Integer.parseInt(record.get(5)));
-            }
-
-            CSVParser categoryCSV = CSVFormat.DEFAULT.withDelimiter(',')
-                    .parse(new InputStreamReader(categoriesRes.getInputStream()));
-            for (CSVRecord record: categoryCSV){
-                insertCategory(record.get(0));
             }
 
             CSVParser productionHousesCsv = CSVFormat.DEFAULT.withDelimiter(',')
@@ -197,6 +205,12 @@ public abstract class AbstractComputerSparePartsCompanyTest {
                     .parse(new InputStreamReader(jobRequestsRes.getInputStream()));
             for (CSVRecord record: jobRequestsCsv){
                 insertJobRequestRequest(record.get(0),record.get(1),record.get(2),record.get(3),record.get(4),LocalDate.parse(record.get(5), DateTimeFormatter.ISO_LOCAL_DATE));
+            }
+
+            CSVParser reviewsCsv = CSVFormat.DEFAULT.withDelimiter(',')
+                    .parse(new InputStreamReader(reviewsRes.getInputStream()));
+            for (CSVRecord record: reviewsCsv){
+                insertReview(Long.valueOf(record.get(0)),record.get(1),record.get(2),Long.parseLong(record.get(3)),record.get(4),record.get(5));
             }
 
             isInitialized=true;
@@ -239,13 +253,19 @@ public abstract class AbstractComputerSparePartsCompanyTest {
 
     }
 
-    private void insertProduct(Double price, String brand, String model, String description, String url){
+    private void insertProduct(Double price, String brand, String model, String description, String url, String categoryName){
         Product prod=new Product();
         prod.setPrice(price);
         prod.setBrand(brand);
         prod.setModel(model);
         prod.setDescription(description);
         prod.setImageUrl(url);
+
+        Category c= categoriesDao.findCategoryByCategoryName(categoryName);
+
+        if (c!=null) {
+            prod.setCategory(c);
+        }
 
         productDao.save(prod);
 
@@ -348,6 +368,27 @@ public abstract class AbstractComputerSparePartsCompanyTest {
         jobRequest.setDate(date);
 
         jobRequestDAO.saveAndFlush(jobRequest);
+    }
+
+    private void insertReview(Long rate, String title, String text, Long custId, String brand, String model){
+
+        Review review = new Review();
+
+        review.setRate(rate);
+        review.setTitle(title);
+        review.setText(text);
+
+        Optional<Customer> c=customerDao.findCustomerById(custId);
+
+        if (c.isPresent()){
+            review.setCustomer(c.get());
+        }
+
+        review.setBrand(brand);
+        review.setModel(model);
+
+        reviewDao.saveAndFlush(review);
+
     }
 
 

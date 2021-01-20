@@ -7,10 +7,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class WarehouseTest extends AbstractComputerSparePartsCompanyTest{
+
+    @Test
+    public void testFindWarehouseById_OK(){
+
+        Optional<Warehouse> warehouse = warehouseDao.findWarehouseById(21L);
+
+        assert warehouse.isPresent();
+        assert warehouse.get().getCity().equals("Siem Reap");
+        assert warehouse.get().getRegion().equals("Bahamas");
+    }
 
     @Test
     public void testFindAllByOpeningHoursBetween_OK(){
@@ -34,7 +45,7 @@ public class WarehouseTest extends AbstractComputerSparePartsCompanyTest{
     }
 
     @Test
-    public void testFindAllByCity(){
+    public void testFindAllByCity_OK(){
         List<Warehouse> warehouses=warehouseDao.findAllByCity("Charlotte").get();
 
         assert(warehouses!=null);
