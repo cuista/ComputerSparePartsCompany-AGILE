@@ -31,20 +31,6 @@ public class ReviewsTest extends AbstractComputerSparePartsCompanyTest {
     @Autowired
     ProductServiceImpl productService;
 
-    @Ignore
-    @Test
-    public void testAddReviews_OK(){
-        Review r = new Review();
-        r.setText("Bellissima merda");
-        r.setTitle("balla");
-        r.setRate(Long.parseLong("4"));
-        Customer c = customerService.getCustomerEntityByUsername("Marti").get();
-        r.setCustomer(c);
-        r.setBrand("Nvidia");
-        r.setModel("Ciccio");
-        assert (reviewService.addReview(r));
-    }
-
     @Test
     public void testFindAll_OK(){
 

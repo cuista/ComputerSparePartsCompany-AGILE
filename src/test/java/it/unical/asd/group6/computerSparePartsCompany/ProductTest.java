@@ -2,6 +2,7 @@ package it.unical.asd.group6.computerSparePartsCompany;
 
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Product;
+import it.unical.asd.group6.computerSparePartsCompany.data.entities.Purchase;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -224,41 +225,80 @@ public class ProductTest extends AbstractComputerSparePartsCompanyTest{
 
     }
 
-    @Ignore
-    @Test //TODO VEDERE DOPO IL RIEMPIMENTO DI MARIADB
+    @Test
     public void testDeleteAllByBrandAndModel_OK(){
 
-        productDao.deleteAllByBrandAndModel("Sandisk","SATA III");
-        Optional<List<Product>> products = productDao.findAllByBrandAndModel("Sandisk","SATA III");
+        Product product = new Product();
+        product.setBrand("Dario");
+        product.setModel("Illuminati");
+
+        productDao.save(product);
+
+        productDao.deleteAllByBrandAndModel("Dario","Illuminati");
+        Optional<List<Product>> products = productDao.findAllByBrandAndModel("Dario","Illuminati");
 
         assert !products.isPresent();
 
     }
 
 
-    @Ignore
-    @Test //TODO VEDERE DOPO IL RIEMPIMENTO DI MARIADB
+    @Test
     public void testFindProductByBrandOrModelOrDescription_OK(){
 
-        assert true;
+        List<Product> prodByBrand = productDao.findProductByBrandOrModelOrDescription("%nvidia geforce%");
+        List<Product> prodByModel = productDao.findProductByBrandOrModelOrDescription("%sata iii%");
+        List<Product> prodByDescription = productDao.findProductByBrandOrModelOrDescription("%intel core i7-4940mx processor%");
 
+        assert !prodByBrand.isEmpty();
+        assert !prodByModel.isEmpty();
+        assert !prodByDescription.isEmpty();
     }
 
 
-    @Ignore
-    @Test //TODO VEDERE DOPO IL RIEMPIMENTO DI MARIADB
+    @Test
     public void testProductsByPurchase_OK() {
 
-        assert true;
+        Purchase purchaseToAssign = purchaseDao.findById(27L).get();
 
+        Product p1=new Product();
+        Product p2=new Product();
+
+        p1.setPurchase(purchaseToAssign);
+        p2.setPurchase(purchaseToAssign);
+
+        productDao.save(p1);
+        productDao.save(p2);
+
+        Optional<List<Product>> productsRetrieved = productDao.productsByPurchase(27L);
+
+        assert productsRetrieved.isPresent();
+        assert productsRetrieved.get().size() == 2;
+
+        productDao.delete(p1);
+        productDao.delete(p2);
     }
 
-
-    @Ignore
-    @Test //TODO VEDERE DOPO IL RIEMPIMENTO DI MARIADB
+    @Test
     public void testFindAllByPurchase_IdIsNotNull_OK(){
 
-        assert true;
+        Purchase purchaseToAssign = purchaseDao.findById(27L).get();
+
+        Product p1=new Product();
+        Product p2=new Product();
+
+        p1.setPurchase(purchaseToAssign);
+        p2.setPurchase(purchaseToAssign);
+
+        productDao.save(p1);
+        productDao.save(p2);
+
+        Optional<List<Product>> productsRetrieved = productDao.findAllByPurchase_IdIsNotNull();
+
+        assert productsRetrieved.isPresent();
+        assert productsRetrieved.get().size() == 2;
+
+        productDao.delete(p1);
+        productDao.delete(p2);
 
     }
 

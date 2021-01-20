@@ -23,14 +23,7 @@ public class PurchaseTest extends AbstractComputerSparePartsCompanyTest{
     /*
     Test Service a seguire
     */
-    @Ignore
-    @Test
-    public void TestAddNewPurchase() {
-        Purchase purchase = new Purchase();
-        purchase.setDate(LocalDate.of(1997, Month.JULY,4));
-        purchase.setTotalPrice(487.0);
-        assert(purchaseService.registerNewPurchase(purchase));
-    }
+
 
     /*
     Test DAO a seguire
