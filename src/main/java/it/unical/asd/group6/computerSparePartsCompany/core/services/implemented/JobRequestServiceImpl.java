@@ -98,4 +98,13 @@ public class JobRequestServiceImpl implements JobRequestService {
         }
         return modelMapper.map(j, JobRequestDTO.class);
     }
+
+    public Boolean existsUsername(String username)
+    {
+        if(jobRequestDAO.getByUsername(username).isPresent())
+        {
+            return true;
+        }
+        return false;
+    }
 }

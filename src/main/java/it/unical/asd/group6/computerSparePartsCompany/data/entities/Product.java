@@ -153,18 +153,18 @@ public class Product {
         Product product = (Product) o;
         return Objects.equals(price, product.price) &&
                 Objects.equals(brand, product.brand) &&
-                Objects.equals(model, product.model) &&
+                Objects.equals(model, product.model)/* &&
                 Objects.equals(description, product.description) &&
                 Objects.equals(purchase, product.purchase) &&
                 Objects.equals(orderRequest, product.orderRequest) &&
                 Objects.equals(warehouse, product.warehouse) &&
                 Objects.equals(category, product.category) &&
-                Objects.equals(imageUrl, product.imageUrl);
+                Objects.equals(imageUrl, product.imageUrl)*/;
     }
 
 
     @Override //(MANUEL) HO FATTO LA STESSA COSA QUI NELL'HASHCODE POICHE' NON SI PUO' VIOLARE IL CONTRATTO TRA EQUALS E HASHCODE
     public int hashCode() {
-        return Objects.hash(price, brand, model, description, purchase, orderRequest, warehouse, category, imageUrl);
+        return Objects.hash(price, brand, model/*, description, purchase, orderRequest, warehouse, category, imageUrl*/);
     }
 }

@@ -36,6 +36,12 @@ public class JobRequestController {
         return null;
     }
 
+    @GetMapping("/exists-by-username")
+    public ResponseEntity<Boolean>existsByUsername(@RequestParam String username)
+    {
+        return ResponseEntity.ok(jobRequestService.existsUsername(username));
+    }
+
     @GetMapping("/get-all-by-title")
     public ResponseEntity<List<JobRequestDTO>>getAllByTitle(@RequestParam String title)
     {
