@@ -35,12 +35,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Boolean registerNewCustomer(Customer customer) {
-        if (true) {
-            customerDao.save(customer);
-            return true;
-        } else
-            return false;
-
+        customerDao.save(customer);
+        return true;
     }
 
     @Override
@@ -53,11 +49,8 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setUsername(username);
         customer.setPassword(password);
         customer.setVATIdentificationNumber(vatID);
-        if (true) {
-            customerDao.save(customer);
-            return true;
-        } else
-            return false;
+        customerDao.save(customer);
+        return true;
     }
 
     @Override

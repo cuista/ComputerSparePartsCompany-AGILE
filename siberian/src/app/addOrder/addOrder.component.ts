@@ -113,7 +113,7 @@ export class AddOrderComponent implements OnInit {
   validateNumber(number: string)
   {
     let re = new RegExp("^[0-9]+$", "g");
-    return(re.test(number) == true);
+    return(re.test(number) == true && number != "0");
   }
 
   validateName(name:string)

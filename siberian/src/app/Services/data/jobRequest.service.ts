@@ -26,8 +26,11 @@ export class JobRequestService {
 
   async getAll()
   {
+    const params = new HttpParams()
+    .set('username',sessionStorage.getItem('user') as string)
+    .set('password',sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return await this.httpClient.get("http://localhost:8080//job-request/get-all",{headers,responseType:'json'}).toPromise();
+    return await this.httpClient.get("http://localhost:8080//job-request/get-all?"+params,{headers,responseType:'json'}).toPromise();
   }
 
   save(title:string,position:string,username:string,email:string,date:string,description:string)
@@ -38,7 +41,9 @@ export class JobRequestService {
     .set('username',username)
     .set('email',email)
     .set('date',date)
-    .set('description',description);
+    .set('description',description)
+    .set('username',sessionStorage.getItem('user') as string)
+    .set('password',sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return this.httpClient.post<Boolean>("http://localhost:8080/job-request/insert?"+params,{headers:headers});
   }
@@ -46,7 +51,9 @@ export class JobRequestService {
   delete(username:string)
   {
     const params = new HttpParams()
-    .set('username',username);
+    .set('username',username)
+    .set('usernameE',sessionStorage.getItem('user') as string)
+    .set('password',sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return this.httpClient.delete<Boolean>("http://localhost:8080/job-request/delete?"+params,{headers:headers});
   }

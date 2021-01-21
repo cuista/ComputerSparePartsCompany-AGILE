@@ -20,7 +20,9 @@ export class FaqServiceService {
   {
     const params = new HttpParams()
               .set('title',title)
-              .set('text',description);
+              .set('text',description)
+              .set('username',sessionStorage.getItem('user') as string)
+              .set('password',sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return this.httpClient.post<Boolean>("http://localhost:8080/faq/insert?"+params,{headers:headers});
   }
@@ -28,8 +30,9 @@ export class FaqServiceService {
   delete(title: string)
   {
     const params = new HttpParams()
-              .set('title',title);
-
+              .set('title',title)
+              .set('username',sessionStorage.getItem('user') as string)
+              .set('password',sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return this.httpClient.delete<Boolean>("http://localhost:8080/faq/delete?"+params,{headers:headers});
   }

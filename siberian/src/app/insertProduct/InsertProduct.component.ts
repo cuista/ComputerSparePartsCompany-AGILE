@@ -52,7 +52,7 @@ export class InsertProductComponent implements OnInit {
     /* link */
     // let re = new RegExp("[A-Za-z0-9]+\\.[A-Za-z0-9]{2,6}\$", "g");
     // return(re.test(image) == true);
-    return true;
+    return image!="";
   }
 
   validateCategory(category: string)

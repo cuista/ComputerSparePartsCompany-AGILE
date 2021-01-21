@@ -1,0 +1,10 @@
+Magazzino:
+	99088298139452037
+Order:
+	8
+	9
+	10
+Brand e model:
+	Scrivere solo lettere e numeri e spazi
+Immagine:
+	deve essere
