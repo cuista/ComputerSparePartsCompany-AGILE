@@ -1,37 +1,24 @@
 <app-topHeader></app-topHeader>
-<div class="sm:mx-10 mx-3">
+<div class="sm:mx-10 mx-3 mb-72">
   <div class="mx-3">
     <p style="display: inline-block; border-bottom: 4px solid #4900bc;" class = "text-2xl my-3">Managerial functions</p>
     <div class="sm:grid sm:grid-cols-4 sm:gap-4">
       <!--firstRow-->
       <div>
-        <div class="flex justify-center">
-          <img src="https://www.flaticon.com/svg/vstatic/svg/1243/1243560.svg?token=exp=1610812201~hmac=1f8d2c2592d3e9df9d2624d5f84a2531" class="p-10" style="width: 300px; height: 300px;">
+        <div (click)="goToJobRequest()" class="flex justify-center">
+          <img src="assets/portfolio.png" class="p-10" style="width: 300px; height: 300px;">
         </div>
         <div class="text-center">Job request</div>
       </div>
-      <!--fourthRow-->
-      <div>
-        <div class="flex justify-center">
-          <img src="https://www.flaticon.com/svg/vstatic/svg/3898/3898928.svg?token=exp=1610843279~hmac=4b236d97d1388f732653a9d4645885c6" class="p-10" style="width: 300px; height: 300px;">
-        </div>
-        <div class="text-center">Error reportings</div>
-      </div>
-      <div (click)="goToMap()">
-        <div class="flex justify-center">
-          <img src="https://www.flaticon.com/svg/vstatic/svg/2928/2928989.svg?token=exp=1610812364~hmac=590a97b708231d5d5217e5cfbabc7f95" class="p-10" style="width: 300px; height: 300px;">
-        </div>
-        <div class="text-center">Map</div>
-      </div>
       <div (click)="goToOrderModule()">
         <div class="flex justify-center">
-          <img src="https://www.flaticon.com/svg/vstatic/svg/1524/1524539.svg?token=exp=1610812072~hmac=5bca4378c049cfa8427a9d4d645bbb62" class="p-10" style="width: 300px; height: 300px;">
+          <img src="assets/box.png" class="p-10" style="width: 300px; height: 300px;">
         </div>
         <div class="text-center">Orders</div>
       </div>
       <div (click)="gotoFaq()">
         <div class="flex justify-center">
-          <img src="https://www.flaticon.com/svg/vstatic/svg/942/942802.svg?token=exp=1610812604~hmac=d0ef9e970f72c076766d9a7059aec735" class="p-10" style="width: 300px; height: 300px;">
+          <img src="assets/help.png" class="p-10" style="width: 300px; height: 300px;">
         </div>
         <div class="text-center">Faq</div>
       </div>

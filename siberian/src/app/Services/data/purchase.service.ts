@@ -12,8 +12,11 @@ export class PurchaseService {
 
   async getAll()
   {
+    const params = new HttpParams()
+              .set('username', sessionStorage.getItem('user') as string)
+              .set('password', sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return await this.httpClient.get("http://localhost:8080//purchase/all",{headers,responseType:'json'}).toPromise();
+    return await this.httpClient.get("http://localhost:8080//purchase/all?"+params,{headers,responseType:'json'}).toPromise();
   }
 
   async getAllByCustomer(username:string)
@@ -30,7 +33,9 @@ export class PurchaseService {
               .set('date',date)
               .set('username',username)
               .set('id',id)
-              .set('price',price);
+              .set('price',price)
+              .set('usernameEmployee', sessionStorage.getItem('user') as string)
+              .set('passwordEmployee', sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return this.httpClient.post<Boolean>("http://localhost:8080/purchase/add?"+params,{headers:headers});
   }

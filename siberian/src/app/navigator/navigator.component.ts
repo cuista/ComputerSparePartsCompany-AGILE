@@ -30,4 +30,9 @@ export class NavigatorComponent implements OnInit {
     this.route.navigate(['/addOrder']);
   }
 
+  goToJobRequest()
+  {
+    this.route.navigate(['/workWithUs']);
+  }
+
 }

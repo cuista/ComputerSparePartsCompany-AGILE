@@ -35,6 +35,7 @@ export class LoginEmployeeComponent implements OnInit {
         if(response == true)
         {
           sessionStorage.setItem("user",username);
+          sessionStorage.setItem("password",password);
           /*devo andare a controllarmi il tipo di login che viene fatto*/
           sessionStorage.setItem("type","employee"); /* per il momento lascio praticamente questo */
           if(sessionStorage.getItem('fromCart') != null)

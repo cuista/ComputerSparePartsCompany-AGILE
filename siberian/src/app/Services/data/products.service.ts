@@ -41,7 +41,9 @@ export class ProductsService {
               .set('idWarehouse',warehouse)
               .set('price',price)
               .set('idOrder',order)
-              .set('description',description);
+              .set('description',description)
+              .set('username', sessionStorage.getItem('user') as string)
+              .set('password', sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return this.httpClient.post<Boolean>("http://localhost:8080/products/add-product?"+params,{headers:headers});
   }
@@ -54,7 +56,9 @@ export class ProductsService {
               .set('url',image)
               .set('categoryName',category)
               .set('price',price)
-              .set('description',description);
+              .set('description',description)
+              .set('username', sessionStorage.getItem('user') as string)
+              .set('password', sessionStorage.getItem('password') as string);
             
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return this.httpClient.post<Boolean>("http://localhost:8080/products/update-product-by-all?"+params,{headers:headers});
@@ -64,7 +68,9 @@ export class ProductsService {
   {
     const params = new HttpParams()
               .set('brand',brand)
-              .set('model',model);
+              .set('model',model)
+              .set('username', sessionStorage.getItem('user') as string)
+              .set('password', sessionStorage.getItem('password') as string);
 
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
     return this.httpClient.post<Boolean>("http://localhost:8080/products/del-product?"+params,{headers:headers});

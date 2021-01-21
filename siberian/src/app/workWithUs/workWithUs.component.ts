@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JobRequestService } from '../Services/data/jobRequest.service';
-declare var grecaptcha: any; 
+
 @Component({
   selector: 'app-workWithUs',
   templateUrl: './workWithUs.component.html',
@@ -9,13 +9,49 @@ declare var grecaptcha: any;
 })
 
 export class WorkWithUsComponent implements OnInit {
-  recaptchaKeySite = "6Leq5REaAAAAAPSUOgTK-Ylj73t9iv3w5F02X4mv";
-  recaptchaKeySecret = "6Leq5REaAAAAAD6qCQGHvCylsxUqaTmvWMLxNkBb";
+
   correctFormatData = true;
+  type = "" as string;
+  reqs = [] as any;
+
+  pager = {
+    totalItems: 0, 
+    currentPage: 1,
+    pageSize:5, 
+    totalPages: 1, 
+    startPage: 1,
+    endPage: 5,
+    startIndex:0,
+    endIndex:4,
+    pages: []
+  } as any;
+
+  // paged items
+  pagedItems = [] as any;
+  usernames = [] as any;
+  req = null as any;
+
   constructor(private route: Router, private jobService: JobRequestService) { }
 
   ngOnInit() {
-    grecaptcha.render('recaptcha', {'sitekey' : '6Ldk0RYaAAAAAPkmDFrs4UgGpfGu3rlDPegrwBve'});
+    if(sessionStorage.getItem('type') != null )
+    {
+      this.type = sessionStorage.getItem("type") as string;
+      this.getProducts(1);
+    }     
+  }
+
+  async getProducts(index:number)
+  {
+    if(sessionStorage.getItem('type') != null)
+    {
+      if(sessionStorage.getItem('type') == "employee")
+      {
+        this.reqs = await this.jobService.getAll();
+        this.calcolatePagerFinals(this.reqs);
+        this.setPage(index);
+      }
+    }
   }
 
   validateEmail(email: string)
@@ -58,7 +94,7 @@ export class WorkWithUsComponent implements OnInit {
     }
     if(this.validateDate(date) == false)
     {
-      this.correctFormatData = false;
+     this.correctFormatData = false;
      (document.getElementById("date") as HTMLInputElement).setAttribute("class","form-input w-full h-14 mt-2 py-3 px-3 bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-700 text-gray-800 border-2 border-red-400 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50");
      (document.getElementById("hiddenDate") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
      (document.getElementById("hiddenDate") as HTMLInputElement).innerHTML = "Insert date"; 
@@ -72,39 +108,45 @@ export class WorkWithUsComponent implements OnInit {
       (document.getElementById("labelEmail") as HTMLInputElement).style.visibility = "hidden"; 
       this.correctFormatData = false;
     }
-    if(grecaptcha.getResponse() == "")
-    {
-      this.correctFormatData = false;
-      (document.getElementById("hiddenRecaptcha") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
-    }
     if(this.correctFormatData == true)
     {
-        if(sessionStorage.getItem('type')!= "customer" ||sessionStorage.getItem('user') == null)
+        if(sessionStorage.getItem('type') != "customer" || sessionStorage.getItem('user') == null)
         {
+          sessionStorage.setItem('job',"job");
           this.route.navigate(['/login']);
         }
         else
         {
-          (document.getElementById("date") as HTMLDataElement).value = "gg/mm/aaaa";
-          (document.getElementById("titles") as HTMLInputElement).value = "Five year degree";
-          (document.getElementById("roles") as HTMLInputElement).value = "Shelves department";
-          (document.getElementById("email") as HTMLInputElement).value = "";
-          (document.getElementById("description") as HTMLTextAreaElement).value = "";
-          (document.getElementById("hiddenRecaptcha") as HTMLInputElement).setAttribute("class","text-sm text-red-500");
-          this.successPopup();
-          this.jobService.getByUsername(sessionStorage.getItem('user') as string).subscribe(
-            data =>{
-              
+          
+          this.jobService.existsUsername(sessionStorage.getItem('user') as string).subscribe(
+            (response) => {
+              if(response == true)
+              {
+                this.successPopupNo();
+              }
+              else
+              {
+                this.jobService.save(title,position,sessionStorage.getItem('user') as string,email,date,description).subscribe(
+                  responseD => {
+                    if(responseD == true)
+                    {
+                      this.successPopup();
+                      (document.getElementById("date") as HTMLDataElement).value = "gg/mm/aaaa";
+                      (document.getElementById("titles") as HTMLInputElement).value = "Five year degree";
+                      (document.getElementById("roles") as HTMLInputElement).value = "Shelves department";
+                      (document.getElementById("email") as HTMLInputElement).value = "";
+                      (document.getElementById("description") as HTMLTextAreaElement).value = "";
+                    }
+                  }
+                );
+                
+              }
             }
           );
         }
     }
   }
 
-  setRecOriginal()
-  {
-    (document.getElementById("hiddenRecaptcha") as HTMLInputElement).setAttribute("class","text-sm text-gray-500");
-  }
 
   setOriginalDescription()
   {
@@ -119,6 +161,82 @@ export class WorkWithUsComponent implements OnInit {
     setTimeout(function(){
       (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
       (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
+  }
+
+  successPopupNo(){
+    (document.getElementById("alertDivNo") as HTMLElement).classList.add("show");
+    (document.getElementById("alertDivNo") as HTMLElement).classList.remove("hide");
+    (document.getElementById("alertDivNo") as HTMLElement).classList.add("showAlert");
+
+    setTimeout(function(){
+      (document.getElementById("alertDivNo") as HTMLElement).classList.remove("show");
+      (document.getElementById("alertDivNo") as HTMLElement).classList.add("hide");},1000)
+  }
+
+  /* */
+  async setPage(indexPage: number) {
+    if (indexPage < 1 || indexPage > this.pager.totalPages) {
+        return;
+    }
+
+      this.pager.currentPage = indexPage;
+      this.calcolatePagerIndexes(indexPage);
+    
+      this.pagedItems = this.reqs.slice((indexPage-1)*(this.pager.pageSize),(indexPage*this.pager.pageSize));
+  }
+
+  /* questa va richiamata all'inizio quando carico l'array */
+  async calcolatePagerFinals(array: any[])
+  { 
+    this.pager.totalItems = array.length;
+    this.pager.totalPages = Math.ceil(this.pager.totalItems/(this.pager.pageSize));
+    this.pager.endPage = this.pager.totalPages;
+  }
+  
+  async calcolatePagerIndexes(current: number)
+  {
+    if(this.pager.totalPages<=5) /* caso in cui ho poche pagine */
+    {
+      this.pager.startIndex = 1;
+      this.pager.endIndex = this.pager.endPage;
+    }
+    else /* caso in cui ne ho abbastanza */
+    {
+      if(current <= 3)/* caso in cui sono dietro */
+      {
+        this.pager.startIndex = 1;
+        this.pager.endIndex = 5;
+      }
+      else if(current + 1 >= this.pager.totalPages) /* caso in cui sono avanti */
+      {
+        this.pager.startIndex = this.pager.totalPages - 4;
+        this.pager.endIndex = this.pager.endPage;
+      }
+      else /* caso normale */
+      {
+        this.pager.startIndex = current-2;
+        this.pager.endIndex = current+2; 
+      }
+    }
+
+    this.pager.pages = [];
+    for(var i = this.pager.startIndex; i<=this.pager.endIndex; i++)
+    {
+      this.pager.pages.push(i);
+    }  
+  }
+
+  delete(username:string)
+  {
+    this.jobService.delete(username).subscribe(
+      response =>{
+        if(response == true)
+        {
+          this.getProducts(1);
+          this.route.navigate(['/']).then(()=>{this.route.navigate(['/workWithUs'])})
+        }
+      }
+    );
   }
 
 }

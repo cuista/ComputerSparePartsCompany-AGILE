@@ -97,6 +97,7 @@ export class ChangePasswordComponent implements OnInit {
               response=>{
                 if(response == true)
                 {
+                  sessionStorage.setItem('password',neu1 as string);
                   this.route.navigate(['/customerPage']);
                 }
                 else
@@ -116,6 +117,7 @@ export class ChangePasswordComponent implements OnInit {
               response=>{
                 if(response == true)
                 {
+                  sessionStorage.setItem('password',neu1 as string);
                   this.route.navigate(['/customerPage']);
                 }
                 else

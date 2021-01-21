@@ -10,6 +10,13 @@ export class JobRequestService {
     private httpClient: HttpClient
   ) {}
 
+  existsUsername(username:string)
+  {
+    const params = new HttpParams()
+    .set('username',username);
+    return this.httpClient.get("http://localhost:8080/job-request/exists-by-username",{params});
+  }
+
   getByUsername(username:string)
   {
     const params = new HttpParams()
@@ -17,10 +24,10 @@ export class JobRequestService {
     return this.httpClient.get("http://localhost:8080/job-request/get-by-username",{params});
   }
 
-  getAll()
+  async getAll()
   {
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return this.httpClient.get("http://localhost:8080//job-request/get-all",{headers});
+    return await this.httpClient.get("http://localhost:8080//job-request/get-all",{headers,responseType:'json'}).toPromise();
   }
 
   save(title:string,position:string,username:string,email:string,date:string,description:string)

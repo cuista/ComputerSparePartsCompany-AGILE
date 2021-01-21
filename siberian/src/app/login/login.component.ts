@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
         if(response == true)
         {
           sessionStorage.setItem("user",username);
+          sessionStorage.setItem("password",password); 
           /*devo andare a controllarmi il tipo di login che viene fatto*/
           sessionStorage.setItem("type","customer"); /* per il momento lascio praticamente questo */
           if(sessionStorage.getItem('fromCart') != null)
@@ -50,6 +51,11 @@ export class LoginComponent implements OnInit {
           {
             this.route.navigate(['/addReview']);
             sessionStorage.removeItem('fromAddReview');
+          }
+          else if(sessionStorage.getItem('job') != null)
+          {
+            this.route.navigate(['/workWithUs']);
+            sessionStorage.removeItem('job');
           }
           else
             this.route.navigate(['']);

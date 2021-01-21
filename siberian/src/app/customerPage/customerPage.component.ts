@@ -69,30 +69,31 @@ export class CustomerPageComponent implements OnInit {
   logout()
   {
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("password");
     sessionStorage.removeItem("type");
     this.route.navigate(['/home']);
   }
 
   getTotalAmount()
   {
-    this.userService.getUserAmount(this.username).subscribe(data => this.totalAmount = data);
+    this.userService.getUserAmount().subscribe(data => this.totalAmount = data);
   }
 
   getTotalPurchases()
   {
-    this.userService.getTotalPurchase(this.username).subscribe(data => this.totalPurchases = data);
+    this.userService.getTotalPurchase().subscribe(data => this.totalPurchases = data);
   }
 
   getFavoriteCategory()
   {
-    this.userService.getFavoriteCategory(this.username).subscribe(data => this.favoriteCategory = data);
+    this.userService.getFavoriteCategory().subscribe(data => this.favoriteCategory = data);
   }
 
   setContentData()
   {
     if(sessionStorage.getItem("type") == "employee")
     {
-      this.userService.getEmployee(this.username).subscribe((returnObject: IEmployee) => {
+      this.userService.getEmployee().subscribe((returnObject: IEmployee) => {
         this.user = (returnObject);
         this.name = returnObject.firstName;
         this.surname = returnObject.lastName;
@@ -103,7 +104,7 @@ export class CustomerPageComponent implements OnInit {
     }
     else if(sessionStorage.getItem("type") == "customer")
     {
-        this.userService.getCustomer(this.username).subscribe((returnObject: ICustomer) => {
+        this.userService.getCustomer().subscribe((returnObject: ICustomer) => {
         this.user = (returnObject);
         this.name = returnObject.name;
         this.surname = returnObject.surname;
@@ -117,11 +118,12 @@ export class CustomerPageComponent implements OnInit {
   deleteAccount()
   {
     /* richiamo il service */
-    this.userService.deleteCustomer(sessionStorage.getItem("user") as string).subscribe(
+    this.userService.deleteCustomer().subscribe(
       response =>{
         if(response == true)
         {
           sessionStorage.removeItem("user");
+          sessionStorage.removeItem("password");
           sessionStorage.removeItem("type");
           this.route.navigate(['']);
         }

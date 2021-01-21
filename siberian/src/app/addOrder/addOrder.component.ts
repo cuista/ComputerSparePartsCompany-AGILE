@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HouseService } from '../Services/data/house.service';
+import { OrderService } from '../Services/data/order.service';
 
 @Component({
   selector: 'app-addOrder',
@@ -7,10 +9,105 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddOrderComponent implements OnInit {
 
-  constructor() { }
+  orders = [] as any;
+  type = "" as string;
 
+  pager = {
+    totalItems: 0, 
+    currentPage: 1,
+    pageSize:5, 
+    totalPages: 1, 
+    startPage: 1,
+    endPage: 5,
+    startIndex:0,
+    endIndex:4,
+    pages: []
+  } as any;
+
+  // paged items
+  pagedItems = [] as any;
+
+  constructor(private houseService: HouseService,
+              private orderService: OrderService) { }
+  names = [] as any;
   correctFormData = true;
+
   ngOnInit() {
+
+    if(sessionStorage.getItem('type') != "customer")
+    {
+      this.type = sessionStorage.getItem("type") as string;
+      this.getProducts(1);
+    }     
+    this.names = this.houseService.getNames().subscribe(
+      (data) =>{this.names = data}
+    );
+
+  }
+
+  async getProducts(index:number)
+  {
+    if(sessionStorage.getItem('type') != null)
+    {
+      if(sessionStorage.getItem('type') == "employee")
+      {
+        this.orders = await this.orderService.getAll();
+        this.calcolatePagerFinals(this.orders);
+        this.setPage(index);
+      }
+    }
+  }
+
+  async setPage(indexPage: number) {
+    if (indexPage < 1 || indexPage > this.pager.totalPages) {
+        return;
+    }
+
+      this.pager.currentPage = indexPage;
+      this.calcolatePagerIndexes(indexPage);
+    
+      this.pagedItems = this.orders.slice((indexPage-1)*(this.pager.pageSize),(indexPage*this.pager.pageSize));
+  }
+
+  /* questa va richiamata all'inizio quando carico l'array */
+  async calcolatePagerFinals(array: any[])
+  { 
+    this.pager.totalItems = array.length;
+    this.pager.totalPages = Math.ceil(this.pager.totalItems/(this.pager.pageSize));
+    this.pager.endPage = this.pager.totalPages;
+  }
+  
+  async calcolatePagerIndexes(current: number)
+  {
+    if(this.pager.totalPages<=5) /* caso in cui ho poche pagine */
+    {
+      this.pager.startIndex = 1;
+      this.pager.endIndex = this.pager.endPage;
+    }
+    else /* caso in cui ne ho abbastanza */
+    {
+      if(current <= 3)/* caso in cui sono dietro */
+      {
+        this.pager.startIndex = 1;
+        this.pager.endIndex = 5;
+      }
+      else if(current + 1 >= this.pager.totalPages) /* caso in cui sono avanti */
+      {
+        this.pager.startIndex = this.pager.totalPages - 4;
+        this.pager.endIndex = this.pager.endPage;
+      }
+      else /* caso normale */
+      {
+        this.pager.startIndex = current-2;
+        this.pager.endIndex = current+2; 
+      }
+    }
+
+    this.pager.pages = [];
+    for(var i = this.pager.startIndex; i<=this.pager.endIndex; i++)
+    {
+      this.pager.pages.push(i);
+    }  
   }
 
   validateNumber(number: string)
@@ -38,6 +135,7 @@ export class AddOrderComponent implements OnInit {
     var brand = (document.getElementById("brand") as HTMLInputElement).value;
     var model = (document.getElementById("model") as HTMLInputElement).value;
     var warehouse = (document.getElementById("warehouse") as HTMLInputElement).value;
+    var house = (document.getElementById("users") as HTMLSelectElement).value;
     if(this.validateNumber(quantity) == false)
     {
      this.correctFormData = false;
@@ -69,7 +167,24 @@ export class AddOrderComponent implements OnInit {
     }
     if(this.correctFormData)
     {
-      alert("fatto");
+      this.orderService.insert(quantity,brand,model,warehouse,house).subscribe(
+        response =>
+        {
+          if(response == true)
+          {
+            (document.getElementById("quantity") as HTMLInputElement).value = "";
+            (document.getElementById("brand") as HTMLInputElement).value = "";
+            (document.getElementById("model") as HTMLInputElement).value = "";
+            (document.getElementById("warehouse") as HTMLInputElement).value = "";
+            this.successPopup();
+            this.getProducts(1);
+          }
+          else
+          {
+            alert("problems"); 
+          }
+        }
+      );
     }
   }
 
@@ -82,5 +197,7 @@ export class AddOrderComponent implements OnInit {
       (document.getElementById("alertDivOk") as HTMLElement).classList.remove("show");
       (document.getElementById("alertDivOk") as HTMLElement).classList.add("hide");},1000)
   }
+
+  
 
 }

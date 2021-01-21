@@ -10,16 +10,27 @@ export class OrderService {
     private httpClient:HttpClient
   ) { }
 
-  insert(quantity:string,brand:string,model:string,warehouse:string)
+  insert(quantity:string,brand:string,model:string,warehouse:string,house:string)
   {
     const params = new HttpParams()
-    .set('quantity',quantity)
-    .set('brand',brand)
-    .set('model',model)
+    .set('productQuantity',quantity)
+    .set('productBrand',brand)
+    .set('productModel',model)
     .set('warehouse',warehouse)
-    .set('prodHouse',"Main");
+    .set('prodHouse',house)
+    .set('username',sessionStorage.getItem('user') as string)
+    .set('password',sessionStorage.getItem('password') as string);
     const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
-    return this.httpClient.post<Boolean>("http://localhost:8080/job-request/insert?"+params,{headers:headers});
-  
+    return this.httpClient.post("http://localhost:8080/order-requests/save-orderRequest?"+params,{headers:headers});
   }
+
+  async getAll()
+  {
+    const params = new HttpParams()
+    .set('username',sessionStorage.getItem('user') as string)
+    .set('password',sessionStorage.getItem('password') as string);
+    const headers = new HttpHeaders().set('Content-Type','text/plain; charset=utf-8');
+    return await this.httpClient.get("http://localhost:8080/order-requests/get-all?"+params,{headers,responseType:'json'}).toPromise();
+  }
+
 }

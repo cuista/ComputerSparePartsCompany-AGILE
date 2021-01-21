@@ -42,6 +42,8 @@ export class TopHeaderComponent implements OnInit {
       document.getElementById("registerSale")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
       document.getElementById("logout")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
       document.getElementById("navigator")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2");
+      document.getElementById("faq")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
+      document.getElementById("workWithUs")?.setAttribute("class","text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2 hidden");
     }
     else if(this.type == "")
     {
@@ -73,6 +75,7 @@ export class TopHeaderComponent implements OnInit {
   logout()
   {
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("password");
     sessionStorage.removeItem("type");
     this.route.navigate(['/home']);
   }

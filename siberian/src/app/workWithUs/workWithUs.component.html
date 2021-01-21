@@ -1,10 +1,11 @@
 <app-topHeader></app-topHeader>
-<div class="h-full py-20 flex">
+<div *ngIf="type != 'employee'" class = "h-full py-20 flex">
   <div class="bg-white w-full">
     <div class="flex justify-center">
       <div class="md:w-1/2 w-full mx-1 my-3 shadow-2xl bg-white rounded">
-        <p style="display: inline-block;   border-bottom: 4px solid #4900bc;" class = "text-2xl mx-3 my-3">Work with us</p>
-        <div class ="py-1 mx-3 p-floating-container">
+        <p style="display: inline-block;   border-bottom: 4px solid #4900bc;" class="text-2xl mx-3 my-3">Work with us
+        </p>
+        <div class="py-1 mx-3 p-floating-container">
           <select name="titleRoles" id="roles" class="rounded-sm border py-0 border-gray-500 h-14 w-full">
             <option value="Shelves department">Shelves department</option>
             <option value="Transport department">Transport department</option>
@@ -12,13 +13,14 @@
           </select>
           <div id="hiddenRoles" class="text-sm text-gray-500">What would you like to do?</div>
         </div>
-        <div class ="py-1 mx-3 p-floating-container">
-          <input (click)="setBorder('date','hiddenDate','labelDate')" type="date" placeholder="Date" id = "date" class = "form-input
-              w-full h-14 mt-2 py-1 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50"/>
+        <div class="py-1 mx-3 p-floating-container">
+          <input (click)="setBorder('date','hiddenDate','labelDate')" type="date" placeholder="Date" id="date"
+            class="form-input
+              w-full h-14 mt-2 py-1 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50" />
           <label id="labelDate">Date</label>
           <div id="hiddenDate" class="text-sm text-gray-500">Insert your birth date</div>
         </div>
-        <div class ="py-1 mx-3 p-floating-container">
+        <div class="py-1 mx-3 p-floating-container">
           <select name="title" id="titles" class="rounded-sm border py-0 border-gray-500 h-14 w-full">
             <option value="Five year degree">Five year degree</option>
             <option value="Three year degree">Three year degree</option>
@@ -27,28 +29,88 @@
           </select>
           <div id="hiddentitles" class="text-sm text-gray-500">What is your educational qualification?</div>
         </div>
-        <div class ="py-1 mx-3 p-floating-container">
-          <input (focus) ="setBorder('email','hiddenEmail','labelEmail')" type="email" placeholder="Email" id = "email" class = "form-input
-              w-full h-14 mt-2 py-1 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50"/>
+        <div class="py-1 mx-3 p-floating-container">
+          <input (focus)="setBorder('email','hiddenEmail','labelEmail')" type="email" placeholder="Email" id="email"
+            class="form-input
+              w-full h-14 mt-2 py-1 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50" />
           <label id="labelEmail">Email</label>
           <div id="hiddenEmail" class="text-sm text-gray-500">Insert your email</div>
         </div>
-        <div class ="py-1 mx-3 p-floating-container">
-          <textarea (focus) = "setOriginalDescription()" rows="6" id = "description" name = "description" class="form-input resize-y w-full mt-2 py-1 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50" placeholder="About you"></textarea>          
+        <div class="py-1 mx-3 p-floating-container">
+          <textarea (focus)="setOriginalDescription()" rows="6" id="description" name="description"
+            class="form-input resize-y w-full mt-2 py-1 px-3 bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 font-semibold focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-gray-500 placeholder-opacity-50"
+            placeholder="About you"></textarea>
           <label id="labelDescription">About you</label>
           <div id="hiddenDescription" class="text-sm text-gray-500">Describe you to us</div>
         </div>
-        <div class="grid justify-center my-2">
-          <div (focus) = "setRecOriginal()" id="recaptcha" class="g-recaptcha" data-sitekey="6Ldk0RYaAAAAAPkmDFrs4UgGpfGu3rlDPegrwBve"></div>
-          <div id="hiddenRecaptcha" class="text-sm text-gray-500">Are you a robot?</div>
+        <div class="py-1 mx-3 p-floating-container flex justify-center">
+          <button (click)="sendReport()" type="button" class="h-12 bg-blue-600 w-1/3"
+            style="color:#FFF; background-color:#4900bc;">Insert</button>
         </div>
-        <div class ="py-1 mx-3 p-floating-container flex justify-center">
-          <button (click) = "sendReport()" type = "button" class="h-12 bg-blue-600 w-1/3" style = "color:#FFF; background-color:#4900bc;">Insert</button>
-        </div>  
       </div>
     </div>
   </div>
 </div>
+<div *ngIf="type!='customer' && type != ''" class="mt-10">
+  <div class="text-center text-2xl font-semibold">Job request</div>
+  <div class="flex mx-3 my-1" *ngFor="let n of pagedItems;">
+    <div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-1 max-w-md md:max-w-2xl w-full">
+      <div class="flex items-start px-4 py-6">
+        <img class="w-12 h-12 object-cover mr-4 "
+          src="assets/portfolio.png">
+        <div class="">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-gray-900 -mt-1">{{n.title}}</h2>
+          </div>
+          <p class="text-gray-700">{{n.position}}</p>
+          <p class="text-gray-700">{{n.username}}</p>
+          <p class="text-gray-700">{{n.title}}</p>
+          <p class="text-gray-700">{{n.description}}</p>
+          <p class="text-gray-700">{{n.date}}</p>
+          <p class="text-gray-700 text-sm">
+            You can contact him to {{n.email}}. Send a request if him looks very interesting for us
+          </p>
+          <button class="underline" (click)="delete(n.username)">Delete</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="type =='employee' && reqs.length>pager.pageSize" class="flex justify-center p-3">
+  <ul class="inline-block">
+    <li (click)="getProducts(1)"
+      class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+      <a>First</a>
+    </li>
+    <li (click)="getProducts(pager.currentPage-1)"
+      class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+      <a>Previous</a>
+    </li>
+    <li (click)="getProducts(page)" *ngFor="let page of pager.pages"
+      class="inline-block py-3 px-5 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+      <a>{{page}}</a>
+    </li>
+    <li (click)="getProducts(pager.currentPage+1)"
+      class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+      <a>Next</a>
+    </li>
+    <li (click)="getProducts(pager.endPage)"
+      class="inline-block p-3 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+      <a>Last</a>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="type =='employee' && reqs.length == 0" class="mt-5">
+  <div class="flex justify-center">
+    <img src="assets/portfolio.png" style="width: 30%; height: 25%;">
+  </div>
+  <div class="text-center font-semibold text-xl">No job requests found</div>
+</div>
+
+
 <app-footer></app-footer>
 
 <div id="alertDivOk" class="alert hide flex">
@@ -60,36 +122,44 @@
   </div> <span class="msg">Saved</span>
 </div>
 
+<div id="alertDivNo" class="alert hide flex">
+  <div class="flex justify-center">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+  </div> <span class="msg">You have already submitted your job request</span>
+</div>
+
 <style>
- 
   .p-floating-container {
-      position: relative;
+    position: relative;
   }
-  
+
   .p-floating-container label {
-      /* Position the label */
-      left: 8px;
-      position: absolute;
-      top: 0;
-  
-      /* Hide it by default */
-      opacity: 0;
-      transition: 'all 0.2s ease-in-out';
+    /* Position the label */
+    left: 8px;
+    position: absolute;
+    top: 0;
+
+    /* Hide it by default */
+    opacity: 0;
+    transition: 'all 0.2s ease-in-out';
   }
-  
+
   /* Show the label at desired position when the placeholder of input isn't shown */
-  .p-floating-container input:not(:placeholder-shown) + label {
-      background: #FFF;
-      transform: translate(0, -10%);
-      opacity: 1;
-      color: #3380FF;
+  .p-floating-container input:not(:placeholder-shown)+label {
+    background: #FFF;
+    transform: translate(0, -10%);
+    opacity: 1;
+    color: #3380FF;
   }
-  
-  .p-floating-container textarea:not(:placeholder-shown) + label {
-      background: #FFF;
-      transform: translate(0, -10%);
-      opacity: 1;
-      color: #3380FF;
+
+  .p-floating-container textarea:not(:placeholder-shown)+label {
+    background: #FFF;
+    transform: translate(0, -10%);
+    opacity: 1;
+    color: #3380FF;
   }
 
   /*style popup*/
@@ -105,6 +175,7 @@
     opacity: 0;
     pointer-events: none;
   }
+
 
   .alert.showAlert {
     opacity: 1;
@@ -169,4 +240,4 @@
     font-size: 18px;
     color: #fff;
   }
-  </style>
+</style>
