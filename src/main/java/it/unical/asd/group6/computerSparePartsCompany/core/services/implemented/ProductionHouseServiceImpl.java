@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,4 +32,11 @@ public class ProductionHouseServiceImpl implements ProductionHouseService {
         Optional<ProductionHouse> productionHouse = productionHouseDao.findByName(name);
         return productionHouse;
     }
+
+    @Override
+    public List<String> getAllNames() {
+        return productionHouseDao.getNames();
+    }
+
+
 }

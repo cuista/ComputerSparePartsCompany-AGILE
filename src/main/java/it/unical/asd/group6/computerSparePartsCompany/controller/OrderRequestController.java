@@ -35,7 +35,7 @@ public class OrderRequestController {
     @Autowired
     private EmployeeServiceImpl employeeService;
 
-    @GetMapping("/get-all-orderRequests") //** e
+    @GetMapping("/get-all") //** e
     public ResponseEntity<List<OrderRequestDTO>> getAllOrderRequests(@RequestParam String username,
                                                                      @RequestParam String password){
         if (!employeeService.checkLogin(username, password)){
@@ -44,18 +44,18 @@ public class OrderRequestController {
         return ResponseEntity.ok(orderRequestService.getAllOrderRequests());
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<OrderRequestDTO> getOrderRequestById(@PathVariable String id){
 
         OrderRequestDTO orderRequest=orderRequestService.getOrderRequestById(Long.parseLong(id));
 
         return ResponseEntity.ok(orderRequest);
-    }
+    }*/
 
     @PostMapping("/save-orderRequest") //** e
-    public ResponseEntity<OrderRequestDTO> addOrderRequest(@RequestParam String warehouse, @RequestParam String prodHouse,
+    public ResponseEntity<Boolean> addOrderRequest(@RequestParam String warehouse, @RequestParam String prodHouse,
                                                         @RequestParam String productBrand, @RequestParam String productModel,
-                                                        @RequestParam Integer productQuantity, @RequestParam String username,
+                                                        @RequestParam String productQuantity, @RequestParam String username,
                                                            @RequestParam String password){
 
         if (!employeeService.checkLogin(username, password)){
@@ -68,11 +68,11 @@ public class OrderRequestController {
         orderRequest.setProductionHouse(productionHouseService.searchEntityByName(prodHouse).get()); //TODO PROBAILE REFACTOR
         orderRequest.setProductBrand(productBrand);
         orderRequest.setProductModel(productModel);
-        orderRequest.setProductQuantity(productQuantity);
+        orderRequest.setProductQuantity(Integer.parseInt(productQuantity));
 
         orderRequestService.saveOrderRequest(orderRequest);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(true);
 
     }
 

@@ -130,10 +130,8 @@ public class CustomerController {
     }
 
     @GetMapping("/all-usernames") //** e
-    public ResponseEntity<List<String>>getUsernames(@RequestParam String username, @RequestParam String password) {
-        if(!employeeService.checkLogin(username,password)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
+    public ResponseEntity<List<String>>getUsernames() {
+
         return ResponseEntity.ok(customerService.getAllUsernames());
     }
 
