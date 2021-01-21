@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class CustomerDTO implements Serializable {
 
+    private Long id;
+
     private String name;
 
     private String surname;
@@ -20,7 +22,8 @@ public class CustomerDTO implements Serializable {
 
     public CustomerDTO(){}
 
-    public CustomerDTO(String name, String surname, String phoneNumber, String email, String username, String password, Long VATIdentificationNumber) {
+    public CustomerDTO(Long id, String name, String surname, String phoneNumber, String email, String username, String password, Long VATIdentificationNumber) {
+        this.id=id;
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
@@ -28,6 +31,14 @@ public class CustomerDTO implements Serializable {
         this.username = username;
         this.password = password;
         this.VATIdentificationNumber = VATIdentificationNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -103,6 +103,9 @@ public abstract class AbstractComputerSparePartsCompanyTest {
     protected ReviewDao reviewDao;
 
     @Autowired
+    protected CategoryService categoryService;
+
+    @Autowired
     protected PurchaseService purchaseService;
 
     @Autowired

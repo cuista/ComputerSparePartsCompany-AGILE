@@ -1,5 +1,6 @@
 package it.unical.asd.group6.computerSparePartsCompany;
 
+import it.unical.asd.group6.computerSparePartsCompany.data.dto.CategoryDTO;
 import it.unical.asd.group6.computerSparePartsCompany.data.entities.Category;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,16 +29,35 @@ public class CategoryTest extends AbstractComputerSparePartsCompanyTest {
             "Optical Drives",
             "Input and Output Devices");
 
+    //SERVICE TESTs
+
+    @Test
+    public void testGetCategoryById() {
+        assert (categoryService.getCategoryById(48L).getCategoryName().equals("CPU"));
+    }
     @Test
     public void testGetAllName() {
-        categoryNames.sort((o1,o2)-> {return o1.compareTo(o2);});
-
-        List<String> categoriesFromGetAllName=categoriesDao.getAllName();
-        categoriesFromGetAllName.sort((o1,o2)-> {return o1.compareTo(o2);});
-
-        Assert.assertEquals(categoriesDao.getAllName(),categoryNames);
         assert (categoriesDao.getAllName().size() == 11);
     }
+
+    @Test
+    public void testGetCategoryByName() {
+        assert(categoryService.getCategoryByName("CPU").getId()==48L);
+    }
+
+    @Test
+    public void testGetCategoryByList() {
+        assert(categoryService.getCategoryByList(categoryNames).size()==11);
+    }
+
+
+    @Test
+    public void testGetAllCategories() {
+        assert(categoryService.getAllCategories().size()==11);
+    }
+
+
+    //DAO TESTs
 
     @Test
     public void testFindCategoryById(){
